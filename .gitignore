@@ -1,2 +1,13 @@
 db_data
 .DS_Store
+vendor/
+node_modules/
+npm-debug.log
+public/storage
+public/hot
+storage/.key
+.env..php
+.env.php
+.env
+bootstrap/compiled.php
+app/storage/
