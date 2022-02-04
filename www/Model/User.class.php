@@ -26,9 +26,6 @@ class User extends Sql
     {
         return $this->id;
     }
-
-
-
     /**
      * @return null|string
      */

@@ -7,7 +7,7 @@ use App\Core\Verificator;
 use App\Core\View;
 use App\Model\User as UserModel;
 
-class User {
+class User{
 
     public function login()
     {
@@ -24,12 +24,12 @@ class User {
     {
 
         $user = new UserModel();
-
         if( !empty($_POST)){
-
+            
+        
             $result = Verificator::checkForm($user->getRegisterForm(), $_POST);
-            print_r($result);
-
+            $this->save($result);
+   
         }
 
         $view = new View("register");
