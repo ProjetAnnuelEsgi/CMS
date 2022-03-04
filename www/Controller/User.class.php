@@ -1,22 +1,29 @@
 <?php
+
 namespace App\Controller;
 
-use App\Core\CleanWords;
-use App\Core\Sql;
+use App\Core\Authenticator;
 use App\Core\Verificator;
 use App\Core\View;
 use App\Model\User as UserModel;
 
-class User {
-
+class User
+{
     public function login()
     {
-        $view = new View("Login", "back");
+        $user = new UserModel();
+        $view = new View("login");
+        $view->assign("user", $user);
 
-        $view->assign("pseudo", "Prof");
-        $view->assign("firstname", "Yves");
-        $view->assign("lastname", "Skrzypczyk");
-
+        if (!empty($_POST)) {
+            // TO DO create a find
+            extract($_POST);
+            $errors = Verificator::checkForm($user->getLoginForm(), $_POST);
+            if (count($errors) == 0) {
+                $auth = new Authenticator();
+                $auth->login($_POST);
+            }
+        }
     }
 
 
@@ -25,11 +32,10 @@ class User {
 
         $user = new UserModel();
 
-        if( !empty($_POST)){
+        if (!empty($_POST)) {
 
             $result = Verificator::checkForm($user->getRegisterForm(), $_POST);
             print_r($result);
-
         }
 
         $view = new View("register");
@@ -39,7 +45,10 @@ class User {
 
     public function logout()
     {
-        echo "Se déco";
+        $auth = new Authenticator();
+
+        $view = new View("logout");
+        $view->assign("auth", $auth);
     }
 
 
@@ -47,10 +56,4 @@ class User {
     {
         echo "Mot de passe oublié";
     }
-
 }
-
-
-
-
-
