@@ -1,22 +1,29 @@
 <?php
+
 namespace App\Controller;
 
-use App\Core\CleanWords;
-use App\Core\Sql;
+use App\Core\Authenticator;
 use App\Core\Verificator;
 use App\Core\View;
 use App\Model\User as UserModel;
 
-class User extends Sql{
-
+class User
+{
     public function login()
     {
-        $view = new View("Login");
+        $user = new UserModel();
+        $view = new View("login");
+        $view->assign("user", $user);
 
-        $view->assign("pseudo", "Prof");
-        $view->assign("firstname", "Yves");
-        $view->assign("lastname", "Skrzypczyk");
-
+        if (!empty($_POST)) {
+            // TO DO create a find
+            extract($_POST);
+            $errors = Verificator::checkForm($user->getLoginForm(), $_POST);
+            if (count($errors) == 0) {
+                $auth = new Authenticator();
+                $auth->login($_POST);
+            }
+        }
     }
 
 
@@ -24,24 +31,22 @@ class User extends Sql{
     {
 
         $user = new UserModel();
-        if( !empty($_POST)){
-            
+        if (!empty($_POST)) {
+
             //Je vérifie qu'il les entrées soient corrects
-            $errors = Verificator::checkForm($user->getRegisterForm(), $_POST); 
-            if(count($errors)===0){
+            $errors = Verificator::checkForm($user->getRegisterForm(), $_POST);
+            if (count($errors) === 0) {
 
                 $user->setFirstname($_POST['firstname']);
                 $user->setLastname($_POST['lastname']);
                 $user->setEmail($_POST['email']);
                 $user->setPassword($_POST['password']);
                 $user->save();
-
-            }
-            else{
+            } else {
                 print_r($errors);
             }
         }
-        
+
 
         $view = new View("register");
         $view->assign("user", $user);
@@ -50,7 +55,10 @@ class User extends Sql{
 
     public function logout()
     {
-        echo "Se déco";
+        $auth = new Authenticator();
+
+        $view = new View("logout");
+        $view->assign("auth", $auth);
     }
 
 
@@ -58,10 +66,4 @@ class User extends Sql{
     {
         echo "Mot de passe oublié";
     }
-
 }
-
-
-
-
-

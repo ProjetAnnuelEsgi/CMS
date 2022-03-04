@@ -2,12 +2,22 @@
 
 namespace App\Controller;
 
+use App\Core\View;
+use App\Model\User;
+
 class Admin
 {
 
-    public function dashboard()
+    public function checkUserRole()
     {
-        echo "Ceci est un beau dashboard";
     }
 
+    public function dashboard()
+    {
+        $user = new User();
+
+        $view = new View("dashboard");
+
+        $view->assign('firstname', $user->getFirstname());
+    }
 }
