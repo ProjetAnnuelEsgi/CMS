@@ -57,11 +57,8 @@ abstract class Sql
             $sql = "UPDATE ".$this->table." SET ".implode(",",$update)." WHERE id=".$this->getId();
             
         }
-        echo $sql;
     
         $queryPrepared = $this->pdo->prepare($sql);
-        // var_dump($queryPrepared);
-        // die; 
         $queryPrepared->execute($columns);
 
     }
