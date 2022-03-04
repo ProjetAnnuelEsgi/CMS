@@ -26,19 +26,22 @@ class User extends Sql{
         $user = new UserModel();
         if( !empty($_POST)){
             
-            
-            $result = Verificator::checkForm($user->getRegisterForm(), $_POST); //Je vérifie qu'il les entrées soient corrects
-            
-            //$firstname = $this->setFirstname($_POST['']);
-            //$lastname = $this->setLastname($_POST['']);
-            //var_dump($_POST);
-            //die;
-            // $user->setFirstname($_POST['firstname']);
-            // $user->setLastname($_POST['lastname']);
-            // $user->setPassword($_POST['password']);
-            // $user->save();
-   
+            //Je vérifie qu'il les entrées soient corrects
+            $errors = Verificator::checkForm($user->getRegisterForm(), $_POST); 
+            if(count($errors)===0){
+
+                $user->setFirstname($_POST['firstname']);
+                $user->setLastname($_POST['lastname']);
+                $user->setEmail($_POST['email']);
+                $user->setPassword($_POST['password']);
+                $user->save();
+
+            }
+            else{
+                print_r($errors);
+            }
         }
+        
 
         $view = new View("register");
         $view->assign("user", $user);
