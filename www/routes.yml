@@ -13,23 +13,25 @@
     - admin
     - user
 
-# User controller route # 
+# Authenticator route
+
 /login:
-  controller: user
+  controller: authenticator
   action: login
 
 /logout:
-  controller: user
+  controller: authenticator
   action: logout
 
 /register:
-  controller: user
+  controller: authenticator
   action: register
 
 /forget:
-  controller: user
+  controller: authenticator
   action: pwdforget
 
+# User controller route
 /user/index:
   controller: user
   action: index
@@ -49,4 +51,3 @@
 /user/delete:
   controller: user
   action: delete
-

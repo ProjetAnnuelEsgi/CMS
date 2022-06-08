@@ -1,5 +1,4 @@
 <?php
-$auth->logout();
 ?>
 <h1>Page de logout</h1>
 
