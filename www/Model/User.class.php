@@ -99,7 +99,7 @@ class User extends Sql
      */
     public function decryptPassword(string $password): bool
     {
-        return $this->password = password_verify($password, $this->getPassword());
+        return password_verify($password, $this->getPassword());
     }
 
     /**

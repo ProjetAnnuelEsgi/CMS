@@ -6,6 +6,9 @@ if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
 }
 ?>
 
+<a href="http://localhost/">
+  <button>Homepage</button>
+</a>
 <h1>Page de login</h1>
 <h2>veuillez vous connecter</h2>
 <?php

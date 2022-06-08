@@ -6,9 +6,12 @@
   controller: main
   action: contact
 
+# user controller routes
+
 /login:
   controller: user
   action: login
+  parametres:
 
 /logout:
   controller: user
@@ -21,7 +24,6 @@
 /forget:
   controller: user
   action: pwdforget
-
 
 /dashboard:
   controller: admin
