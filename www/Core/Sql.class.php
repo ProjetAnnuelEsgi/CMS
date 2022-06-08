@@ -67,6 +67,7 @@ abstract class Sql
         $queryPrepared->execute($columns);
     }
 
+    // e.g $user = $user->findOne(['email' => $email]);
     public function findOne($where)
     {
         $update = [];
@@ -94,6 +95,24 @@ abstract class Sql
         $queryPrepared->execute();
 
         return $queryPrepared->fetchAll();
+    }
+
+    public function attemptLogin($email)
+    {
+        $query = "SELECT * FROM $this->table WHERE email = :email";
+
+        $queryPrepared  = self::$pdoInstance->prepare($query);
+
+        $queryPrepared->bindValue(":email", $email);
+
+        $queryPrepared->execute();
+        $user = $queryPrepared->fetchObject(get_called_class());
+
+        if ($user) {
+            return $user;
+        } else {
+            return false;
+        }
     }
 
     public function delete($table)
