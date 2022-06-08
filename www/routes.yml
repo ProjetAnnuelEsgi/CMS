@@ -6,6 +6,14 @@
   controller: main
   action: contact
 
+/dashboard:
+  controller: admin
+  action: dashboard
+  security:
+    - admin
+    - user
+
+# User controller route # 
 /login:
   controller: user
   action: login
@@ -22,10 +30,23 @@
   controller: user
   action: pwdforget
 
+/user/index:
+  controller: user
+  action: index
 
-/dashboard:
-  controller: admin
-  action: dashboard
-  security:
-    - admin
-    - user
+/user/show:
+  controller: user
+  action: show
+
+/user/edit:
+  controller: user
+  action: edit
+
+/user/update:
+  controller: user
+  action: update
+
+/user/delete:
+  controller: user
+  action: delete
+

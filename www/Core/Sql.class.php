@@ -60,30 +60,28 @@ abstract class Sql
             foreach ($columns as $column => $value) {
                 $update[] = $column . "=:" . $column;
             }
-            $sql = "UPDATE " . $this->table . " SET " . implode(",", $update) . " WHERE id=" . $this->getId();
+            $sql = "UPDATE " . $this->table . " SET " . implode(", ", $update) . " WHERE id=" . $this->getId();
         }
 
         $queryPrepared = self::$pdoInstance->prepare($sql);
         $queryPrepared->execute($columns);
     }
 
-    public function findOne($where)
+    public function findAll($table)
     {
-        $update = [];
-        foreach ($where as $column => $value) {
-            $update[] = $column . "=:" . $column;
-        }
-
-        $query = "SELECT * FROM $this->table WHERE " . implode(", ", $update);
-
+        $query = "SELECT * FROM " .$table;
         $queryPrepared = self::$pdoInstance->prepare($query);
-
-        foreach ($where as $key => $value) {
-            $queryPrepared->bindValue(":$key", $value);
-        }
-
         $queryPrepared->execute();
 
-        return $queryPrepared->fetchObject(get_called_class());
+        return $queryPrepared->fetchAll();
+    }
+    
+    public function delete($table)
+    {
+        $query = "DELETE FROM ". $table. " WHERE id=" .$_GET['id'];
+        $queryPrepared = self::$pdoInstance->prepare($query);
+        $queryPrepared->execute();
+
+        return $queryPrepared;
     }
 }
