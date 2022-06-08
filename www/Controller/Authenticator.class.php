@@ -22,6 +22,8 @@ class Authenticator
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
         $user->save();
+        //redirect to login page when registration is successful
+        header("location: login");
       } else {
         print_r($errors);
       }
@@ -33,8 +35,8 @@ class Authenticator
 
   public function login()
   {
-
     $user = new User();
+
     $view = new View("login");
     $view->assign("user", $user);
 
@@ -46,23 +48,27 @@ class Authenticator
 
         extract($_POST);
 
-        $user = $user->findOne(['email' => $email]);
+        $loggedUser = $user->attemptLogin($email);
 
-        if ($user === false) {
+        if ($loggedUser === false) {
           echo  "Le nom d'utilisateur ou le mot de passe est incorrect.";
-        } else {
+        };
 
-          $p = $user->decryptPassword($password);
-          if ($p === false) {
+        if ($loggedUser) {
+          $verifyPassword = $loggedUser->decryptPassword($password);
+          if ($verifyPassword === false) {
             echo  "Le nom d'utilisateur ou le mot de passe est incorrect.";
-          }
-          $user->generateToken();
-          $user->save();
-          session_start();
+          } else {
+            $loggedUser->generateToken();
+            $loggedUser->save();
 
-          $_SESSION['loggedIn'] = true;
-          $_SESSION['firstname'] = $user->getFirstname();
-          header("Location: dashboard");
+            session_start();
+            $_SESSION['loggedIn'] = true;
+            $_SESSION['userId'] = $loggedUser->getId();
+            $_SESSION['firstname'] = $loggedUser->getFirstname();
+
+            header("Location: dashboard");
+          }
         }
       }
     }
@@ -78,5 +84,14 @@ class Authenticator
   public function pwdforget()
   {
     echo "Mot de passe oublié";
+  }
+
+  public function authenticated()
+  {
+    session_start();
+    if ($_SESSION["loggedIn"] == NULL && $_SESSION["loggedIn"] !== true) {
+      header("location: /");
+      exit;
+    }
   }
 }

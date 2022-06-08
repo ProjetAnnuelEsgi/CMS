@@ -2,8 +2,6 @@
 
 namespace App\Core;
 
-use App\Model\User as UserModel;
-
 abstract class Sql
 {
     private static $pdoInstance;
@@ -88,9 +86,9 @@ abstract class Sql
         return $queryPrepared->fetchObject(get_called_class());
     }
 
-    public function findAll($table)
+    public function findAll()
     {
-        $query = "SELECT * FROM " . $table;
+        $query = "SELECT * FROM " . $this->table;
         $queryPrepared = self::$pdoInstance->prepare($query);
         $queryPrepared->execute();
 
@@ -115,9 +113,9 @@ abstract class Sql
         }
     }
 
-    public function delete($table)
+    public function delete($id)
     {
-        $query = "DELETE FROM " . $table . " WHERE id=" . $_GET['id'];
+        $query = "DELETE FROM " . $this->table . " WHERE id=" . $id;
         $queryPrepared = self::$pdoInstance->prepare($query);
         $queryPrepared->execute();
 

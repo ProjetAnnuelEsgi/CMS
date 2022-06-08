@@ -11,8 +11,7 @@ class User
     public function index()
     {
         $user = new UserModel();
-        $userTable = "esgi_user";
-        $users = $user->findAll($userTable);
+        $users = $user->findAll();
 
         $view = new View("viewUsers");
         $view->assign("users", $users);
@@ -58,8 +57,8 @@ class User
     public function delete()
     {
         $user = new UserModel();
-        $userTable = "esgi_user";
-        $user->delete($userTable);
+        $userId = $_GET['id'];
+        $user->delete($userId);
 
         header("Location: /user/index");
     }
