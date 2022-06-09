@@ -17,40 +17,65 @@ class User
         $view->assign("users", $users);
     }
 
-    /** function show pour avoir un user spécifique */
+    /** function show pour afficher un user spécifique */
     public function show()
     {
-        $user = new UserModel();
-        $userId = $_GET['id'];
-        $users = $user->findOne(['id' => $userId]);
+        if (empty($_GET['id'])) {
+            header("Location: /users");
+        } else {
+            $user = new UserModel();
+            $userId = $_GET['id'];
+            $user = $user->findOne(['id' => $userId]);
+            if ($user === false) {
+                header("Location: /users");
+            } else {
+                $view = new View("showUser");
+                $view->assign("user", $user);
+            }
+        }
+    }
 
-        $view = new View("showUser");
-        $view->assign("user", $users);
+    /** vue de update pour afficher les informations d'un user spécifique a modifier*/
+    public function edit()
+    {
+        if (empty($_GET['id'])) {
+            header("Location: /users");
+        } else {
+            $user = new UserModel();
+            $userId = $_GET['id'];
+            $user = $user->findOne(['id' => $userId]);
+
+            if ($user === false) {
+                header("Location: /users");
+            } else {
+                $view = new View("editUser");
+                $view->assign("user", $user);
+            }
+        }
     }
 
     /** function update pour modifier les informations d'un user spécifique */
-    public function edit()
-    {
-        $user = new UserModel();
-        $userId = $_GET['id'];
-        $user = $user->findOne(['id' => $userId]);
-
-        $view = new View("editUser");
-        $view->assign("user", $user);
-    }
-
     public function update()
     {
-        $user = new UserModel();
-        $userId = $_GET['id'];
-        $user = $user->findOne(['id' => $userId]);
-        $user->setFirstname($_POST['firstname']);
-        $user->setLastname($_POST['lastname']);
-        $user->setEmail($_POST['email']);
+        if (empty($_GET['id'])) {
+            header("Location: /users");
+        } else {
+            $user = new UserModel();
+            $userId = $_GET['id'];
+            $user = $user->findOne(['id' => $userId]);
 
-        $user->save();
+            if ($user === false) {
+                header("Location: /users");
+            } else {
+                $user->setFirstname($_POST['firstname']);
+                $user->setLastname($_POST['lastname']);
+                $user->setEmail($_POST['email']);
 
-        header("Location: /user/show?id=$userId");
+                $user->save();
+
+                header("Location: /user/show?id=$userId");
+            }
+        }
     }
 
     /** function delete pour supprimer un user spécifique */
@@ -60,6 +85,6 @@ class User
         $userId = $_GET['id'];
         $user->delete($userId);
 
-        header("Location: /user/index");
+        header("Location: /users");
     }
 }

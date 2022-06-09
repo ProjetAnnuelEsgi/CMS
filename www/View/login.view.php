@@ -1,9 +1,9 @@
 <?php
-session_start();
-if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
-  header("location: dashboard");
-  exit;
-}
+
+use App\Controller\Authenticator;
+
+$auth = new Authenticator();
+$auth->authenticated(false);
 ?>
 
 <a href="http://localhost/">

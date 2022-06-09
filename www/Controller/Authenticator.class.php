@@ -86,12 +86,20 @@ class Authenticator
     echo "Mot de passe oublié";
   }
 
-  public function authenticated()
+  public function authenticated($connect = false)
   {
     session_start();
-    if ($_SESSION["loggedIn"] == NULL && $_SESSION["loggedIn"] !== true) {
-      header("location: /");
-      exit;
+    // Set connection to false and verify if user is not already logged in
+    if ($connect === false) {
+      if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
+        header("location: dashboard");
+        exit;
+      }
+    } else {
+      if ($_SESSION["loggedIn"] == NULL && $_SESSION["loggedIn"] !== true) {
+        header("location: /");
+        exit;
+      }
     }
   }
 }

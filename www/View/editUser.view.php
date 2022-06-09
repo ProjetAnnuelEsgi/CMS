@@ -3,8 +3,13 @@
 use App\Controller\Authenticator;
 
 $auth = new Authenticator();
-$auth->authenticated();
+$auth->authenticated(true);
 ?>
+<a href="http://localhost/users">
+	<button> List Users</button>
+</a>
+<button onclick="history.back()">Go Back</button>
+
 <div id="contenu">
 
 	<table border="1" cellpadding="15">

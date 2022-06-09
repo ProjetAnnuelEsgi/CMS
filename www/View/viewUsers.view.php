@@ -3,9 +3,13 @@
 use App\Controller\Authenticator;
 
 $auth = new Authenticator();
-$auth->authenticated();
+$auth->authenticated(true);
 ?>
 <html>
+<a href="http://localhost/dashboard">
+  <button>dashboard</button>
+</a>
+
 <center>
   <br>
 
@@ -27,7 +31,7 @@ $auth->authenticated();
     echo  "<td>" . $user['firstname'] . "</td>";
     echo  "<td>" . $user['email'] . "</td>";
 
-    $linkShow = "href=show?id=" . $user[0];
+    $linkShow = "href=user/show?id=" . $user[0];
     $iconShow = "<img src=/Medias/icon_show.png width=50 height=50>";
 
     echo "<td><a " . $linkShow . ">" . $iconShow . "</a></td>";

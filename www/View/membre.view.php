@@ -3,7 +3,7 @@
 use App\Controller\Authenticator;
 
 $auth = new Authenticator();
-$auth->authenticated();
+$auth->authenticated(true);
 ?>
 <!DOCTYPE html>
 <html lang="fr">

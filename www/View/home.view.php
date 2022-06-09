@@ -5,7 +5,8 @@
 use App\Controller\Authenticator;
 
 $auth = new Authenticator();
-$auth->authenticated();
+$auth->authenticated(false);
+
 ?>
 
 <a href="http://localhost/login">
