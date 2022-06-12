@@ -2,8 +2,6 @@
 
 namespace App\Core;
 
-use App\Model\User as UserModel;
-
 abstract class Sql
 {
     private static $pdoInstance;
@@ -60,13 +58,14 @@ abstract class Sql
             foreach ($columns as $column => $value) {
                 $update[] = $column . "=:" . $column;
             }
-            $sql = "UPDATE " . $this->table . " SET " . implode(",", $update) . " WHERE id=" . $this->getId();
+            $sql = "UPDATE " . $this->table . " SET " . implode(", ", $update) . " WHERE id=" . $this->getId();
         }
 
         $queryPrepared = self::$pdoInstance->prepare($sql);
         $queryPrepared->execute($columns);
     }
 
+    // e.g $user = $user->findOne(['email' => $email]);
     public function findOne($where)
     {
         $update = [];
@@ -85,5 +84,41 @@ abstract class Sql
         $queryPrepared->execute();
 
         return $queryPrepared->fetchObject(get_called_class());
+    }
+
+    public function findAll()
+    {
+        $query = "SELECT * FROM " . $this->table;
+        $queryPrepared = self::$pdoInstance->prepare($query);
+        $queryPrepared->execute();
+
+        return $queryPrepared->fetchAll();
+    }
+
+    public function attemptLogin($email)
+    {
+        $query = "SELECT * FROM $this->table WHERE email = :email";
+
+        $queryPrepared  = self::$pdoInstance->prepare($query);
+
+        $queryPrepared->bindValue(":email", $email);
+
+        $queryPrepared->execute();
+        $user = $queryPrepared->fetchObject(get_called_class());
+
+        if ($user) {
+            return $user;
+        } else {
+            return false;
+        }
+    }
+
+    public function delete($id)
+    {
+        $query = "DELETE FROM " . $this->table . " WHERE id=" . $id;
+        $queryPrepared = self::$pdoInstance->prepare($query);
+        $queryPrepared->execute();
+
+        return $queryPrepared;
     }
 }

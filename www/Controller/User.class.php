@@ -2,68 +2,89 @@
 
 namespace App\Controller;
 
-use App\Core\Authenticator;
-use App\Core\Verificator;
 use App\Core\View;
 use App\Model\User as UserModel;
 
 class User
 {
-    public function login()
+    /** function index pour avoir la liste de tous les users présents en bdd */
+    public function index()
     {
         $user = new UserModel();
-        $view = new View("login");
-        $view->assign("user", $user);
+        $users = $user->findAll();
 
-        if (!empty($_POST)) {
-            // TO DO create a find
-            extract($_POST);
-            $errors = Verificator::checkForm($user->getLoginForm(), $_POST);
-            if (count($errors) == 0) {
-                $auth = new Authenticator();
-                $auth->login($_POST);
+        $view = new View("viewUsers");
+        $view->assign("users", $users);
+    }
+
+    /** function show pour afficher un user spécifique */
+    public function show()
+    {
+        if (empty($_GET['id'])) {
+            header("Location: /users");
+        } else {
+            $user = new UserModel();
+            $userId = $_GET['id'];
+            $user = $user->findOne(['id' => $userId]);
+            if ($user === false) {
+                header("Location: /users");
+            } else {
+                $view = new View("showUser");
+                $view->assign("user", $user);
             }
         }
     }
 
-
-    public function register()
+    /** vue de update pour afficher les informations d'un user spécifique a modifier*/
+    public function edit()
     {
+        if (empty($_GET['id'])) {
+            header("Location: /users");
+        } else {
+            $user = new UserModel();
+            $userId = $_GET['id'];
+            $user = $user->findOne(['id' => $userId]);
 
-        $user = new UserModel();
-        if (!empty($_POST)) {
+            if ($user === false) {
+                header("Location: /users");
+            } else {
+                $view = new View("editUser");
+                $view->assign("user", $user);
+            }
+        }
+    }
 
-            //Je vérifie qu'il les entrées soient corrects
-            $errors = Verificator::checkForm($user->getRegisterForm(), $_POST);
-            if (count($errors) === 0) {
+    /** function update pour modifier les informations d'un user spécifique */
+    public function update()
+    {
+        if (empty($_GET['id'])) {
+            header("Location: /users");
+        } else {
+            $user = new UserModel();
+            $userId = $_GET['id'];
+            $user = $user->findOne(['id' => $userId]);
 
+            if ($user === false) {
+                header("Location: /users");
+            } else {
                 $user->setFirstname($_POST['firstname']);
                 $user->setLastname($_POST['lastname']);
                 $user->setEmail($_POST['email']);
-                $user->setPassword($_POST['password']);
+
                 $user->save();
-            } else {
-                print_r($errors);
+
+                header("Location: /user/show?id=$userId");
             }
         }
-
-
-        $view = new View("register");
-        $view->assign("user", $user);
     }
 
-
-    public function logout()
+    /** function delete pour supprimer un user spécifique */
+    public function delete()
     {
-        $auth = new Authenticator();
+        $user = new UserModel();
+        $userId = $_GET['id'];
+        $user->delete($userId);
 
-        $view = new View("logout");
-        $view->assign("auth", $auth);
-    }
-
-
-    public function pwdforget()
-    {
-        echo "Mot de passe oublié";
+        header("Location: /users");
     }
 }

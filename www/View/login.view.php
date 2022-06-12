@@ -1,11 +1,14 @@
 <?php
-session_start();
-if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
-  header("location: dashboard");
-  exit;
-}
+
+use App\Controller\Authenticator;
+
+$auth = new Authenticator();
+$auth->authenticated(false);
 ?>
 
+<a href="http://localhost/">
+  <button>Homepage</button>
+</a>
 <h1>Page de login</h1>
 <h2>veuillez vous connecter</h2>
 <?php

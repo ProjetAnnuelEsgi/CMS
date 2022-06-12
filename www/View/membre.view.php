@@ -1,3 +1,10 @@
+<?php
+
+use App\Controller\Authenticator;
+
+$auth = new Authenticator();
+$auth->authenticated(true);
+?>
 <!DOCTYPE html>
 <html lang="fr">
 

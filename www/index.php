@@ -28,9 +28,11 @@ if(!file_exists($routeFile)){
 
 $routes = yaml_parse_file($routeFile);
 
-if( empty($routes[$uri]) ||  empty($routes[$uri]["controller"])  ||  empty($routes[$uri]["action"])){
+if( (empty($routes[$uri]) ||  empty($routes[$uri]["controller"])  ||  empty($routes[$uri]["action"])) && empty($_GET)){
     die("Erreur 404");
 }
+
+$uri = explode('?', $uri)[0];
 
 $controller = ucfirst(strtolower($routes[$uri]["controller"]));
 $action = strtolower($routes[$uri]["action"]);
