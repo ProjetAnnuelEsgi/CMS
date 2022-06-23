@@ -7,9 +7,9 @@ $auth->authenticated(false);
 ?>
 
 <a href="http://localhost/">
-  <button>Homepage</button>
+  <button>Accueil</button>
 </a>
-<h1>Login</h1>
+<h1>Se connecter</h1>
 
 <!DOCTYPE html>
 <html lang="en">

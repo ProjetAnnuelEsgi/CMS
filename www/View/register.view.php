@@ -6,7 +6,7 @@ $auth = new Authenticator();
 $auth->authenticated(false);
 ?>
 <a href="http://localhost/">
-  <button>Homepage</button>
+  <button>Accueil</button>
 </a>
 <h1>Inscription</h1>
 

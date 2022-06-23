@@ -7,14 +7,14 @@
 
 <br>
 <a href="http://localhost/login">
-  <button>Login</button>
+  <button>Se conecter</button>
 </a>
 
 <!-- Espace &#160 -->
 &#160;
 
 <a href="http://localhost/">
-  <button>Homepage</button>
+  <button>Accueil</button>
 </a>
 </div>
 <html lang="en">

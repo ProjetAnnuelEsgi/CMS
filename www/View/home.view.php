@@ -11,14 +11,14 @@ $auth->authenticated(false);
 <div class="home-button">
 <br>
 <a href="http://localhost/login">
-  <button>Login</button>
+  <button>Se connecter</button>
 </a>
 
 <!-- Espace &#160 -->
 &#160;
 
 <a href="http://localhost/register">
-  <button>Register</button>
+  <button>S'inscrire</button>
 </a>
 </div>
 <html lang="en">
