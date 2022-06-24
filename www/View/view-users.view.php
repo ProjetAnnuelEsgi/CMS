@@ -34,6 +34,13 @@ $auth->authenticated(true);
     $linkShow = "href=user/show?id=" . $user[0];
     $iconShow = "<img src=/Medias/icon_show.png width=30 height=30>";
 
+    $iconShow = "<img src=/Medias/icon_show.png width=45 height=50>";
+  ?>
+    <?php echo  "<td>" ?> <label class="switch"> <?php "</td>"  ?>
+      <input type="checkbox">
+      <span class="slider round"></span>
+    </label>
+  <?php
     echo "<td><a " . $linkShow . ">" . $iconShow . "</a></td>";
   }
 

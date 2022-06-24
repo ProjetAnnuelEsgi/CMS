@@ -168,7 +168,7 @@ class User extends Sql
      * Get the value of role
      * @return  bool
      */
-    public function getRole(): bool
+    public function getRole()
     {
         return $this->role;
     }
