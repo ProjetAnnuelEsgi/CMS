@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Core\View;
+use App\Core\Mailer;
 use App\Model\User as UserModel;
 
 class User
@@ -59,7 +60,9 @@ class User
     {
         if (empty($_GET['id'])) {
             header("Location: /users");
-        } else {
+        } 
+        else 
+        {
             $user = new UserModel();
             $userId = $_GET['id'];
             $user = $user->findOne(['id' => $userId]);
@@ -67,16 +70,34 @@ class User
             if ($user === false) {
                 header("Location: /users");
             } else {
-                $user->setFirstname($_POST['firstname']);
-                $user->setLastname($_POST['lastname']);
-                $user->setEmail($_POST['email']);
+                $mailer = new Mailer();
+                $user = new UserModel();
+                if (!empty($_POST)) {
 
-                $user->save();
+                    //Je vérifie qu'il les entrées soient corrects
+                    $errors = Verificator::checkForm($user->getRegisterForm(), $_POST);
+                    if (count($errors) === 0) {
 
-                header("Location: /user/show?id=$userId");
+                        $user->setFirstname($_POST['firstname']);
+                        $user->setLastname($_POST['lastname']);
+                        $user->setEmail($_POST['email']);
+
+                        $user->save();
+
+                        header("Location: /user/show?id=$userId");
+                        $mailer->sendMail(($_POST['email']));
+                        
+                    } else {
+                        print_r($errors);
+                    }
+                    
+                }
+            $view = new View("register");
+            $view->assign("user", $user);
             }
         }
     }
+        
 
     /** function delete pour supprimer un user spécifique */
     public function delete()
@@ -88,3 +109,4 @@ class User
         header("Location: /users");
     }
 }
+

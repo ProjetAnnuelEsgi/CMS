@@ -5,16 +5,31 @@ namespace App\Controller;
 use App\Model\User;
 use App\Core\Verificator;
 use App\Core\View;
+use App\Core\Mailer;
 
 class Authenticator
 {
   public function register()
   {
+    $mail =new Mailer();
     $user = new User();
     if (!empty($_POST)) {
 
       //Je vérifie qu'il les entrées soient corrects
-      $errors = Verificator::checkForm($user->getRegisterForm(), $_POST);
+      // $errors = Verificator::checkForm($user->getRegisterForm(), $_POST);
+      // $user->setFirstname($_POST['firstname']);
+      // $user->setLastname($_POST['lastname']);
+      // $user->setEmail($_POST['email']);
+      // $user->setPassword($_POST['password']);
+      // $user->save();
+
+      // try{
+      //   $mail->sendMail($_POST['email']);
+      // }catch(\Exception $e){
+      //   echo 'test';
+      // }
+      
+
       if (count($errors) === 0) {
 
         $user->setFirstname($_POST['firstname']);
@@ -22,6 +37,8 @@ class Authenticator
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
         $user->save();
+
+        $mail->sendMail($_POST['email']);
         //redirect to login page when registration is successful
         header("location: login");
       } else {

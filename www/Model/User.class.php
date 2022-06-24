@@ -126,7 +126,7 @@ class User extends Sql
         return $this->token;
     }
 
-    /**
+    /**password_verifypassword_verify
      * length : 255
      */
     public function generateToken(): void

@@ -23,7 +23,7 @@ $uri = $_SERVER["REQUEST_URI"];
 
 $routeFile = "routes.yml";
 if(!file_exists($routeFile)){
-    die("Le fichier ".$routeFile." n'existe pas");
+    die("Le fichier ".$routeFile." n'existe pas"); 
 }
 
 $routes = yaml_parse_file($routeFile);
