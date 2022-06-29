@@ -11,7 +11,9 @@ class User extends Sql
     protected $lastname = null;
     protected $email;
     protected $password;
-    protected $status = 0;
+    protected $active = 0;
+    protected $role = 0;
+
     protected $token = null;
 
     public function __construct()
@@ -102,20 +104,45 @@ class User extends Sql
         return password_verify($password, $this->getPassword());
     }
 
+
     /**
-     * @return int
+     * Get the value of active
      */
-    public function getStatus(): int
+    public function getActive()
     {
-        return $this->status;
+        return $this->active;
     }
 
     /**
-     * @param int $status
+     * Set the value of active
+     *
+     * @return  self
      */
-    public function setStatus(int $status): void
+    public function setActive($active)
     {
-        $this->status = $status;
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of role
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * Set the value of role
+     *
+     * @return  self
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+
+        return $this;
     }
 
     /**
