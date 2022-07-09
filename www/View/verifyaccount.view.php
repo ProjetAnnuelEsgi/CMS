@@ -24,8 +24,6 @@ $auth->authenticated(false);
     $msg = '';
     if(isset($_GET['key']))
     {
-
-
         $activationCode = $_GET['key'];
         $foundUser = $user->findOne(['activation_code'=>$activationCode]);
         
