@@ -51,3 +51,7 @@
 /user/delete:
   controller: user
   action: delete
+
+/verify-account:
+  controller: authenticator
+  action: verifyAccount

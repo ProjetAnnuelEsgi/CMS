@@ -17,7 +17,7 @@ class Authenticator
     $foundUser = $user->findOne(['email' => $email]);
 
     if ($foundUser) {
-      $mailer->sendMail($_POST['email']);
+      $mailer->sendMail($_POST['email'], $foundUser->getActivationCode());
     } else {
       var_dump("Votre mail de verification n'a pas été envoyé");
     }
@@ -36,6 +36,8 @@ class Authenticator
         $user->setLastname($_POST['lastname']);
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
+        $user->setActive();
+        $user->setActivationCode();
         $user->save();
         $this->sendActivationEmail($_POST['email']);
         //redirect to login page when registration is successful
@@ -56,22 +58,25 @@ class Authenticator
     $view = new View("login");
     $view->assign("user", $user);
 
+    
     if (!empty($_POST)) {
       // TO DO create a find
       extract($_POST);
       $errors = Verificator::checkForm($user->getLoginForm(), $_POST);
       if (count($errors) == 0) {
-
+        
         extract($_POST);
 
         $loggedUser = $user->attemptLogin($email);
-
         if ($loggedUser === false) {
           echo  "Le nom d'utilisateur ou le mot de passe est incorrect.";
-        };
+        }
 
         if ($loggedUser) {
-          $verifyPassword = $loggedUser->decryptPassword($password);
+          if ($loggedUser->getActive() === 0) {
+            echo  "Vous n'avez pas encore verifiez votre compte";
+          } else {
+            $verifyPassword = $loggedUser->decryptPassword($password);
           if ($verifyPassword === false) {
             echo  "Le nom d'utilisateur ou le mot de passe est incorrect.";
           } else {
@@ -84,9 +89,11 @@ class Authenticator
             $_SESSION['firstname'] = $loggedUser->getFirstname();
 
             header("Location: dashboard");
+            }
           }
         }
       }
+           
     }
   }
 
@@ -117,5 +124,13 @@ class Authenticator
         exit;
       }
     }
+  }
+
+  public function verifyAccount() 
+  {
+    $user = new User();
+    $view = new View("verifyaccount");
+
+    $view->assign("user", $user);
   }
 }

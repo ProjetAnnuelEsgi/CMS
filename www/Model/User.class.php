@@ -12,9 +12,10 @@ class User extends Sql
     protected $email;
     protected $password;
     protected $active = 0;
+    protected $activation_code = null;
     protected $role = 0;
-
     protected $token = null;
+    protected $activated_at = null;
 
     public function __construct()
     {
@@ -104,31 +105,62 @@ class User extends Sql
         return password_verify($password, $this->getPassword());
     }
 
-
     /**
-     * Get the value of active
+     * @return int
      */
-    public function getActive()
+    public function getActive(): int
     {
         return $this->active;
     }
 
     /**
-     * Set the value of active
-     *
-     * @return  self
+     * @param int $active
      */
-    public function setActive($active)
+    public function setActive(int $active = 0): void
     {
         $this->active = $active;
-
-        return $this;
     }
 
     /**
-     * Get the value of role
+     * Get the value of activationCode
      */
-    public function getRole()
+    public function getActivationCode()
+    {
+        return $this->activation_code;
+    }
+
+    /**
+     * Set the value of activationCode
+     *
+     * @return  void
+     */
+    public function setActivationCode(): void
+    {
+        $this->activation_code = substr(bin2hex(random_bytes(128)), 0, 255);
+    }
+
+     /**
+     * Get the value of activatedAt
+     */ 
+    public function getActivatedAt()
+    {
+        return $this->activated_at;
+    }
+
+    /**
+     * Set the value of activatedAt
+     *
+     * @return  self
+     */ 
+    public function setActivatedAt($activatedAt): void
+    {
+        $this->activated_at = $activatedAt;
+    }
+    /**
+     * Get the value of role
+     * @return  bool
+     */
+    public function getRole(): bool
     {
         return $this->role;
     }
@@ -136,13 +168,11 @@ class User extends Sql
     /**
      * Set the value of role
      *
-     * @return  self
+     * @return  int
      */
-    public function setRole($role)
+    public function setRole(int $role = 0): void
     {
         $this->role = $role;
-
-        return $this;
     }
 
     /**
@@ -153,13 +183,14 @@ class User extends Sql
         return $this->token;
     }
 
-    /**password_verifypassword_verify
+    /**
      * length : 255
      */
     public function generateToken(): void
     {
         $this->token = substr(bin2hex(random_bytes(128)), 0, 255);
     }
+
 
 
     public function getRegisterForm(): array
