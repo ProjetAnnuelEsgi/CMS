@@ -9,12 +9,10 @@ require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/Exception.php';
 class Mailer
 {
-    private $link;
     private $phpmailer;
 
-    public function sendMail($email, $activationCode = null)
+    public function sendMail($subject, $isHTML, $body, $email)
     {
-        $link = "<a href='localhost/verify-account?key=".$activationCode."'>Click and Verify Email</a>";
         $this->phpmailer = new PHPMailer();
         $this->phpmailer->isSMTP();
         $this->phpmailer->Host = MAILER_HOST;
@@ -24,11 +22,22 @@ class Mailer
         $this->phpmailer->Password = MAILER_SMTP_PASSWORD;
         $this->phpmailer->addAddress($email);
         $this->phpmailer->setFrom(MAIL_FROM_ADDRESS, MAIL_FROM_USER);
-        $this->phpmailer->Subject = 'Activation de votre compte';
-        $this->phpmailer->IsHTML(true);
-        $this->phpmailer->Body = 'Veuillez cliquez sur sur lien pour activer votre compte '.$link.''; 
+        $this->phpmailer->Subject = $subject;
+        $this->phpmailer->IsHTML($isHTML);
+        $this->phpmailer->Body = $body; 
 
         return $this->phpmailer->send();
+    }
+
+    public function sendActivationEmail($email, $activationCode = null)
+    {
+        $isHTML = true;
+        $link = "<a href='localhost/verify-account?key=".$activationCode."'>Click and Verify Email</a>";
+        $subject = "Activation de votre compte";
+        $body = "Veuillez cliquez sur sur lien pour activer votre compte '.$link.''";
+        
+        $this->sendMail($subject, $isHTML, $body, $email);
+        
     }
 
 }

@@ -17,7 +17,7 @@ class Authenticator
     $foundUser = $user->findOne(['email' => $email]);
 
     if ($foundUser) {
-      $mailer->sendMail($_POST['email'], $foundUser->getActivationCode());
+      $mailer->sendActivationEmail($_POST['email'], $foundUser->getActivationCode());
     } else {
       var_dump("Votre mail de verification n'a pas été envoyé");
     }
