@@ -75,3 +75,29 @@
 /page/delete:
   controller: page
   action: delete
+
+
+# Article controller route
+/articles:
+  controller: article
+  action: index
+
+/article/add:
+  controller: article
+  action: add
+
+/article/showArticle:
+  controller: article
+  action: showArticle
+
+/article/edit:
+  controller: article
+  action: edit
+
+/article/update:
+  controller: article
+  action: update
+
+/article/delete:
+  controller: article
+  action: delete
