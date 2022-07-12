@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Core\Router;
+
 require "conf.inc.php";
 
 function myAutoloader($class)
@@ -28,9 +30,17 @@ if(!file_exists($routeFile)){
 
 $routes = yaml_parse_file($routeFile);
 
-if( (empty($routes[$uri]) ||  empty($routes[$uri]["controller"])  ||  empty($routes[$uri]["action"])) && empty($_GET)){
-    die("Erreur 404");
-}
+$router = new Router();
+
+if ((empty($routes[$uri]) ||  empty($routes[$uri]["controller"]) ||  empty($routes[$uri]["action"])) && empty($_GET)) {
+    if ($router->getPages($uri) !== false) {
+        $uri = $router->getPages($uri);
+    }elseif ($router->getArticles($uri) !== false){
+        $uri = $router->getArticles($uri);
+    }else {
+        die("Erreur 404! Cette page n'existe pas.");
+    }
+} 
 
 $uri = explode('?', $uri)[0];
 
