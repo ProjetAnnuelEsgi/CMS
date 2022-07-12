@@ -1,0 +1,1 @@
+ALTER TABLE `esgi_user` ADD `reset_link_token` VARCHAR(100) NULL AFTER `activated_at`;

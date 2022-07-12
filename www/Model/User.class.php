@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-use App\Core\Sql;
+use App\Core\Sql;   
 
 class User extends Sql
 {
@@ -16,6 +16,8 @@ class User extends Sql
     protected $role = 0;
     protected $token = null;
     protected $activated_at = null;
+    protected $reset_link_token = null;
+    protected $activation_expiry = null;
 
     public function __construct()
     {
@@ -156,6 +158,7 @@ class User extends Sql
     {
         $this->activated_at = $activatedAt;
     }
+
     /**
      * Get the value of role
      * @return  bool
@@ -163,6 +166,47 @@ class User extends Sql
     public function getRole(): bool
     {
         return $this->role;
+    }
+
+    /**
+     * Get the value of reset_link_token
+     */ 
+    public function getResetLinkToken()
+    {
+        return $this->reset_link_token;
+    }
+
+    /**
+     * Set the value of reset_link_token
+     *
+     * @return  self
+     */ 
+    public function setResetLinkToken($email, $token)
+    {
+        $reset_link_token = $email.$token;
+        $this->reset_link_token = $reset_link_token;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of activation_expiry
+     */ 
+    public function getActivationExpiry()
+    {
+        return $this->activation_expiry;
+    }
+
+    /**
+     * Set the value of activation_expiry
+     *
+     * @return  self
+     */ 
+    public function setActivationExpiry($activation_expiry)
+    {
+        $this->activation_expiry = $activation_expiry;
+
+        return $this;
     }
 
     /**
@@ -274,6 +318,34 @@ class User extends Sql
                     "required" => true,
                     "class" => "inputForm",
                     "id" => "pwdForm"
+                ]
+            ]
+        ];
+    }
+
+    public function getVerifyPasswordForm(): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "submit" => "Envoyer"
+            ],
+            'inputs' => [
+                "password" => [
+                    "type" => "password",
+                    "required" => true,
+                    "class" => "inputForm",
+                    "id" => "pwdForm",
+                    "error" => "Votre mot de passe doit faire au min 8 caractères avec majuscule, minuscules et des chiffres",
+                ],
+                "passwordConfirm" => [
+                    "type" => "password",
+                    "required" => true,
+                    "class" => "inputForm",
+                    "id" => "pwdConfirmForm",
+                    "confirm" => "password",
+                    "error" => "Votre mot de passe de confirmation ne correspond pas",
                 ]
             ]
         ];

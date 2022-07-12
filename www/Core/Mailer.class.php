@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 require 'PHPMailer/src/SMTP.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/Exception.php';
-class Mailer
+abstract class Mailer
 {
     private $phpmailer;
 
@@ -38,6 +38,18 @@ class Mailer
         
         $this->sendMail($subject, $isHTML, $body, $email);
         
+    }
+
+    public function sendForgotPasswordEmail($email, $activationCode = null)
+    {
+        $isHTML = true;
+        $link = "<a href='localhost/resetpwd?key=".$email."&token=".$activationCode."'>Click and reset your passoword</a>";
+        $subject = "Activation de votre compte";
+        $body = "Veuillez cliquez sur sur lien pour activer votre compte '.$link.''";
+        
+        $this->sendMail($subject, $isHTML, $body, $email);
+
+        return true;
     }
 
 }

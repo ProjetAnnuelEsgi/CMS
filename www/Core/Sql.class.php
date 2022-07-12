@@ -26,7 +26,7 @@ abstract class Sql
         $calledClassExploded = explode("\\", get_called_class());
         $this->table = strtolower(DBPREFIXE . end($calledClassExploded));
     }
-
+    
     public static function getInstance()
     {
         if (!(self::$pdoInstance instanceof self)) {

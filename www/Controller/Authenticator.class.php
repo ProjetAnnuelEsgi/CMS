@@ -7,20 +7,14 @@ use App\Core\Verificator;
 use App\Core\View;
 use App\Core\Mailer;
 
-class Authenticator
+class Authenticator extends Mailer
 {
-  public function sendActivationEmail($email)
+  public function checkIfEmailExist($email)
   {
     $user = new User();
-    $mailer = new Mailer();
-
     $foundUser = $user->findOne(['email' => $email]);
-
-    if ($foundUser) {
-      $mailer->sendActivationEmail($_POST['email'], $foundUser->getActivationCode());
-    } else {
-      var_dump("Votre mail de verification n'a pas été envoyé");
-    }
+    
+    return $foundUser;
   }
 
   public function register()
@@ -39,7 +33,12 @@ class Authenticator
         $user->setActive();
         $user->setActivationCode();
         $user->save();
-        $this->sendActivationEmail($_POST['email']);
+        $foundUser = $this->checkIfEmailExist($_POST['email']);
+        if ($foundUser) {
+          $this->sendActivationEmail($_POST['email'], $foundUser->getActivationCode());
+        } else {
+          echo "Votre mail de verification n'a pas été envoyé";
+        }
         //redirect to login page when registration is successful
         header("location: login");
       } else {
@@ -106,7 +105,85 @@ class Authenticator
 
   public function pwdforget()
   {
-    echo "Mot de passe oublié";
+    if (isset($_POST['forget']) && isset($_POST['email'])) 
+    {
+        $message = '';
+        $foundUser = $this->checkIfEmailExist($_POST['email']);
+
+        if ($foundUser === false) 
+        {
+            $message = "L\'email n\'existe pas";
+            // echo "<script>"; 
+            // echo "alert('$message');        
+            // window.location.href='showpwd';
+            // </script>";
+        }   
+        else 
+        {
+            $token = md5($foundUser->getEmail()).rand(10,9999);
+            $expFormat = mktime(date("H"), date("i"), date("s"), date("m") ,date("d")+1, date("Y"));
+            $expDate = date("Y-m-d H:i:s",$expFormat);
+
+            $this->sendForgotPasswordEmail($_POST['email'], $token);
+            
+            $foundUser->setResetLinkToken($_POST['email'], $token);
+            $foundUser->setActivationExpiry($expDate);
+            
+            $foundUser->save();
+
+            $message = "Un email à été envoyé, Veuillez vérifier votre messagerie."; 
+          }
+          echo "<script>"; 
+          echo " alert('$message');        
+          window.location.href='showpwd';
+                </script>";
+    }
+         
+  }
+
+  public function setPwd()
+  {
+    $user = new User();
+    if(isset($_POST['password']) && $_POST['reset_link_token'] && $_POST['email'])
+    {
+      $message = '';
+      $email = $_POST['email'];
+      $token = $_POST['reset_link_token'];
+      $password = $_POST['password'];
+      
+      $foundUser = $user->findOne(['email'=>$email]);
+      if(!empty($foundUser))
+      {
+      $foundUser->setPassword($password);
+      $foundUser->save();
+      
+      $message = "Congratulations! Your password has been updated successfully.";
+      // echo '<p>Congratulations! Your password has been updated successfully.</p>';
+      }
+      else
+      {
+        $message = "Something goes wrong. Please try again";
+      // echo "<p>Something goes wrong. Please try again</p>";
+      }
+      echo "<script>"; 
+          echo " alert('$message');        
+          window.location.href='showpwd';
+                </script>";
+    }
+  }
+
+  public function showPwdForget()
+  {
+    $view = new View("forgotpassword");
+  }
+
+  public function resetPwd()
+  {
+    $verificator = new Verificator();
+    $user = new User();
+    $view = new View("resetpwd");
+
+    $view->assign("user", $user);
   }
 
   public function authenticated($connect = false)
@@ -134,3 +211,6 @@ class Authenticator
     $view->assign("user", $user);
   }
 }
+// $update = mysqli_query($conn,"UPDATE users set  password='" . $password . "', reset_link_token='" . $token . "' ,exp_date='" . $expDate . "' WHERE email='" . $emailId . "'");
+ 
+// $link = "<a href='www.yourwebsite.com/res/t-password.php?key=".$emailId."&token=".$token."'>Click To Reset password</a>";

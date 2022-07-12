@@ -31,6 +31,18 @@
   controller: authenticator
   action: pwdforget
 
+
+/setpwd:
+  controller: authenticator
+  action: setpwd
+
+/showpwd:
+  controller: authenticator
+  action: showPwdForget
+
+/resetpwd:
+  controller: authenticator
+  action: resetPwd  
 # User controller route
 /users:
   controller: user
