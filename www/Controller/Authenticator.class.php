@@ -144,7 +144,7 @@ class Authenticator extends Mailer
   public function setPwd()
   {
     $user = new User();
-    if(isset($_POST['password']) && $_POST['reset_link_token'] && $_POST['email'])
+    if(isset($_POST['password']) && isset($_POST['reset_link_token']) && isset($_POST['email']))
     {
       $message = '';
       $email = $_POST['email'];

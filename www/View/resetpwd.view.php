@@ -24,8 +24,13 @@
             $token = $_GET['token'];
             $reset_link_token = $_GET['key'] . $_GET['token'];
             $foundUser = $user->findOne(['reset_link_token' => $reset_link_token]);
-            $activation_expiry = $foundUser->getActivationExpiry();
-
+            if($foundUser)
+            {
+              $activation_expiry = $foundUser->getActivationExpiry();
+            }
+            else{
+              header("Location: showpwd");
+            }
 
             if ($activation_expiry >= $curDate) { ?>
 
@@ -74,11 +79,12 @@
 	      cpassword.setCustomValidity("Passwords Don't Match");
 	    } else if (password.value.length <= 8) {
 	      password.setCustomValidity("Your Password Must Contain At Least 8 Characters!");
-	    } else if (hasNumber(password.value)) {
+	    } else if (!hasNumber(password.value)) {
+        // alert(password.value);
 	      password.setCustomValidity("Your Password Must Contain At Least 1 Number!");
-	    } else if (hasCapitalCase(password.value)) {
+	    } else if (!hasCapitalCase(password.value)) {
 	      password.setCustomValidity("Your Password Must Contain At Least 1 Capital Letter!");
-	    } else if (hasLowerCase(password.value)) {
+	    } else if (!hasLowerCase(password.value)) {
 	      password.setCustomValidity("Your Password Must Contain At Least 1 Lowercase Letter!");
 	    } else {
 	      cpassword.setCustomValidity('');
@@ -88,3 +94,11 @@
 	  password.onchange = validatePassword;
 	  cpassword.onkeyup = validatePassword;
 	</script>
+
+  lOUTEZAM
+  Lout18
+  123456789
+  DANIELKOKOU
+  danielkokou
+  Danielkokou95
+
