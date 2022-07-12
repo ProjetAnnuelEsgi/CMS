@@ -1,52 +1,37 @@
 <?php
-namespace App\Controller;
 
-// if(!isset($_SESSION)){
-//     session_start();
-// }
+namespace App\Controller;
 
 use App\Core\View;
 use App\Model\Page as PageModel;
-use App\Model\User;
 
-class Page 
+class Page
 {
     public function index()
     {
         $page = new PageModel();
         $pages = $page->findAll();
 
-        // $test = $page->getPagesAndArticlesAuthor(23);
-        // $author = new User;
-        // $findone = $author->findOne(['id' => $test]);
-        
-        // $fullname = $findone->getFullName();
-        // $test = $service->findAuthor();
-        
         $view = new View("viewPages");
         $view->assign("pages", $pages);
-        // $view->assign("findone", $findone);
     }
-    
+
     public function add()
     {
         $page = new PageModel();
-        
+
         if (!empty($_POST)) {
 
             $page->setPageTitle($_POST['page_title']);
             $page->setPageSlug($_POST['page_slug']);
             $page->setPageContent($_POST['page_content']);
-            // $page->setPageAuthorId($_SESSION['userId']);
             $page = $page->save();
-            
+
             header("Location: /pages");
         }
-        
+
         $view = new View("addPages");
         $view->assign("page", $page);
-        
-    
     }
 
     public function showPage()
@@ -58,7 +43,7 @@ class Page
         $implode = implode($explode);
 
         $page = $page->findOne(['page_slug' => $implode]);
-        
+
         $view = new View("page");
         $view->assign("page", $page);
     }
