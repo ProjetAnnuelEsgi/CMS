@@ -44,8 +44,8 @@ abstract class Mailer
     {
         $isHTML = true;
         $link = "<a href='localhost/resetpwd?key=".$email."&token=".$activationCode."'>Click and reset your passoword</a>";
-        $subject = "Activation de votre compte";
-        $body = "Veuillez cliquez sur sur lien pour activer votre compte '.$link.''";
+        $subject = "Réinitialisation du mot de passe";
+        $body = "Veuillez cliquez sur sur lien pour réinitialiser votre mot de passe '.$link.''";
         
         $this->sendMail($subject, $isHTML, $body, $email);
 

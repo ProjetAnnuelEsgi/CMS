@@ -9,6 +9,10 @@ $auth->authenticated(false);
 <a href="http://localhost/">
   <button>Homepage</button>
 </a>
+
+<a href="http://localhost/showpwd">
+  <button>Mot de passe oublié ?</button>
+</a>
 <h1>Page de login</h1>
 <h2>veuillez vous connecter</h2>
 <?php

@@ -48,7 +48,7 @@
 	              <input type="submit" name="new-password" class="btn btn-primary">
 	            </form>
 	          <?php } else { ?>
-	            <p>This forget password link has been expired</p>
+	            <p> désolé votre lien à expiré </p>
 	        <?php }
           }
           ?>
@@ -94,11 +94,3 @@
 	  password.onchange = validatePassword;
 	  cpassword.onkeyup = validatePassword;
 	</script>
-
-  lOUTEZAM
-  Lout18
-  123456789
-  DANIELKOKOU
-  danielkokou
-  Danielkokou95
-

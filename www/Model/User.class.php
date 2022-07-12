@@ -322,32 +322,4 @@ class User extends Sql
             ]
         ];
     }
-
-    public function getVerifyPasswordForm(): array
-    {
-        return [
-            "config" => [
-                "method" => "POST",
-                "action" => "",
-                "submit" => "Envoyer"
-            ],
-            'inputs' => [
-                "password" => [
-                    "type" => "password",
-                    "required" => true,
-                    "class" => "inputForm",
-                    "id" => "pwdForm",
-                    "error" => "Votre mot de passe doit faire au min 8 caractères avec majuscule, minuscules et des chiffres",
-                ],
-                "passwordConfirm" => [
-                    "type" => "password",
-                    "required" => true,
-                    "class" => "inputForm",
-                    "id" => "pwdConfirmForm",
-                    "confirm" => "password",
-                    "error" => "Votre mot de passe de confirmation ne correspond pas",
-                ]
-            ]
-        ];
-    }
 }

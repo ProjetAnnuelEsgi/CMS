@@ -112,26 +112,22 @@ class Authenticator extends Mailer
 
         if ($foundUser === false) 
         {
-            $message = "L\'email n\'existe pas";
-            // echo "<script>"; 
-            // echo "alert('$message');        
-            // window.location.href='showpwd';
-            // </script>";
+          $message = "L\'email n\'existe pas";
         }   
         else 
         {
-            $token = md5($foundUser->getEmail()).rand(10,9999);
-            $expFormat = mktime(date("H"), date("i"), date("s"), date("m") ,date("d")+1, date("Y"));
-            $expDate = date("Y-m-d H:i:s",$expFormat);
+          $token = md5($foundUser->getEmail()).rand(10,9999);
+          $expFormat = mktime(date("H"), date("i"), date("s"), date("m") ,date("d")+1, date("Y"));
+          $expDate = date("Y-m-d H:i:s",$expFormat);
 
-            $this->sendForgotPasswordEmail($_POST['email'], $token);
-            
-            $foundUser->setResetLinkToken($_POST['email'], $token);
-            $foundUser->setActivationExpiry($expDate);
-            
-            $foundUser->save();
+          $this->sendForgotPasswordEmail($_POST['email'], $token);
+          
+          $foundUser->setResetLinkToken($_POST['email'], $token);
+          $foundUser->setActivationExpiry($expDate);
+          
+          $foundUser->save();
 
-            $message = "Un email à été envoyé, Veuillez vérifier votre messagerie."; 
+          $message = "Un email à été envoyé, Veuillez vérifier votre messagerie."; 
           }
           echo "<script>"; 
           echo " alert('$message');        
@@ -157,17 +153,15 @@ class Authenticator extends Mailer
       $foundUser->setPassword($password);
       $foundUser->save();
       
-      $message = "Congratulations! Your password has been updated successfully.";
-      // echo '<p>Congratulations! Your password has been updated successfully.</p>';
+      $message = "Votre mot de passe à été mis à jour ";
       }
       else
       {
-        $message = "Something goes wrong. Please try again";
-      // echo "<p>Something goes wrong. Please try again</p>";
+        $message = "Erreur veuillez reessayer";
       }
       echo "<script>"; 
           echo " alert('$message');        
-          window.location.href='showpwd';
+          window.location.href='login';
                 </script>";
     }
   }
@@ -211,6 +205,3 @@ class Authenticator extends Mailer
     $view->assign("user", $user);
   }
 }
-// $update = mysqli_query($conn,"UPDATE users set  password='" . $password . "', reset_link_token='" . $token . "' ,exp_date='" . $expDate . "' WHERE email='" . $emailId . "'");
- 
-// $link = "<a href='www.yourwebsite.com/res/t-password.php?key=".$emailId."&token=".$token."'>Click To Reset password</a>";
