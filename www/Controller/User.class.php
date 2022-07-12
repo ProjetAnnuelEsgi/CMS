@@ -70,7 +70,6 @@ class User
             if ($user === false) {
                 header("Location: /users");
             } else {
-                $mailer = new Mailer();
                 $user = new UserModel();
                 if (!empty($_POST)) {
 
@@ -85,7 +84,6 @@ class User
                         $user->save();
 
                         header("Location: /user/show?id=$userId");
-                        $mailer->sendMail(($_POST['email']));
                         
                     } else {
                         print_r($errors);
