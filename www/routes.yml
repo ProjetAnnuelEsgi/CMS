@@ -14,7 +14,6 @@
     - user
 
 # Authenticator route
-
 /login:
   controller: authenticator
   action: login
@@ -50,4 +49,29 @@
 
 /user/delete:
   controller: user
+  action: delete
+
+# Page controller route
+/pages:
+  controller: page
+  action: index
+
+/page/add:
+  controller: page
+  action: add
+
+/page/showPage:
+  controller: page
+  action: showPage
+
+/page/edit:
+  controller: page
+  action: edit
+
+/page/update:
+  controller: page
+  action: update
+
+/page/delete:
+  controller: page
   action: delete
