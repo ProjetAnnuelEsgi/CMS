@@ -6,9 +6,9 @@ $auth = new Authenticator();
 $auth->authenticated(true);
 ?>
 <a href="http://localhost/dashboard">
-	<button>dashboard</button>
+	<button>Tableau de bord</button>
 </a>
-<button onclick="history.back()">Go Back</button>
+<button onclick="history.back()">Retour</button>
 
 <div id="contenu">
 
@@ -19,19 +19,18 @@ $auth->authenticated(true);
 			</center>
 
 			<form action="update?id=<?php echo $_GET['id'] ?>" method="post">
-
-				<td><input type=text name=lastname placeholder="Nom" disabled value=<?php echo $user->getLastname() ?>></td>
-				<td><input type=text name=firstname placeholder="Prénom" disabled value=<?php echo $user->getFirstname() ?>></td>
-				<td><input type=text name=email placeholder="Email" disabled value=<?php echo $user->getEmail() ?>></td>
+				<input type=text name=lastname placeholder="Nom" disabled value=<?php echo $user->getLastname() ?>>
+				<input type=text name=firstname placeholder="Prénom" disabled value=<?php echo $user->getFirstname() ?>>
+				<input type=text name=email placeholder="Email" disabled value=<?php echo $user->getEmail() ?>>
 		</tr>
 	</table>
 
 	<br>
 	<a href="edit?id=<?php echo $_GET['id'] ?>">
-		<img src="/Medias/icon_edit.png" height="50" width="50"></a>
+		<img src="/Medias/icon_edit.png" height="30" width="30"></a>
 
 	<a href="delete?id=<?php echo $_GET['id'] ?>">
-		<img src="/Medias/icon_delete.png" height="50" width="50"></a>
+		<img src="/Medias/icon_delete.png" height="30" width="30"></a>
 
 	</form>
 </div>

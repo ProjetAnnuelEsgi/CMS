@@ -7,7 +7,7 @@ $auth->authenticated(true);
 ?>
 <html>
 <a href="http://localhost/dashboard">
-  <button>dashboard</button>
+  <button>Tableau de bord</button>
 </a>
 
 <center>
@@ -32,7 +32,7 @@ $auth->authenticated(true);
     echo  "<td>" . $user['email'] . "</td>";
 
     $linkShow = "href=user/show?id=" . $user[0];
-    $iconShow = "<img src=/Medias/icon_show.png width=50 height=50>";
+    $iconShow = "<img src=/Medias/icon_show.png width=30 height=30>";
 
     echo "<td><a " . $linkShow . ">" . $iconShow . "</a></td>";
   }

@@ -5,14 +5,21 @@ use App\Controller\Authenticator;
 $auth = new Authenticator();
 $auth->authenticated(true);
 ?>
-<h2>Bonjour <?= $_SESSION['firstname'] ?>, bienvenue sur votre dashboard.</h2>
-
-<?php echo "Ceci est un beau dashboard"; ?>
+<h2>Bonjour <?= $_SESSION['firstname'] ?>, bienvenue sur votre tableau de bord.</h2>
 
 <a href="http://localhost/users">
-  <button> List Users</button>
+  <button>Utilisateurs</button>
 </a>
 
+<a href="http://localhost/pages">
+  <button>Pages</button>
+</a>
+
+<a href="http://localhost/articles">
+  <button>Articles</button>
+</a>
+
+>>>>>>> Stashed changes
 <a href="http://localhost/logout">
-  <button>Logout</button>
+  <button>Se déconnecter</button>
 </a>

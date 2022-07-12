@@ -61,6 +61,11 @@ class User extends Sql
         $this->lastname = strtoupper(trim($lastname));
     }
 
+    // public function getFullName()
+    // {
+    //     return $this->getLastname().' '.$this->getFirstname();
+    // }
+
     /**
      * @return string
      */

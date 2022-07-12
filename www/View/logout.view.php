@@ -1,13 +1,10 @@
-<?php
-?>
-
 <h3>Vous avez bien été déconnecté</h3>
 
 <div class="logout-button">
 
 <br>
 <a href="http://localhost/login">
-  <button>Se conecter</button>
+  <button>Se connecter</button>
 </a>
 
 <!-- Espace &#160 -->
