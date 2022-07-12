@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Core\Logger;
 use App\Model\User;
 use App\Core\Verificator;
 use App\Core\View;
@@ -74,21 +75,39 @@ class Authenticator extends Mailer
         if ($loggedUser) {
           if ($loggedUser->getActive() === 0) {
             echo  "Vous n'avez pas encore verifiez votre compte";
-          } else {
+
+            $userName = $loggedUser->getFirstname();
+            $userId = $loggedUser->getId();
+            $userRole = $loggedUser->getRole();
             $verifyPassword = $loggedUser->decryptPassword($password);
+
             if ($verifyPassword === false) {
               echo  "Le nom d'utilisateur ou le mot de passe est incorrect.";
             } else {
-              $loggedUser->generateToken();
-              $loggedUser->save();
+              $verifyPassword = $loggedUser->decryptPassword($password);
+              if ($verifyPassword === false) {
+                echo  "Le nom d'utilisateur ou le mot de passe est incorrect.";
+              } else {
+                $loggedUser->generateToken();
+                $loggedUser->save();
 
-              session_start();
-              $_SESSION['loggedIn'] = true;
-              $_SESSION['userId'] = $loggedUser->getId();
-              $_SESSION['firstname'] = $loggedUser->getFirstname();
 
-              header("Location: dashboard");
+                session_start();
+                $_SESSION['loggedIn'] = true;
+                $_SESSION['userId'] = $userId;
+                $_SESSION['firstname'] = $userName;
+                $_SESSION['role'] = $userRole;
+
+                header("Location: dashboard");
+              }
             }
+
+            $message = PHP_EOL . "Attempt: " . ($verifyPassword === true ? 'Success' : 'Failed') . PHP_EOL .
+              "User: " . $userName . PHP_EOL . "Email: " . $email . PHP_EOL .
+              "-------------------------" . PHP_EOL;
+
+            $log = Logger::getInstance();
+            $log->log($message);
           }
         }
       } else {

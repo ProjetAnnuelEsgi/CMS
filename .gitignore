@@ -11,3 +11,5 @@ storage/.key
 .env
 bootstrap/compiled.php
 app/storage/
+cms.log
+

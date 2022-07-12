@@ -129,24 +129,6 @@ class User extends Sql
     }
 
     /**
-     * Get the value of activationCode
-     */
-    public function getActivationCode()
-    {
-        return $this->activation_code;
-    }
-
-    /**
-     * Set the value of activationCode
-     *
-     * @return  void
-     */
-    public function setActivationCode(): void
-    {
-        $this->activation_code = substr(bin2hex(random_bytes(128)), 0, 255);
-    }
-
-    /**
      * Get the value of activatedAt
      */
     public function getActivatedAt()
@@ -168,7 +150,26 @@ class User extends Sql
      * Get the value of role
      * @return  bool
      */
-    public function getRole()
+    public function getActivationCode()
+    {
+        return $this->activation_code;
+    }
+
+    /**
+     * Set the value of activationCode
+     *
+     * @return  void
+     */
+    public function setActivationCode(): void
+    {
+        $this->activation_code = substr(bin2hex(random_bytes(128)), 0, 255);
+    }
+
+    /**
+     * Get the value of role
+     * @return  bool
+     */
+    public function getRole(): bool
     {
         return $this->role;
     }
@@ -184,7 +185,7 @@ class User extends Sql
     /**
      * Set the value of reset_link_token
      *
-     * @return  self
+     * @return  int
      */
     public function setResetLinkToken($email, $token)
     {
@@ -192,6 +193,11 @@ class User extends Sql
         $this->reset_link_token = $reset_link_token;
 
         return $this;
+    }
+
+    public function setRole(int $role = 0): void
+    {
+        $this->role = $role;
     }
 
     /**
@@ -212,16 +218,6 @@ class User extends Sql
         $this->activation_expiry = $activation_expiry;
 
         return $this;
-    }
-
-    /**
-     * Set the value of role
-     *
-     * @return  int
-     */
-    public function setRole(int $role = 0): void
-    {
-        $this->role = $role;
     }
 
     /**

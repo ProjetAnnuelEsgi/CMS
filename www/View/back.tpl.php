@@ -8,7 +8,6 @@
 </head>
 
 <body>
-    <?php var_dump($this->view) ?>
     <?php include "View/" . $this->view . ".view.php"; ?>
 </body>
 
