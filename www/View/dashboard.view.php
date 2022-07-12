@@ -15,6 +15,10 @@ $auth->authenticated(true);
   <button>Pages</button>
 </a>
 
+<a href="http://localhost/articles">
+  <button>Articles</button>
+</a>
+
 <a href="http://localhost/logout">
   <button>Se déconnecter</button>
 </a>
