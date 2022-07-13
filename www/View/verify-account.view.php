@@ -48,7 +48,7 @@ $auth->authenticated(false);
     <div class="container mt-3">
         <div class="card">
             <div class="card-header text-center">
-                User Account Activation
+                Activation de compte
             </div>
             <div class="card-body">
                 <p><?php echo $msg; ?></p>

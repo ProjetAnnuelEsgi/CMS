@@ -12,14 +12,14 @@
   <div class="container">
     <div class="card">
       <div class="card-header text-center">
-        Send Reset Password Link with
+        Envoi de lien pour la réinitialisation du mot de passe
       </div>
       <div class="card-body">
         <form action="/forget" method="post">
           <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
+            <label for="exampleInputEmail1">Adresse mail</label>
             <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre adresse électronique avec qui que ce soit.</small>
           </div>
           <input type="submit" name="forget" class="btn btn-primary">
         </form>
