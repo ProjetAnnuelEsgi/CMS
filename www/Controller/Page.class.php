@@ -34,7 +34,7 @@ class Page
         $view->assign("page", $page);
     }
 
-    public function showPage()
+    public function show()
     {
         $page = new PageModel();
 

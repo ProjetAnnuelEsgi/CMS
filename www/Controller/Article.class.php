@@ -33,7 +33,7 @@ class Article
         $view->assign("article", $article);
     }
 
-    public function showArticle()
+    public function show()
     {
         $article = new ArticleModel();
 
