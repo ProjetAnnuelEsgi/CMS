@@ -86,8 +86,6 @@ class User
                          </script>";
                     }
                 }
-                $view = new View("register");
-                $view->assign("user", $foundUser);
             }
         }
     }
