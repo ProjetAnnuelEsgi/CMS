@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-use App\Core\Sql;   
+use App\Core\Sql;
 
 class User extends Sql
 {
@@ -141,9 +141,9 @@ class User extends Sql
         $this->activation_code = substr(bin2hex(random_bytes(128)), 0, 255);
     }
 
-     /**
+    /**
      * Get the value of activatedAt
-     */ 
+     */
     public function getActivatedAt()
     {
         return $this->activated_at;
@@ -153,7 +153,7 @@ class User extends Sql
      * Set the value of activatedAt
      *
      * @return  self
-     */ 
+     */
     public function setActivatedAt($activatedAt): void
     {
         $this->activated_at = $activatedAt;
@@ -170,7 +170,7 @@ class User extends Sql
 
     /**
      * Get the value of reset_link_token
-     */ 
+     */
     public function getResetLinkToken()
     {
         return $this->reset_link_token;
@@ -180,10 +180,10 @@ class User extends Sql
      * Set the value of reset_link_token
      *
      * @return  self
-     */ 
+     */
     public function setResetLinkToken($email, $token)
     {
-        $reset_link_token = $email.$token;
+        $reset_link_token = $email . $token;
         $this->reset_link_token = $reset_link_token;
 
         return $this;
@@ -191,7 +191,7 @@ class User extends Sql
 
     /**
      * Get the value of activation_expiry
-     */ 
+     */
     public function getActivationExpiry()
     {
         return $this->activation_expiry;
@@ -201,7 +201,7 @@ class User extends Sql
      * Set the value of activation_expiry
      *
      * @return  self
-     */ 
+     */
     public function setActivationExpiry($activation_expiry)
     {
         $this->activation_expiry = $activation_expiry;
@@ -319,6 +319,33 @@ class User extends Sql
                     "class" => "inputForm",
                     "id" => "pwdForm"
                 ]
+            ]
+        ];
+    }
+
+    public function getUpdateUserForm(): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "submit" => "valider"
+            ],
+            'inputs' => [
+                "email" => [
+                    "type" => "email",
+                    "required" => true,
+                    "error" => "Email incorrect"
+                ],
+                "firstname" => [
+                    "type" => "text"
+                ],
+                "lastname" => [
+                    "type" => "text"
+                ],
+                "valider" => [
+                    "type" => "submit"
+                ],
             ]
         ];
     }

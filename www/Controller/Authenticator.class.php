@@ -13,7 +13,7 @@ class Authenticator extends Mailer
   {
     $user = new User();
     $foundUser = $user->findOne(['email' => $email]);
-    
+
     return $foundUser;
   }
 
@@ -57,13 +57,13 @@ class Authenticator extends Mailer
     $view = new View("login");
     $view->assign("user", $user);
 
-    
+
     if (!empty($_POST)) {
       // TO DO create a find
       extract($_POST);
       $errors = Verificator::checkForm($user->getLoginForm(), $_POST);
       if (count($errors) == 0) {
-        
+
         extract($_POST);
 
         $loggedUser = $user->attemptLogin($email);
@@ -76,23 +76,24 @@ class Authenticator extends Mailer
             echo  "Vous n'avez pas encore verifiez votre compte";
           } else {
             $verifyPassword = $loggedUser->decryptPassword($password);
-          if ($verifyPassword === false) {
-            echo  "Le nom d'utilisateur ou le mot de passe est incorrect.";
-          } else {
-            $loggedUser->generateToken();
-            $loggedUser->save();
+            if ($verifyPassword === false) {
+              echo  "Le nom d'utilisateur ou le mot de passe est incorrect.";
+            } else {
+              $loggedUser->generateToken();
+              $loggedUser->save();
 
-            session_start();
-            $_SESSION['loggedIn'] = true;
-            $_SESSION['userId'] = $loggedUser->getId();
-            $_SESSION['firstname'] = $loggedUser->getFirstname();
+              session_start();
+              $_SESSION['loggedIn'] = true;
+              $_SESSION['userId'] = $loggedUser->getId();
+              $_SESSION['firstname'] = $loggedUser->getFirstname();
 
-            header("Location: dashboard");
+              header("Location: dashboard");
             }
           }
         }
+      } else {
+        print_r($errors);
       }
-           
     }
   }
 
@@ -105,77 +106,65 @@ class Authenticator extends Mailer
 
   public function pwdforget()
   {
-    if (isset($_POST['forget']) && isset($_POST['email'])) 
-    {
-        $message = '';
-        $foundUser = $this->checkIfEmailExist($_POST['email']);
+    if (isset($_POST['forget']) && isset($_POST['email'])) {
+      $message = '';
+      $foundUser = $this->checkIfEmailExist($_POST['email']);
 
-        if ($foundUser === false) 
-        {
-          $message = "L\'email n\'existe pas";
-        }   
-        else 
-        {
-          $token = md5($foundUser->getEmail()).rand(10,9999);
-          $expFormat = mktime(date("H"), date("i"), date("s"), date("m") ,date("d")+1, date("Y"));
-          $expDate = date("Y-m-d H:i:s",$expFormat);
+      if ($foundUser === false) {
+        $message = "L\'email n\'existe pas";
+      } else {
+        $token = md5($foundUser->getEmail()) . rand(10, 9999);
+        $expFormat = mktime(date("H"), date("i"), date("s"), date("m"), date("d") + 1, date("Y"));
+        $expDate = date("Y-m-d H:i:s", $expFormat);
 
-          $this->sendForgotPasswordEmail($_POST['email'], $token);
-          
-          $foundUser->setResetLinkToken($_POST['email'], $token);
-          $foundUser->setActivationExpiry($expDate);
-          
-          $foundUser->save();
+        $this->sendForgotPasswordEmail($_POST['email'], $token);
 
-          $message = "Un email à été envoyé, Veuillez vérifier votre messagerie."; 
-          }
-          echo "<script>"; 
-          echo " alert('$message');        
-          window.location.href='showpwd';
-                </script>";
+        $foundUser->setResetLinkToken($_POST['email'], $token);
+        $foundUser->setActivationExpiry($expDate);
+
+        $foundUser->save();
+
+        $message = "Un email à été envoyé, Veuillez vérifier votre messagerie.";
+      }
+      echo "<script>;alert('$message'); window.location.href='showpwd'; </script>";
     }
-         
   }
 
   public function setPwd()
   {
     $user = new User();
-    if(isset($_POST['password']) && isset($_POST['reset_link_token']) && isset($_POST['email']))
-    {
+
+    if (isset($_POST['password']) && isset($_POST['reset_link_token']) && isset($_POST['email'])) {
       $message = '';
       $email = $_POST['email'];
       $token = $_POST['reset_link_token'];
+      $resetLink = $email . $token;
+
       $password = $_POST['password'];
-      
-      $foundUser = $user->findOne(['email'=>$email]);
-      if(!empty($foundUser))
-      {
-      $foundUser->setPassword($password);
-      $foundUser->save();
-      
-      $message = "Votre mot de passe à été mis à jour ";
-      }
-      else
-      {
+
+      $foundUser = $user->findOne(['reset_link_token' => $resetLink]);
+      if (!empty($foundUser)) {
+        $foundUser->setPassword($password);
+        $foundUser->save();
+
+        $message = "Votre mot de passe à été mis à jour ";
+      } else {
         $message = "Erreur veuillez reessayer";
       }
-      echo "<script>"; 
-          echo " alert('$message');        
-          window.location.href='login';
-                </script>";
+      echo "<script> alert('$message'); window.location.href='login'; </script>";
     }
   }
 
   public function showPwdForget()
   {
-    $view = new View("forgotpassword");
+    $view = new View("forgot-password");
   }
 
   public function resetPwd()
   {
     $verificator = new Verificator();
     $user = new User();
-    $view = new View("resetpwd");
+    $view = new View("reset-pwd");
 
     $view->assign("user", $user);
   }
@@ -197,10 +186,10 @@ class Authenticator extends Mailer
     }
   }
 
-  public function verifyAccount() 
+  public function verifyAccount()
   {
     $user = new User();
-    $view = new View("verifyaccount");
+    $view = new View("verify-account");
 
     $view->assign("user", $user);
   }

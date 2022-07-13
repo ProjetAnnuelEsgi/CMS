@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Core\View;
-use App\Core\Mailer;
+use App\Core\Verificator;
 use App\Model\User as UserModel;
 
 class User
@@ -14,7 +14,7 @@ class User
         $user = new UserModel();
         $users = $user->findAll();
 
-        $view = new View("viewUsers");
+        $view = new View("view-users");
         $view->assign("users", $users);
     }
 
@@ -30,7 +30,7 @@ class User
             if ($user === false) {
                 header("Location: /users");
             } else {
-                $view = new View("showUser");
+                $view = new View("show-user");
                 $view->assign("user", $user);
             }
         }
@@ -49,7 +49,7 @@ class User
             if ($user === false) {
                 header("Location: /users");
             } else {
-                $view = new View("editUser");
+                $view = new View("edit-user");
                 $view->assign("user", $user);
             }
         }
@@ -60,42 +60,38 @@ class User
     {
         if (empty($_GET['id'])) {
             header("Location: /users");
-        } 
-        else 
-        {
+        } else {
             $user = new UserModel();
             $userId = $_GET['id'];
-            $user = $user->findOne(['id' => $userId]);
+            $foundUser = $user->findOne(['id' => $userId]);
 
-            if ($user === false) {
+            if ($foundUser === false) {
                 header("Location: /users");
             } else {
-                $user = new UserModel();
                 if (!empty($_POST)) {
-
                     //Je vérifie qu'il les entrées soient corrects
-                    $errors = Verificator::checkForm($user->getRegisterForm(), $_POST);
+                    $errors = Verificator::checkForm($user->getUpdateUserForm(), $_POST);
                     if (count($errors) === 0) {
+                        $foundUser->setFirstname($_POST['firstname']);
+                        $foundUser->setLastname($_POST['lastname']);
+                        $foundUser->setEmail($_POST['email']);
 
-                        $user->setFirstname($_POST['firstname']);
-                        $user->setLastname($_POST['lastname']);
-                        $user->setEmail($_POST['email']);
-
-                        $user->save();
+                        $foundUser->save();
 
                         header("Location: /user/show?id=$userId");
-                        
                     } else {
-                        print_r($errors);
+                        echo "<script>";
+                        echo " alert('$errors[0]');        
+                            window.location.href='/user/edit?id=$userId';
+                         </script>";
                     }
-                    
                 }
-            $view = new View("register");
-            $view->assign("user", $user);
+                $view = new View("register");
+                $view->assign("user", $foundUser);
             }
         }
     }
-        
+
 
     /** function delete pour supprimer un user spécifique */
     public function delete()
@@ -107,4 +103,3 @@ class User
         header("Location: /users");
     }
 }
-

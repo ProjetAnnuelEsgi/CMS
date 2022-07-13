@@ -12,8 +12,8 @@ define("DBPREFIXE", "esgi_");
 
 define("MAILER_HOST", "smtp-relay.sendinblue.com");
 define("MAILER_SMTP_USERNAME", "chancelvyfodekar@gmail.com");
-define("MAILER_PORT",587);
-define("MAILER_SMTP_PASSWORD","YPM3jWUcsxK5trGf");
-define("MAILER_SMTP_AUTH",true);
-define("MAIL_FROM_ADDRESS","cdeft.lalg@gmail.com");
-define("MAIL_FROM_USER","Fodekar");
+define("MAILER_PORT", 587);
+define("MAILER_SMTP_PASSWORD", "YPM3jWUcsxK5trGf");
+define("MAILER_SMTP_AUTH", true);
+define("MAIL_FROM_ADDRESS", "cdeft.lalg@gmail.com");
+define("MAIL_FROM_USER", "CMS-PA");
