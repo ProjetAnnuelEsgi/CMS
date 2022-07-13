@@ -124,7 +124,7 @@ class Authenticator extends Mailer
 
         $foundUser->save();
 
-        $message = "Un email à été envoyé, Veuillez vérifier votre messagerie.";
+        $message = "Un email a été envoyé, veuillez vérifier votre messagerie.";
       }
       echo "<script>;alert('$message'); window.location.href='showpwd'; </script>";
     }
@@ -147,7 +147,7 @@ class Authenticator extends Mailer
         $foundUser->setPassword($password);
         $foundUser->save();
 
-        $message = "Votre mot de passe à été mis à jour ";
+        $message = "Votre mot de passe a été mis à jour ";
       } else {
         $message = "Erreur veuillez reessayer";
       }
@@ -162,7 +162,6 @@ class Authenticator extends Mailer
 
   public function resetPwd()
   {
-    $verificator = new Verificator();
     $user = new User();
     $view = new View("reset-pwd");
 
