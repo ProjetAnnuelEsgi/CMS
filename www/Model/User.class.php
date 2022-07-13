@@ -112,6 +112,35 @@ class User extends Sql
         return password_verify($password, $this->getPassword());
     }
 
+    public function setRole(int $role = 0): void
+    {
+        $this->role = $role;
+    }
+    /**
+     * Get the value of role
+     * @return  bool
+     */
+    public function getRole(): bool
+    {
+        return $this->role;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    /**
+     * length : 255
+     */
+    public function generateToken(): void
+    {
+        $this->token = substr(bin2hex(random_bytes(128)), 0, 255);
+    }
+
     /**
      * @return int
      */
@@ -129,11 +158,21 @@ class User extends Sql
     }
 
     /**
-     * Get the value of activatedAt
+     * Set the value of activationCode
+     *
+     * @return  void
      */
-    public function getActivatedAt()
+    public function setActivationCode(): void
     {
-        return $this->activated_at;
+        $this->activation_code = substr(bin2hex(random_bytes(128)), 0, 255);
+    }
+    /**
+     * Get the value of role
+     * @return  bool
+     */
+    public function getActivationCode()
+    {
+        return $this->activation_code;
     }
 
     /**
@@ -147,40 +186,13 @@ class User extends Sql
     }
 
     /**
-     * Get the value of role
-     * @return  bool
+     * Get the value of activatedAt
      */
-    public function getActivationCode()
+    public function getActivatedAt()
     {
-        return $this->activation_code;
+        return $this->activated_at;
     }
 
-    /**
-     * Set the value of activationCode
-     *
-     * @return  void
-     */
-    public function setActivationCode(): void
-    {
-        $this->activation_code = substr(bin2hex(random_bytes(128)), 0, 255);
-    }
-
-    /**
-     * Get the value of role
-     * @return  bool
-     */
-    public function getRole(): bool
-    {
-        return $this->role;
-    }
-
-    /**
-     * Get the value of reset_link_token
-     */
-    public function getResetLinkToken()
-    {
-        return $this->reset_link_token;
-    }
 
     /**
      * Set the value of reset_link_token
@@ -195,10 +207,14 @@ class User extends Sql
         return $this;
     }
 
-    public function setRole(int $role = 0): void
+    /**
+     * Get the value of reset_link_token
+     */
+    public function getResetLinkToken()
     {
-        $this->role = $role;
+        return $this->reset_link_token;
     }
+
 
     /**
      * Get the value of activation_expiry
@@ -219,24 +235,6 @@ class User extends Sql
 
         return $this;
     }
-
-    /**
-     * @return null|string
-     */
-    public function getToken(): ?string
-    {
-        return $this->token;
-    }
-
-    /**
-     * length : 255
-     */
-    public function generateToken(): void
-    {
-        $this->token = substr(bin2hex(random_bytes(128)), 0, 255);
-    }
-
-
 
     public function getRegisterForm(): array
     {

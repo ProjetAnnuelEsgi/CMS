@@ -73,42 +73,39 @@ class Authenticator extends Mailer
         }
 
         if ($loggedUser) {
+
+          $verifyPassword = $loggedUser->decryptPassword($password);
+          $userName = $loggedUser->getFirstname();
+          $userId = $loggedUser->getId();
+          $userRole = $loggedUser->getRole();
+
           if ($loggedUser->getActive() === 0) {
             echo  "Vous n'avez pas encore verifiez votre compte";
-
-            $userName = $loggedUser->getFirstname();
-            $userId = $loggedUser->getId();
-            $userRole = $loggedUser->getRole();
-            $verifyPassword = $loggedUser->decryptPassword($password);
+          } else {
 
             if ($verifyPassword === false) {
               echo  "Le nom d'utilisateur ou le mot de passe est incorrect.";
             } else {
-              $verifyPassword = $loggedUser->decryptPassword($password);
-              if ($verifyPassword === false) {
-                echo  "Le nom d'utilisateur ou le mot de passe est incorrect.";
-              } else {
-                $loggedUser->generateToken();
-                $loggedUser->save();
+              $loggedUser->generateToken();
+              $loggedUser->save();
 
 
-                session_start();
-                $_SESSION['loggedIn'] = true;
-                $_SESSION['userId'] = $userId;
-                $_SESSION['firstname'] = $userName;
-                $_SESSION['role'] = $userRole;
+              session_start();
+              $_SESSION['loggedIn'] = true;
+              $_SESSION['userId'] = $userId;
+              $_SESSION['firstname'] = $userName;
+              $_SESSION['role'] = $userRole;
 
-                header("Location: dashboard");
-              }
+              header("Location: dashboard");
             }
-
-            $message = PHP_EOL . "Attempt: " . ($verifyPassword === true ? 'Success' : 'Failed') . PHP_EOL .
-              "User: " . $userName . PHP_EOL . "Email: " . $email . PHP_EOL .
-              "-------------------------" . PHP_EOL;
-
-            $log = Logger::getInstance();
-            $log->log($message);
           }
+
+          $message = PHP_EOL . "Attempt: " . ($verifyPassword === true ? 'Success' : 'Failed') . PHP_EOL .
+            "User: " . $userName . PHP_EOL . "Email: " . $email . PHP_EOL .
+            "-------------------------" . PHP_EOL;
+
+          $log = Logger::getInstance();
+          $log->log($message);
         }
       } else {
         print_r($errors);
