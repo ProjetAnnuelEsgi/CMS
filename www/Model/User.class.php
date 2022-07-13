@@ -11,8 +11,13 @@ class User extends Sql
     protected $lastname = null;
     protected $email;
     protected $password;
-    protected $status = 0;
+    protected $active = 0;
+    protected $activation_code = null;
+    protected $role = 0;
     protected $token = null;
+    protected $activated_at = null;
+    protected $reset_link_token = null;
+    protected $activation_expiry = null;
 
     public function __construct()
     {
@@ -110,17 +115,113 @@ class User extends Sql
     /**
      * @return int
      */
-    public function getStatus(): int
+    public function getActive(): int
     {
-        return $this->status;
+        return $this->active;
     }
 
     /**
-     * @param int $status
+     * @param int $active
      */
-    public function setStatus(int $status): void
+    public function setActive(int $active = 0): void
     {
-        $this->status = $status;
+        $this->active = $active;
+    }
+
+    /**
+     * Get the value of activationCode
+     */
+    public function getActivationCode()
+    {
+        return $this->activation_code;
+    }
+
+    /**
+     * Set the value of activationCode
+     *
+     * @return  void
+     */
+    public function setActivationCode(): void
+    {
+        $this->activation_code = substr(bin2hex(random_bytes(128)), 0, 255);
+    }
+
+    /**
+     * Get the value of activatedAt
+     */
+    public function getActivatedAt()
+    {
+        return $this->activated_at;
+    }
+
+    /**
+     * Set the value of activatedAt
+     *
+     * @return  self
+     */
+    public function setActivatedAt($activatedAt): void
+    {
+        $this->activated_at = $activatedAt;
+    }
+
+    /**
+     * Get the value of role
+     * @return  bool
+     */
+    public function getRole(): bool
+    {
+        return $this->role;
+    }
+
+    /**
+     * Get the value of reset_link_token
+     */
+    public function getResetLinkToken()
+    {
+        return $this->reset_link_token;
+    }
+
+    /**
+     * Set the value of reset_link_token
+     *
+     * @return  self
+     */
+    public function setResetLinkToken($email, $token)
+    {
+        $reset_link_token = $email . $token;
+        $this->reset_link_token = $reset_link_token;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of activation_expiry
+     */
+    public function getActivationExpiry()
+    {
+        return $this->activation_expiry;
+    }
+
+    /**
+     * Set the value of activation_expiry
+     *
+     * @return  self
+     */
+    public function setActivationExpiry($activation_expiry)
+    {
+        $this->activation_expiry = $activation_expiry;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of role
+     *
+     * @return  int
+     */
+    public function setRole(int $role = 0): void
+    {
+        $this->role = $role;
     }
 
     /**
@@ -138,6 +239,7 @@ class User extends Sql
     {
         $this->token = substr(bin2hex(random_bytes(128)), 0, 255);
     }
+
 
 
     public function getRegisterForm(): array
@@ -222,6 +324,33 @@ class User extends Sql
                     "class" => "inputForm",
                     "id" => "pwdForm"
                 ]
+            ]
+        ];
+    }
+
+    public function getUpdateUserForm(): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "submit" => "valider"
+            ],
+            'inputs' => [
+                "email" => [
+                    "type" => "email",
+                    "required" => true,
+                    "error" => "Email incorrect"
+                ],
+                "firstname" => [
+                    "type" => "text"
+                ],
+                "lastname" => [
+                    "type" => "text"
+                ],
+                "valider" => [
+                    "type" => "submit"
+                ],
             ]
         ];
     }

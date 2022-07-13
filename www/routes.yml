@@ -30,6 +30,21 @@
   controller: authenticator
   action: pwdforget
 
+/setpwd:
+  controller: authenticator
+  action: setpwd
+
+/showpwd:
+  controller: authenticator
+  action: showPwdForget
+
+/resetpwd:
+  controller: authenticator
+  action: resetPwd
+
+/verify-account:
+  controller: authenticator
+  action: verifyAccount
 # User controller route
 /users:
   controller: user
@@ -75,7 +90,6 @@
 /page/delete:
   controller: page
   action: delete
-
 
 # Article controller route
 /articles:

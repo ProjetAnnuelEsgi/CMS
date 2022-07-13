@@ -25,3 +25,4 @@ $auth->authenticated(false);
 </div>
 
 <?php $this->includePartial("form", $user->getRegisterForm()) ?>
+
