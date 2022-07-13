@@ -16,7 +16,7 @@ class Router
     $foundPage = $page->findOne(['page_slug' => $implode]);
     
     if ($foundPage !== false) {
-      $uri = '/page/showPage';
+      $uri = '/page/show';
       return $uri;
     } else {
       return false;
@@ -32,7 +32,7 @@ class Router
     $foundArticle = $article->findOne(['article_slug' => $implode]);
 
     if ($foundArticle !== false) {
-      $uri = '/article/showArticle';
+      $uri = '/article/show';
       return $uri; 
     } else {
       return false;

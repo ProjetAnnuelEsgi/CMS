@@ -75,9 +75,9 @@
   controller: page
   action: add
 
-/page/showPage:
+/page/show:
   controller: page
-  action: showPage
+  action: show
 
 /page/edit:
   controller: page
@@ -100,9 +100,9 @@
   controller: article
   action: add
 
-/article/showArticle:
+/article/show:
   controller: article
-  action: showArticle
+  action: show
 
 /article/edit:
   controller: article

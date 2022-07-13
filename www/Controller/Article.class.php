@@ -12,7 +12,7 @@ class Article
         $article = new ArticleModel();
         $articles = $article->findAll();
 
-        $view = new View("viewArticles");
+        $view = new View("view-articles");
         $view->assign("articles", $articles);
     }
 
@@ -29,11 +29,11 @@ class Article
             header("Location: /articles");
         }
         
-        $view = new View("addArticles");
+        $view = new View("add-articles");
         $view->assign("article", $article);
     }
 
-    public function showArticle()
+    public function show()
     {
         $article = new ArticleModel();
 
@@ -59,7 +59,7 @@ class Article
             if ($article === false) {
                 header("Location: /articles");
             } else {
-                $view = new View("editArticle");
+                $view = new View("edit-article");
                 $view->assign("article", $article);
             }
         }

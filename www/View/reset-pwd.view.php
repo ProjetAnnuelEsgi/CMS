@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<title>Reset Password In PHP MySQL</title>
+		<title>Réinitialisation du mot de passe</title>
 		<!-- CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	</head>
@@ -13,7 +13,7 @@
 		<div class="container">
 			<div class="card">
 				<div class="card-header text-center">
-					Reset Password In PHP MySQL
+				Réinitialiser le mot de passe
 				</div>
 				<div class="card-body">
 					<?php
@@ -36,17 +36,17 @@
 								<input type="hidden" name="email" value="<?php echo $email; ?>">
 								<input type="hidden" name="reset_link_token" value="<?php echo $token; ?>">
 								<div class="form-group">
-									<label; for="exampleInputEmail1">Password</label;>
+									<label; for="exampleInputEmail1">Nouveau mot de passe</label;>
 									<input type="password" name='password' id='password' class="form-control">
 								</div>
 								<div class="form-group">
-									<label for="exampleInputEmail1">Confirm Password</label>
+									<label for="exampleInputEmail1">Confirmation du nouveau mot de passe</label>
 									<input type="password" name='confirm' id="confirm" class="form-control">
 								</div>
 								<input type="submit" name="new-password" class="btn btn-primary">
 							</form>
 						<?php } else { ?>
-							<p> désolé votre lien à expiré </p>
+							<p>Nous sommes désolés mais votre lien a expiré</p>
 					<?php }
 					}
 					?>

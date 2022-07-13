@@ -12,7 +12,7 @@ class Page
         $page = new PageModel();
         $pages = $page->findAll();
 
-        $view = new View("viewPages");
+        $view = new View("view-pages");
         $view->assign("pages", $pages);
     }
 
@@ -30,11 +30,11 @@ class Page
             header("Location: /pages");
         }
 
-        $view = new View("addPages");
+        $view = new View("add-pages");
         $view->assign("page", $page);
     }
 
-    public function showPage()
+    public function show()
     {
         $page = new PageModel();
 
@@ -59,7 +59,7 @@ class Page
             if ($page === false) {
                 header("Location: /page");
             } else {
-                $view = new View("editPage");
+                $view = new View("edit-page");
                 $view->assign("page", $page);
             }
         }
