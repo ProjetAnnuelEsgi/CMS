@@ -24,7 +24,7 @@ abstract class Mailer
         $this->phpmailer->setFrom(MAIL_FROM_ADDRESS, MAIL_FROM_USER);
         $this->phpmailer->Subject = $subject;
         $this->phpmailer->IsHTML($isHTML);
-        $this->phpmailer->Body = $body; 
+        $this->phpmailer->Body = $body;
 
         return $this->phpmailer->send();
     }
@@ -32,24 +32,22 @@ abstract class Mailer
     public function sendActivationEmail($email, $activationCode = null)
     {
         $isHTML = true;
-        $link = "<a href='localhost/verify-account?key=".$activationCode."'>Click and Verify Email</a>";
+        $link = "<a href='localhost/verify-account?key=" . $activationCode . "'>Click and Verify Email</a>";
         $subject = "Activation de votre compte";
-        $body = "Veuillez cliquez sur sur lien pour activer votre compte '.$link.''";
-        
+        $body = "Veuillez cliquez sur sur lien pour activer votre compte " . $link;
+
         $this->sendMail($subject, $isHTML, $body, $email);
-        
     }
 
     public function sendForgotPasswordEmail($email, $activationCode = null)
     {
         $isHTML = true;
-        $link = "<a href='localhost/resetpwd?key=".$email."&token=".$activationCode."'>Click and reset your passoword</a>";
+        $link = "<a href='localhost/resetpwd?key=" . $email . "&token=" . $activationCode . "'>Click and reset your passoword</a>";
         $subject = "Réinitialisation du mot de passe";
-        $body = "Veuillez cliquez sur sur lien pour réinitialiser votre mot de passe '.$link.''";
-        
+        $body = "Veuillez cliquez sur sur lien pour réinitialiser votre mot de passe " . $link;
+
         $this->sendMail($subject, $isHTML, $body, $email);
 
         return true;
     }
-
 }
