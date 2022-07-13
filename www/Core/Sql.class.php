@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\Model\User as UserModel;
+
 abstract class Sql
 {
     private static $pdoInstance;
@@ -121,4 +123,20 @@ abstract class Sql
 
         return $queryPrepared;
     }
+
+    // public function getPagesAndArticlesAuthor($authorId)
+    // {
+    //     $calledClassExploded = explode("\\", get_called_class());
+    //     $test = strtolower(end($calledClassExploded));
+    //     $query = "SELECT DISTINCT esgi_user.id FROM esgi_user LEFT JOIN " . $this->table . " ON esgi_user.id = ". $this->table . ".$test" . "_authorId WHERE ". $this->table .".$test" . "_authorId = " . $authorId;
+        
+    //     $queryPrepared = self::$pdoInstance->prepare($query);
+    //     $queryPrepared->execute();
+        
+    //     return $queryPrepared->fetchColumn();
+
+    //     // pour modifier il faut que la personne est le role admin 
+    //     // ou
+    //     // le user id (la personne login) son id est egale au page_authorId ou article_authorId
+    // }
 }
