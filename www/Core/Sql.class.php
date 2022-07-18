@@ -121,4 +121,14 @@ abstract class Sql
 
         return $queryPrepared;
     }
+
+    public function adminUsers($adminId)
+    {
+        $query = "SELECT * FROM esgi_user LEFT JOIN " . $this->table . " ON esgi_user.id =" . $this->table . ".user_id WHERE " .  $this->table . ".admin_id =" . $adminId;
+
+        $queryPrepared = self::$pdoInstance->prepare($query);
+        $queryPrepared->execute();
+
+        return $queryPrepared->fetchAll();
+    }
 }

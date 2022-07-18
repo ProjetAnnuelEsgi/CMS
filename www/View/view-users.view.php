@@ -10,7 +10,7 @@ $auth->authenticated(true);
   <button>Tableau de bord</button>
 </a>
 
-<a href="http://localhost/user/add">
+<a href="http://localhost/admin/createUser">
   <button>Ajouter un utilisateur</button>
 </a>
 
