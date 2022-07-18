@@ -58,6 +58,10 @@
   controller: user
   action: edit
 
+/user/add:
+  controller: user
+  action: add 
+
 /user/update:
   controller: user
   action: update

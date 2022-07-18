@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Core\View;
 use App\Core\Verificator;
 use App\Model\User as UserModel;
+use App\Core\Mailer;
+use App\Controller\Authenticator;
 
-class User
+class User 
 {
     /** function index pour avoir la liste de tous les users présents en bdd */
     public function index()
@@ -55,6 +57,32 @@ class User
         }
     }
 
+    public function add()
+    {
+        $user = new UserModel();
+        $auth = new Authenticator();
+        if (!empty($_POST)) {
+
+            $user->setFirstname($_POST['firstname']);
+            $user->setLastname($_POST['lastname']);
+            $user->setEmail($_POST['email']);
+            $user->setPassword($_POST['password']);
+            $user->setActive();
+            $user->setActivationCode();
+            $user->save();
+            $foundUser = $auth->checkIfEmailExist($_POST['email']);
+            if ($foundUser) {
+                $auth->sendActivationEmail($_POST['email'], $foundUser->getActivationCode());
+            } else {
+            echo "Votre mail de verification n'a pas été envoyé";
+            }
+            header("Location: /users");
+        }
+
+        $view = new View("add-users");
+        $view->assign("user", $user);  
+    }
+
     /** function update pour modifier les informations d'un user spécifique */
     public function update()
     {
@@ -86,7 +114,7 @@ class User
                          </script>";
                     }
                 }
-            }
+            }   
         }
     }
 
