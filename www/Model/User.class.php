@@ -354,6 +354,54 @@ class User extends Sql
         ];
     }
 
+    public function getAdminCreateUserForm(): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "submit" => "valider"
+            ],
+            'inputs' => [
+                "email" => [
+                    "type" => "email",
+                    "placeholder" => "Email ...",
+                    "required" => true,
+                    "error" => "Email incorrect",
+                    "unicity" => "true",
+                    "errorUnicity" => "Email déjà en bdd",
+                ],
+                "password" => [
+                    "type" => "password",
+                    "placeholder" => "Mot de passe ...",
+                    "required" => true,
+                    "error" => "Votre mot de passe doit faire au min 8 caractères avec majuscule, minuscules et des chiffres",
+                ],
+                "firstname" => [
+                    "type" => "text",
+                    "placeholder" => "Prénom ...",
+                    "class" => "inputForm",
+                    "min" => 2,
+                    "max" => 50,
+                    "error" => "Prénom incorrect"
+                ],
+                "lastname" => [
+                    "type" => "text",
+                    "placeholder" => "Nom ...",
+                    "min" => 2,
+                    "max" => 100,
+                    "error" => "Nom incorrect"
+                ],
+                "admin_id" => [
+                    "type" => "hidden",
+                ],
+                "valider" => [
+                    "type" => "submit"
+                ],
+            ]
+        ];
+    }
+
     public function getUpdateUserForm(): array
     {
         return [

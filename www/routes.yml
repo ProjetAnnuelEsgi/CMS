@@ -6,12 +6,18 @@
   controller: main
   action: contact
 
+# Admin controller route
+
 /dashboard:
   controller: admin
   action: dashboard
   security:
     - admin
     - user
+
+/admin/createUser:
+  controller: admin
+  action: createUser
 
 # Authenticator route
 /login:
@@ -45,6 +51,7 @@
 /verify-account:
   controller: authenticator
   action: verifyAccount
+
 # User controller route
 /users:
   controller: user

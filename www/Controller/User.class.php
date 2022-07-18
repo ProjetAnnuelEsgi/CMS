@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Core\View;
 use App\Core\Verificator;
 use App\Model\User as UserModel;
+use App\Model\Admin;
 
 class User
 {
@@ -21,10 +22,20 @@ class User
     /** function show pour afficher un user spécifique */
     public function show()
     {
+        session_start();
+
         if (empty($_GET['id'])) {
             header("Location: /users");
         } else {
             $user = new UserModel();
+            $admin = new Admin();
+            $foundAdmin = $admin->findOne(['admin_id' => $_SESSION['userId']]);
+            $adminUsers = [];
+
+            if ($foundAdmin !== false) {
+                $adminUsers = $admin->adminUsers($foundAdmin->getAdminId());
+            }
+
             $userId = $_GET['id'];
             $user = $user->findOne(['id' => $userId]);
             if ($user === false) {
@@ -32,6 +43,7 @@ class User
             } else {
                 $view = new View("show-user");
                 $view->assign("user", $user);
+                $view->assign("adminUsers", $adminUsers);
             }
         }
     }
@@ -54,6 +66,7 @@ class User
             }
         }
     }
+
 
     /** function update pour modifier les informations d'un user spécifique */
     public function update()
