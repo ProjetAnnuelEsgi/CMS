@@ -72,11 +72,17 @@ class User
                     //Je vérifie qu'il les entrées soient corrects
                     $errors = Verificator::checkForm($user->getUpdateUserForm(), $_POST);
                     if (count($errors) === 0) {
+
                         $foundUser->setFirstname($_POST['firstname']);
                         $foundUser->setLastname($_POST['lastname']);
                         $foundUser->setEmail($_POST['email']);
+                        $foundUser->setRole($_POST['role']);
 
                         $foundUser->save();
+
+                        $_SESSION['role'] = $user->getRole();
+                        $_SESSION['firstname'] = $user->getFirstname();
+                        $_SESSION['lastname'] = $user->getLastname();
 
                         header("Location: /user/show?id=$userId");
                     } else {

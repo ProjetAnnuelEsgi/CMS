@@ -16,27 +16,29 @@ class Admin
 
         switch ($userRole) {
             case '0':
-                return 'user';
+                $userRole = 'Abonné';
                 break;
             case '1':
-                return 'admin';
+                $userRole  = 'Admin';
                 break;
             case '2':
-                return 'author';
-                break;
-            default:
-                '0';
-                return 'user';
+                $userRole  = 'Auteur';
                 break;
         }
+
+        return $userRole;
     }
 
     public function dashboard()
     {
+        session_start();
+
         $user = new User();
+
+        $loggedUser = $user->findOne(['id' => $_SESSION['userId']]);
 
         $view = new View("dashboard");
 
-        $view->assign('firstname', $user->getFirstname());
+        $view->assign('user', $loggedUser);
     }
 }

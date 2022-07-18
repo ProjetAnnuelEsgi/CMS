@@ -31,6 +31,7 @@ class Authenticator extends Mailer
         $user->setLastname($_POST['lastname']);
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
+        $user->setRole(1);
         $user->setActive();
         $user->setActivationCode();
         $user->save();
@@ -88,7 +89,6 @@ class Authenticator extends Mailer
             } else {
               $loggedUser->generateToken();
               $loggedUser->save();
-
 
               session_start();
               $_SESSION['loggedIn'] = true;
@@ -186,7 +186,9 @@ class Authenticator extends Mailer
 
   public function authenticated($connect = false)
   {
-    session_start();
+    if (!isset($_SESSION)) {
+      session_start();
+    }
     // Set connection to false and verify if user is not already logged in
     if ($connect === false) {
       if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {

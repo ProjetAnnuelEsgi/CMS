@@ -38,21 +38,17 @@ class Logger
   {
     $file = "cms.log";
 
-    if (!file_exists($file)) {
-      file_put_contents($file, '');
-    }
-
     $ip = $_SERVER['REMOTE_ADDR'];
 
     date_default_timezone_set('Europe/Paris');
     $time = date('d/m/y h.iA', time());
 
-    $contents = file_get_contents($file);
-    $contents .= "$ip\t$time\t$message";
-
-    file_put_contents($file, $contents);
+    $contents = "$ip\t$time\t$message";
 
     $this->logs[] = $contents;
+
+    // if file doesn't exist' file_put_contents() will creat it
+    file_put_contents($file, $contents, FILE_APPEND);
   }
 
   /**

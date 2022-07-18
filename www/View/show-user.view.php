@@ -22,6 +22,7 @@ $auth->authenticated(true);
 				<input type=text name=lastname placeholder="Nom" disabled value=<?php echo $user->getLastname() ?>>
 				<input type=text name=firstname placeholder="Prénom" disabled value=<?php echo $user->getFirstname() ?>>
 				<input type=text name=email placeholder="Email" disabled value=<?php echo $user->getEmail() ?>>
+				<input type=text name=role placeholder="Role" disabled value=<?php echo $user->getUserRoleByName() ?>>
 		</tr>
 	</table>
 

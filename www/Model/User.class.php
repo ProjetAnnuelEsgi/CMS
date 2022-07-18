@@ -112,15 +112,48 @@ class User extends Sql
         return password_verify($password, $this->getPassword());
     }
 
-    public function setRole(int $role = 0): void
+
+    public function getUserRoleByName()
     {
+        switch ($this->role) {
+            case '0':
+                $this->role = 'Abonné';
+                break;
+            case '1':
+                $this->role = 'Admin';
+                break;
+            case '2':
+                $this->role = 'Auteur';
+                break;
+        }
+
+        return $this->role;
+    }
+
+    public function setRole($role)
+    {
+        switch ($role) {
+            case 'Abonné':
+                $role = 0;
+                break;
+
+            case "Admin":
+                $role = 1;
+                break;
+
+            case 'Auteur':
+                $role = 2;
+                break;
+
+            default:
+                $role;
+                break;
+        }
+
         $this->role = $role;
     }
-    /**
-     * Get the value of role
-     * @return  bool
-     */
-    public function getRole(): bool
+
+    public function getRole()
     {
         return $this->role;
     }
@@ -140,7 +173,6 @@ class User extends Sql
     {
         $this->token = substr(bin2hex(random_bytes(128)), 0, 255);
     }
-
     /**
      * @return int
      */
@@ -341,6 +373,9 @@ class User extends Sql
                 ],
                 "lastname" => [
                     "type" => "text"
+                ],
+                "role" => [
+                    "type" => "select"
                 ],
                 "valider" => [
                     "type" => "submit"
