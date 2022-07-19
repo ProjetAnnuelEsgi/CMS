@@ -122,3 +122,7 @@
 /article/delete:
   controller: article
   action: delete
+
+/install:
+  controller: installeur
+  action: install
