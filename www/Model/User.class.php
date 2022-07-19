@@ -199,7 +199,7 @@ class User extends Sql
      */
     public function setActivationCode(): void
     {
-        $this->activation_code = substr(bin2hex(random_bytes(128)), 0, 255);
+        $this->activation_code = substr(bin2hex(random_bytes(128)), 0, 150);
     }
     /**
      * Get the value of role
