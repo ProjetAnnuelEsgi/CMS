@@ -32,7 +32,7 @@ abstract class Mailer
     public function sendActivationEmail($email, $activationCode = null)
     {
         $isHTML = true;
-        $link = "<a href='localhost/verify-account?key=" . $activationCode . "'>Cliquez et Vérifiez votre Email</a>";
+        $link = "<a href=" . ONLINE_DOMAIN . "/verify-account?key=" . $activationCode . "'>Cliquez et Vérifiez votre Email</a>";
         $subject = "Activation de votre compte";
         $body = "Veuillez cliquer sur le lien pour activer votre compte " . $link;
 
@@ -42,7 +42,7 @@ abstract class Mailer
     public function sendForgotPasswordEmail($email, $activationCode = null)
     {
         $isHTML = true;
-        $link = "<a href='localhost/resetpwd?key=" . $email . "&token=" . $activationCode . "'>Cliquez et réinitialiser votre mot de passe</a>";
+        $link = "<a href=" . ONLINE_DOMAIN . "/resetpwd?key=" . $email . "&token=" . $activationCode . "'>Cliquez et réinitialiser votre mot de passe</a>";
         $subject = "Réinitialisation du mot de passe";
         $body = "Veuillez cliquer sur le lien pour réinitialiser votre mot de passe " . $link;
 
