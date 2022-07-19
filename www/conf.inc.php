@@ -1,7 +1,7 @@
 <?php
 
 define("DBUSER", "root");
-define("DBPWD", "password");
+define("DBPWD", "fedcms2022");
 define("DBHOST", "database");
 define("DBNAME", "mvcdocker2");
 define("DBPORT", "3306");
