@@ -7,6 +7,8 @@ define("DBNAME", "mvcdocker2");
 define("DBPORT", "3306");
 define("DBDRIVER", "mysql");
 define("DBPREFIXE", "esgi_");
+define("ONLINE_DOMAIN", "http://fedcms.fr");
+define("LOCAL_DOMAIN", "http://localhost");
 
 // Mailer infos
 

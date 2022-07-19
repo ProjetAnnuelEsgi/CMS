@@ -5,7 +5,7 @@ use App\Controller\Authenticator;
 $auth = new Authenticator();
 $auth->authenticated(false);
 ?>
-<a href="http://localhost/">
+<a href="<?php echo ONLINE_DOMAIN ?>/">
   <button>Accueil</button>
 </a>
 <h1>Inscription</h1>
@@ -13,7 +13,7 @@ $auth->authenticated(false);
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- <head>
+<head>
   <link rel="stylesheet" href="../Style/register.css" />
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -24,7 +24,6 @@ $auth->authenticated(false);
   <div class="background">
     <div class="shape"></div>
     <div class="shape"></div>
-  </div> -->
+  </div>
 
-<?php $this->includePartial("form", $user->getRegisterForm()) ?>
-
+  <?php $this->includePartial("form", $user->getRegisterForm()) ?>

@@ -37,9 +37,8 @@ $auth->authenticated(false);
             $foundUser->save();
 
             $msg = 'Votre compte à bien été activé, vous pouvez vous connecter 
-            <a 
-            href="http://localhost/login"
-            <button>Se connecter</button>
+            <a href="' . ONLINE_DOMAIN . '/login">
+            Se connecter
             </a>';
         }
     }

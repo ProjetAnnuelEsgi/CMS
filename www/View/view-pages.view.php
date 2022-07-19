@@ -6,11 +6,11 @@ $auth = new Authenticator();
 $auth->authenticated(true);
 ?>
 <html>
-<a href="http://localhost/dashboard">
+<a href="<?php echo ONLINE_DOMAIN ?>/dashboard">
   <button>Tableau de bord</button>
 </a>
 
-<a href="http://localhost/page/add">
+<a href="<?php echo ONLINE_DOMAIN ?>/page/add">
   <button>Ajouter une page</button>
 </a>
 
@@ -50,7 +50,7 @@ $auth->authenticated(true);
 
     echo "<td><a " . $linkEdit . ">" . $iconEdit . "</a></td>";
     echo "<td><a " . $linkArticle . ">" . $iconArticle . "</a></td>";
-}
+  }
 
   ?>
 

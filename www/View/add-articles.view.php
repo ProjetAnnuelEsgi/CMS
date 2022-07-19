@@ -14,7 +14,7 @@ $auth = new Authenticator();
 $auth->authenticated(true);
 ?>
 
-<a href="http://localhost/articles">
+<a href="<?php echo ONLINE_DOMAIN ?>/articles">
     <button> Liste des articles</button>
 </a>
 <button onclick="history.back()">Retour</button>

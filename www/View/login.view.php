@@ -6,11 +6,11 @@ $auth = new Authenticator();
 $auth->authenticated(false);
 ?>
 
-<a href="http://localhost/">
+<a href="<?php echo ONLINE_DOMAIN ?>/">
   <button>Accueil</button>
 
 </a>
-<a href="http://localhost/showpwd">
+<a href="<?php echo ONLINE_DOMAIN ?>/showpwd">
   <button>Mot de passe oublié ?</button>
 </a>
 <h1>Se connecter</h1>

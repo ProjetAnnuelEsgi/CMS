@@ -14,79 +14,110 @@ $auth = new Authenticator();
 $auth->authenticated(true);
 ?>
 
-<a href="http://localhost/articles">
-	<button> Liste des articles</button>
+<a href="<?php echo ONLINE_DOMAIN ?>/articles">
+    <button> Liste des articles</button>
 </a>
 <button onclick="history.back()">Retour</button>
 
 
 <div id="contenu">
 
-	<table border="1" cellpadding="15">
-		<tr>
-			<center>
-				<h1>Modifier l'article <?php echo $article->getArticleTitle() ?></h1>
-			</center>
+    <table border="1" cellpadding="15">
+        <tr>
+            <center>
+                <h1>Modifier l'article <?php echo $article->getArticleTitle() ?></h1>
+            </center>
 
-			<form id="myform" action="update?id=<?php echo $_GET['id'] ?>" method="post" onsubmit="mysubmit()">
+            <form id="myform" action="update?id=<?php echo $_GET['id'] ?>" method="post" onsubmit="mysubmit()">
 
                 <?php
                 $date = $article->getArticleCreatedAt();
                 $date =  date('d-m-Y', strtotime($date));
                 ?>
 
-				<input type=text name=article_title placeholder="Titre" value=<?php echo $article->getArticleTitle() ?>>
-				<input type=text name=article_slug placeholder="Slug" value=<?php echo $article->getArticleSlug() ?>>
+                <input type=text name=article_title placeholder="Titre" value=<?php echo $article->getArticleTitle() ?>>
+                <input type=text name=article_slug placeholder="Slug" value=<?php echo $article->getArticleSlug() ?>>
                 <br><br>
-                <input name="article_content" type="hidden" id="article_content"/>
+                <input name="article_content" type="hidden" id="article_content" />
                 <div name="article_content" id="editor" style="width:44cm;height:15cm;background-color:white"><?php echo $article->getArticleContent() ?></div>
                 <br><br>
                 <input type=submit name=valider value=valider></td>
                 <br><br>
                 <a href="delete?id=<?php echo $_GET['id'] ?>">
-		        <img src="/Medias/icon_delete.png" height="30" width="30"></a>
+                    <img src="/Medias/icon_delete.png" height="30" width="30"></a>
 
-		</tr>
-	</table>
-	</form>
+        </tr>
+    </table>
+    </form>
 </div>
 
 <script>
-    var toolbarOptions = [ ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-                            ['link', 'image'],
-                            ['blockquote', 'code-block'],
+    var toolbarOptions = [
+        ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+        ['link', 'image'],
+        ['blockquote', 'code-block'],
 
-                            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-                            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-                            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-                            [{ 'direction': 'rtl' }],                         // text direction
+        [{
+            'header': 1
+        }, {
+            'header': 2
+        }], // custom button values
+        [{
+            'list': 'ordered'
+        }, {
+            'list': 'bullet'
+        }],
+        [{
+            'script': 'sub'
+        }, {
+            'script': 'super'
+        }], // superscript/subscript
+        [{
+            'indent': '-1'
+        }, {
+            'indent': '+1'
+        }], // outdent/indent
+        [{
+            'direction': 'rtl'
+        }], // text direction
 
-                            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-                            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        [{
+            'size': ['small', false, 'large', 'huge']
+        }], // custom dropdown
+        [{
+            'header': [1, 2, 3, 4, 5, 6, false]
+        }],
 
-                            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-                            [{ 'font': [] }],
-                            [{ 'align': [] }],
+        [{
+            'color': []
+        }, {
+            'background': []
+        }], // dropdown with defaults from theme
+        [{
+            'font': []
+        }],
+        [{
+            'align': []
+        }],
 
-                            ['clean']  ];
+        ['clean']
+    ];
     var options = {
-                debug: 'info',
-                placeholder: 'Entrez le contenu de l\'article',
-                readOnly: false,
-                theme: 'snow',
-                modules: {
-                    toolbar: toolbarOptions
-                }
-                };
+        debug: 'info',
+        placeholder: 'Entrez le contenu de l\'article',
+        readOnly: false,
+        theme: 'snow',
+        modules: {
+            toolbar: toolbarOptions
+        }
+    };
 
- 
+
     var container = document.getElementById('editor');
-    var editor = new Quill(container, options);  
+    var editor = new Quill(container, options);
 
-        function mysubmit() 
-        {
-            var html=document.getElementById('editor').children[0].innerHTML;
-            document.getElementById('article_content').value=html;
-        };
+    function mysubmit() {
+        var html = document.getElementById('editor').children[0].innerHTML;
+        document.getElementById('article_content').value = html;
+    };
 </script>

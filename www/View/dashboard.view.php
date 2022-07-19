@@ -7,18 +7,18 @@ $auth->authenticated(true);
 ?>
 <h2>Bonjour <?= $user->getFirstname() ?>, bienvenue sur votre tableau de bord.</h2>
 
-<a href="http://localhost/users">
+<a href="<?php echo ONLINE_DOMAIN ?>/users">
   <button>Utilisateurs</button>
 </a>
 
-<a href="http://localhost/pages">
+<a href="<?php echo ONLINE_DOMAIN ?>/pages">
   <button>Pages</button>
 </a>
 
-<a href="http://localhost/articles">
+<a href="<?php echo ONLINE_DOMAIN ?>/articles">
   <button>Articles</button>
 </a>
 
-<a href="http://localhost/logout">
+<a href="<?php echo ONLINE_DOMAIN ?>/logout">
   <button>Se déconnecter</button>
 </a>

@@ -6,7 +6,7 @@ $auth = new Authenticator();
 $auth->authenticated(true);
 ?>
 
-<a href="http://localhost/users">
+<a href="<?php echo ONLINE_DOMAIN ?>/users">
     <button> Liste des utilisateurs</button>
 </a>
 <button onclick="history.back()">Retour</button>

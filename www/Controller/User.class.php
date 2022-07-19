@@ -93,9 +93,11 @@ class User
 
                         $foundUser->save();
 
-                        $_SESSION['role'] = $user->getRole();
-                        $_SESSION['firstname'] = $user->getFirstname();
-                        $_SESSION['lastname'] = $user->getLastname();
+                        if ($foundUser) {
+                            $_SESSION['role'] = $foundUser->getRole();
+                            $_SESSION['firstname'] = $foundUser->getFirstname();
+                            $_SESSION['lastname'] = $foundUser->getLastname();
+                        }
 
                         header("Location: /user/show?id=$userId");
                     } else {

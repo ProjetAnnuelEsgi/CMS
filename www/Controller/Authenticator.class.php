@@ -124,7 +124,8 @@ class Authenticator extends Mailer
   {
     if (isset($_POST['forget']) && isset($_POST['email'])) {
       $message = '';
-      $foundUser = $this->checkIfEmailExist($_POST['email']);
+      $email = addslashes($_POST['email']);
+      $foundUser = $this->checkIfEmailExist($email);
 
       if ($foundUser === false) {
         $message = "L\'email n\'existe pas";
@@ -133,9 +134,9 @@ class Authenticator extends Mailer
         $expFormat = mktime(date("H"), date("i"), date("s"), date("m"), date("d") + 1, date("Y"));
         $expDate = date("Y-m-d H:i:s", $expFormat);
 
-        $this->sendForgotPasswordEmail($_POST['email'], $token);
+        $this->sendForgotPasswordEmail($email, $token);
 
-        $foundUser->setResetLinkToken($_POST['email'], $token);
+        $foundUser->setResetLinkToken($email, $token);
         $foundUser->setActivationExpiry($expDate);
 
         $foundUser->save();
@@ -152,9 +153,9 @@ class Authenticator extends Mailer
 
     if (isset($_POST['password']) && isset($_POST['reset_link_token']) && isset($_POST['email'])) {
       $message = '';
-      $email = $_POST['email'];
+      $email = addslashes($_POST['email']);
       $token = $_POST['reset_link_token'];
-      $resetLink = $email . $token;
+      $resetLink = addslashes($email . $token);
 
       $password = $_POST['password'];
 

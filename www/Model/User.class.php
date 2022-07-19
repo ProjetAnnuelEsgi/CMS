@@ -113,20 +113,11 @@ class User extends Sql
     }
 
 
-    public function getUserRoleByName()
+    /**
+     * @return null|string
+     */
+    public function getRole(): ?string
     {
-        switch ($this->role) {
-            case '0':
-                $this->role = 'Abonné';
-                break;
-            case '1':
-                $this->role = 'Admin';
-                break;
-            case '2':
-                $this->role = 'Auteur';
-                break;
-        }
-
         return $this->role;
     }
 
@@ -152,11 +143,23 @@ class User extends Sql
 
         $this->role = $role;
     }
-
-    public function getRole()
+    public function getUserRoleByName()
     {
+        switch ($this->role) {
+            case '0':
+                $this->role = 'Abonné';
+                break;
+            case '1':
+                $this->role = 'Admin';
+                break;
+            case '2':
+                $this->role = 'Auteur';
+                break;
+        }
+
         return $this->role;
     }
+
 
     /**
      * @return null|string

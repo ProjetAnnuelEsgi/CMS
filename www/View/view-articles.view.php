@@ -6,11 +6,11 @@ $auth = new Authenticator();
 $auth->authenticated(true);
 ?>
 <html>
-<a href="http://localhost/dashboard">
+<a href="<?php echo ONLINE_DOMAIN ?>/dashboard">
   <button>Tableau de bord</button>
 </a>
 
-<a href="http://localhost/article/add">
+<a href="<?php echo ONLINE_DOMAIN ?>/article/add">
   <button>Ajouter un article</button>
 </a>
 
@@ -38,7 +38,7 @@ $auth->authenticated(true);
 
     $slug = $article['article_slug'];
 
-    echo "<tr><td> ". $article['article_title'] . "</td>";
+    echo "<tr><td> " . $article['article_title'] . "</td>";
     echo "<td>" . $article['article_authorId'] . "</td>";
     echo "<td>" . $article['article_categoryId'] . "</td>";
     echo  "<td>" . $date . "</td>";
@@ -50,7 +50,7 @@ $auth->authenticated(true);
 
     echo "<td><a " . $linkEdit . ">" . $iconEdit . "</a></td>";
     echo "<td><a " . $linkArticle . ">" . $iconArticle . "</a></td>";
-}
+  }
 
   ?>
 

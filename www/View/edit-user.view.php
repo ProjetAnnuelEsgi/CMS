@@ -5,7 +5,7 @@ use App\Controller\Authenticator;
 $auth = new Authenticator();
 $auth->authenticated(true);
 ?>
-<a href="http://localhost/users">
+<a href="<?php echo ONLINE_DOMAIN ?>/users">
 	<button> Liste des utilisateurs</button>
 </a>
 <button onclick="history.back()">Retour</button>
@@ -30,8 +30,8 @@ $auth->authenticated(true);
 					<input type=submit name=valider value=valider></td>
 			</tr>
 		</table>
-	</center>
-	</form>
+		<center>
+			</form>
 </div>
 <?php
 
@@ -42,7 +42,7 @@ $loggedInUserRole = $_SESSION['role'];
 ?>
 <script type="text/javascript">
 	function buttonToggle() {
-		if (<?php echo ($loggedInUserRole); ?> !== 1) {
+		if (<?php echo ($loggedInUserRole); ?> !== 1 || <?php echo ($userId); ?> === <?php echo ($_SESSION['userId']); ?>) {
 			document.querySelectorAll("#r").forEach(opt => {
 				opt.disabled = true;
 			});

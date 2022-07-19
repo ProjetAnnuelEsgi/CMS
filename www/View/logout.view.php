@@ -3,13 +3,13 @@
 <div class="logout-button">
 
   <br>
-  <a href="http://localhost/login">
+  <a href="<?php echo ONLINE_DOMAIN ?>/login">
     <button>Se connecter</button>
   </a>
 
   <!-- Espace &#160 -->
   &#160;
 
-  <a href="http://localhost/">
+  <a href="<?php echo ONLINE_DOMAIN ?>/">
     <button>Accueil</button>
   </a>
