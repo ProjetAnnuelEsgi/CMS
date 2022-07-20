@@ -87,7 +87,7 @@ class User
                     if (count($errors) === 0) {
                         $foundUser->setFirstname(strip_tags($_POST['firstname']));
                         $foundUser->setLastname(strip_tags($_POST['lastname']));
-                        $foundUser->setEmail(strip_tags($_POST['email']));
+                        $foundUser->setEmail($_POST['email']);
 
                         $foundUser->save();
 

@@ -29,7 +29,7 @@ class Authenticator extends Mailer
       if (count($errors) === 0) {
         $user->setFirstname(strip_tags($_POST['firstname']));
         $user->setLastname(strip_tags($_POST['lastname']));
-        $user->setEmail(strip_tags($_POST['email']));
+        $user->setEmail($_POST['email']);
         $user->setPassword(strip_tags($_POST['password']));
         $user->setActive();
         $user->setActivationCode();
@@ -125,7 +125,7 @@ class Authenticator extends Mailer
   {
     if (isset($_POST['forget']) && isset($_POST['email'])) {
       $message = '';
-      $email = addslashes($_POST['email']);
+      $email = $_POST['email'];
       $foundUser = $this->checkIfEmailExist($email);
 
       if ($foundUser === false) {
@@ -137,7 +137,7 @@ class Authenticator extends Mailer
 
         $this->sendForgotPasswordEmail($email, $token);
 
-        $foundUser->setResetLinkToken(strip_tags($_POST['email']), $token);
+        $foundUser->setResetLinkToken(($_POST['email']), $token);
         $foundUser->setActivationExpiry($expDate);
 
         $foundUser->save();
@@ -154,9 +154,9 @@ class Authenticator extends Mailer
 
     if (isset($_POST['password']) && isset($_POST['reset_link_token']) && isset($_POST['email'])) {
       $message = '';
-      $email = addslashes($_POST['email']);
+      $email = $_POST['email'];
       $token = $_POST['reset_link_token'];
-      $resetLink = addslashes($email . $token);
+      $resetLink = $email . $token;
 
       $password = strip_tags($_POST['password']);
 
