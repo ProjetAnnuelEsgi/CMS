@@ -72,9 +72,9 @@ class User
                     //Je vérifie qu'il les entrées soient corrects
                     $errors = Verificator::checkForm($user->getUpdateUserForm(), $_POST);
                     if (count($errors) === 0) {
-                        $foundUser->setFirstname($_POST['firstname']);
-                        $foundUser->setLastname($_POST['lastname']);
-                        $foundUser->setEmail($_POST['email']);
+                        $foundUser->setFirstname(strip_tags(htmlentities($_POST['firstname'])));
+                        $foundUser->setLastname(strip_tags(htmlentities($_POST['lastname'])));
+                        $foundUser->setEmail(strip_tags(htmlentities($_POST['email'])));
 
                         $foundUser->save();
 

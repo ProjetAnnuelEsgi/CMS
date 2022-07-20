@@ -15,15 +15,15 @@ class Article
         $view = new View("view-articles");
         $view->assign("articles", $articles);
     }
-
+    
     public function add()
     {
         $article = new ArticleModel();
     
         if (!empty($_POST)) {
-            $article->setArticleTitle($_POST['article_title']);
-            $article->setArticleSlug($_POST['article_slug']);
-            $article->setArticleContent($_POST['article_content']);
+            $article->setArticleTitle(strip_tags(htmlentities($_POST['article_title'])));
+            $article->setArticleSlug(strip_tags(htmlentities($_POST['article_slug'])));
+            $article->setArticleContent(strip_tags(htmlentities($_POST['article_content'])));
             $article = $article->save();
             
             header("Location: /articles");
@@ -77,9 +77,9 @@ class Article
             if ($article === false) {
                 header("Location: /users");
             } else {
-                $article->setArticleTitle($_POST['article_title']);
-                $article->setArticleSlug($_POST['article_slug']);
-                $article->setArticleContent($_POST['article_content']);
+                $article->setArticleTitle(strip_tags(htmlentities($_POST['article_title'])));
+                $article->setArticleSlug(strip_tags(htmlentities($_POST['article_slug'])));
+                $article->setArticleContent(strip_tags(htmlentities($_POST['article_content'])));
 
                 $article->save();
 
