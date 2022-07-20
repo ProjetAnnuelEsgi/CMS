@@ -6,7 +6,7 @@ $auth = new Authenticator();
 $auth->authenticated(false);
 ?>
 
-<a href="<?php echo ONLINE_DOMAIN ?>/">
+<a href="<?php echo ONLINE_DOMAIN ?>/home">
   <button>Accueil</button>
 
 </a>

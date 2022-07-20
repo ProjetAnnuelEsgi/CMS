@@ -132,15 +132,21 @@ abstract class Sql
         return $queryPrepared->fetchAll();
     }
 
-    public function ifDatabaseexist()
+    public function checkIfDatabaseExist()
     {
         $query = 'SHOW DATABASES';
         $queryPrepared = self::$pdoInstance->prepare($query);
         $queryPrepared->execute();
 
-        var_dump($queryPrepared->fetchAll());
-        die;
+        return $queryPrepared->fetchAll(\PDO::FETCH_ASSOC);
+    }
 
-        return $queryPrepared;
+    public function checkIfTablesExits()
+    {
+        $query = 'SHOW tables';
+        $queryPrepared = self::$pdoInstance->prepare($query);
+        $queryPrepared->execute();
+
+        return $queryPrepared->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

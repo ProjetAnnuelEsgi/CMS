@@ -10,6 +10,6 @@
   <!-- Espace &#160 -->
   &#160;
 
-  <a href="<?php echo ONLINE_DOMAIN ?>/">
+  <a href="<?php echo ONLINE_DOMAIN ?>/home">
     <button>Accueil</button>
   </a>

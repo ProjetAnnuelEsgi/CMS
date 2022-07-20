@@ -19,10 +19,10 @@ services:
     ports :
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: DBNAME
-      MYSQL_ROOT_PASSWORD: DBPWD
+      MYSQL_DATABASE: mvcdocker2
+      MYSQL_ROOT_PASSWORD: fedcms2022
       #MYSQL_USER: root
-      MYSQL_PASSWORD: DBPWD
+      MYSQL_PASSWORD: fedcms2022
     volumes:
       - ./db_data:/var/lib/mysql
     restart: always

@@ -4,7 +4,8 @@ namespace App;
 
 use App\Core\Router;
 
-require "conf.inc.php";
+$file =  "conf.inc.php";
+require $file;
 
 function myAutoloader($class)
 {
@@ -32,21 +33,30 @@ $routes = yaml_parse_file($routeFile);
 
 $router = new Router();
 
-if ((empty($routes[$uri]) ||  empty($routes[$uri]["controller"]) ||  empty($routes[$uri]["action"])) && empty($_GET)) {
-    if ($router->getPages($uri) !== false) {
-        $uri = $router->getPages($uri);
-    } elseif ($router->getArticles($uri) !== false) {
-        $uri = $router->getArticles($uri);
-    } else {
-        die("Erreur 404! Cette page n'existe pas.");
+$f = file_get_contents($file);
+// file_exists($file);
+if (!empty($f)) {
+    if ((empty($routes[$uri]) ||  empty($routes[$uri]["controller"]) ||  empty($routes[$uri]["action"])) && empty($_GET)) {
+        if ($router->getPages($uri) !== false) {
+            $uri = $router->getPages($uri);
+        } elseif ($router->getArticles($uri) !== false) {
+            $uri = $router->getArticles($uri);
+        } else {
+            die("Erreur 404! Cette page n'existe pas.");
+        }
     }
+
+    $uri = explode('?', $uri)[0];
+
+    $controller = ucfirst(strtolower($routes[$uri]["controller"]));
+    $action = strtolower($routes[$uri]["action"]);
+} else if (isset($_POST) && count($_POST) == 4) {
+    $controller = "Installer";
+    $action = "checkData";
+} else {
+    $controller = "Installer";
+    $action = "install";
 }
-
-$uri = explode('?', $uri)[0];
-
-$controller = ucfirst(strtolower($routes[$uri]["controller"]));
-$action = strtolower($routes[$uri]["action"]);
-
 
 /*
  *
@@ -77,3 +87,4 @@ if (!method_exists($objectController, $action)) {
 }
 // $action = login ou logout ou register ou home
 $objectController->$action();
+// }

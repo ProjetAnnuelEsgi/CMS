@@ -1,4 +1,12 @@
 /:
+  controller: installer
+  action: install
+
+/checkData:
+  controller: installer
+  action: checkData
+
+/home:
   controller: main
   action: home
 
@@ -122,7 +130,3 @@
 /article/delete:
   controller: article
   action: delete
-
-/install:
-  controller: installeur
-  action: install
