@@ -27,10 +27,10 @@ class Authenticator extends Mailer
       $errors = Verificator::checkForm($user->getRegisterForm(), $_POST);
 
       if (count($errors) === 0) {
-        $user->setFirstname(strip_tags(htmlentities($_POST['firstname'])));
-        $user->setLastname(strip_tags(htmlentities($_POST['lastname'])));
-        $user->setEmail(strip_tags(htmlentities($_POST['email'])));
-        $user->setPassword(strip_tags(htmlentities($_POST['password'])));
+        $user->setFirstname(strip_tags($_POST['firstname']));
+        $user->setLastname(strip_tags($_POST['lastname']));
+        $user->setEmail(strip_tags($_POST['email']));
+        $user->setPassword(strip_tags($_POST['password']));
         $user->setActive();
         $user->setActivationCode();
         $user->save();
@@ -135,7 +135,7 @@ class Authenticator extends Mailer
 
         $this->sendForgotPasswordEmail($email, $token);
 
-        $foundUser->setResetLinkToken(strip_tags(htmlentities($_POST['email'])), $token);
+        $foundUser->setResetLinkToken(strip_tags($_POST['email']), $token);
         $foundUser->setActivationExpiry($expDate);
 
         $foundUser->save();
@@ -156,7 +156,7 @@ class Authenticator extends Mailer
       $token = $_POST['reset_link_token'];
       $resetLink = addslashes($email . $token);
 
-      $password = strip_tags(htmlentities($_POST['password']));
+      $password = strip_tags($_POST['password']);
 
       $foundUser = $user->findOne(['reset_link_token' => $resetLink]);
       if (!empty($foundUser)) {
