@@ -22,9 +22,9 @@ class Page
 
         if (!empty($_POST)) {
 
-            $page->setPageTitle(strip_tags(htmlentities($_POST['page_title'])));
-            $page->setPageSlug(strip_tags(htmlentities($_POST['page_slug'])));
-            $page->setPageContent(strip_tags(htmlentities($_POST['page_content'])));
+            $page->setPageTitle(strip_tags($_POST['page_title']));
+            $page->setPageSlug(strip_tags($_POST['page_slug']));
+            $page->setPageContent(strip_tags($_POST['page_content']));
             $page = $page->save();
 
             header("Location: /pages");
@@ -77,9 +77,9 @@ class Page
             if ($page === false) {
                 header("Location: /users");
             } else {
-                $page->setPageTitle(strip_tags(htmlentities($_POST['page_title'])));
-                $page->setPageSlug(strip_tags(htmlentities($_POST['page_slug'])));
-                $page->setPageContent(strip_tags(htmlentities($_POST['page_content'])));
+                $page->setPageTitle(strip_tags($_POST['page_title']));
+                $page->setPageSlug(strip_tags($_POST['page_slug']));
+                $page->setPageContent(strip_tags($_POST['page_content']));
 
                 $page->save();
 
