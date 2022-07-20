@@ -38,7 +38,8 @@ class Authenticator extends Mailer
         if ($foundUser) {
           $this->sendActivationEmail($_POST['email'], $foundUser->getActivationCode());
         } else {
-          echo "Votre mail de verification n'a pas été envoyé";
+          $message = "Votre mail de verification n\'a pas été envoyé";
+          echo "<script>;alert('$message'); </script>";
         }
         //redirect to login page when registration is successful
         header("location: login");
@@ -69,7 +70,8 @@ class Authenticator extends Mailer
 
         $loggedUser = $user->attemptLogin($email);
         if ($loggedUser === false) {
-          echo  "Le nom d'utilisateur ou le mot de passe est incorrect.";
+          $message =  "Le nom d\'utilisateur ou le mot de passe est incorrect.";
+          echo "<script>;alert('$message'); </script>";
         }
 
         if ($loggedUser) {
