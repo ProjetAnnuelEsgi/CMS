@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Core\Builders\AbonneBuilder;
+use App\Core\Director;
 use App\Core\Verificator;
 use App\Core\View;
 use App\Model\Admin as ModelAdmin;
@@ -54,13 +56,10 @@ class Admin
 
             $errors = Verificator::checkForm($user->getAdminCreateUserForm(), $_POST);
             if (count($errors) === 0) {
-                $user->setFirstname($_POST['firstname']);
-                $user->setLastname($_POST['lastname']);
-                $user->setEmail($_POST['email']);
-                $user->setPassword($_POST['password']);
-                $user->setActive();
-                $user->setActivationCode();
-                $user->save();
+                extract($_POST);
+                $director = new Director();
+                $userType = new AbonneBuilder();
+                $director->build($userType, $firstname, $lastname, $email, $password);
 
                 $foundUser = $auth->checkIfEmailExist($_POST['email']);
 

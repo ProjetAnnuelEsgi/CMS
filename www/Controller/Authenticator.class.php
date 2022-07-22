@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Core\Builders\AbonneBuilder;
+use App\Core\Builders\AdminBuilder;
+use App\Core\Builders\AuteurBuilder;
+use App\Core\Director;
 use App\Core\Logger;
 use App\Model\User;
 use App\Core\Verificator;
@@ -27,13 +31,10 @@ class Authenticator extends Mailer
       $errors = Verificator::checkForm($user->getRegisterForm(), $_POST);
 
       if (count($errors) === 0) {
-        $user->setFirstname(strip_tags($_POST['firstname']));
-        $user->setLastname(strip_tags($_POST['lastname']));
-        $user->setEmail($_POST['email']);
-        $user->setPassword(strip_tags($_POST['password']));
-        $user->setActive();
-        $user->setActivationCode();
-        $user->save();
+        extract($_POST);
+        $director = new Director();
+        $userType = new AdminBuilder();
+        $director->build($userType, $firstname, $lastname, $email, $password);
         $foundUser = $this->checkIfEmailExist($_POST['email']);
         if ($foundUser) {
           $this->sendActivationEmail($_POST['email'], $foundUser->getActivationCode());

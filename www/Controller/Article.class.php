@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Core\Observer\Article as ObserverArticle;
+use App\Core\Observer\Creator;
 use App\Core\View;
 use App\Model\Article as ArticleModel;
 
@@ -15,20 +17,29 @@ class Article
         $view = new View("view-articles");
         $view->assign("articles", $articles);
     }
-    
+
     public function add()
     {
         $article = new ArticleModel();
-    
+
         if (!empty($_POST)) {
             $article->setArticleTitle(strip_tags($_POST['article_title']));
             $article->setArticleSlug(strip_tags($_POST['article_slug']));
             $article->setArticleContent(strip_tags($_POST['article_content']));
             $article = $article->save();
-            
+
+            $observer = new Creator();
+
+            $article = new ObserverArticle();
+            $article->attach($observer);
+
+            $article->breakOutNews($_POST['article_title']);
+
+            $observer->getContent();
+
             header("Location: /articles");
         }
-        
+
         $view = new View("add-articles");
         $view->assign("article", $article);
     }
@@ -42,10 +53,9 @@ class Article
         $implode = implode($explode);
 
         $article = $article->findOne(['article_slug' => $implode]);
-        
+
         $view = new View("article");
         $view->assign("article", $article);
-        
     }
 
     public function edit()
