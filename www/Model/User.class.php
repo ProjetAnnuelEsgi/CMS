@@ -13,7 +13,7 @@ class User extends Sql
     protected $password;
     protected $active = 0;
     protected $activation_code = null;
-    protected $role = 0;
+    protected $role = 3;
     protected $token = null;
     protected $activated_at = null;
     protected $reset_link_token = null;
@@ -124,7 +124,7 @@ class User extends Sql
     public function setRole($role)
     {
         switch ($role) {
-            case 'Abonné':
+            case 'Super-Admim':
                 $role = 0;
                 break;
 
@@ -134,6 +134,10 @@ class User extends Sql
 
             case 'Auteur':
                 $role = 2;
+                break;
+
+            case 'Abonné':
+                $role = 3;
                 break;
 
             default:
@@ -147,13 +151,16 @@ class User extends Sql
     {
         switch ($this->role) {
             case '0':
-                $this->role = 'Abonné';
+                $this->role = 'Super-Admim';
                 break;
             case '1':
                 $this->role = 'Admin';
                 break;
             case '2':
                 $this->role = 'Auteur';
+                break;
+            case '3':
+                $this->role = 'Abonné';
                 break;
         }
 
@@ -397,6 +404,9 @@ class User extends Sql
                 ],
                 "admin_id" => [
                     "type" => "hidden",
+                ],
+                "role" => [
+                    "type" => "select",
                 ],
                 "valider" => [
                     "type" => "submit"

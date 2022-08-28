@@ -23,9 +23,13 @@ $auth->authenticated(true);
 					<input type=text name=email placeholder="Email" value=<?php echo $user->getEmail() ?>>
 					<select id="roles" name='role' onfocus="buttonToggle()">
 						<option selected><?php echo $user->getUserRoleByName() ?></option>
-						<option id="r" value='0'>Abonné</option>
-						<option id="r" value='1'>Admin</option>
+						<?php if ($connectedUser->getRole() === '0') {
+						?>
+							<option id="r" value='1'>Admin</option>
+						<?php
+						} ?>
 						<option id="r" value='2'>Auteur</option>
+						<option id="r" value='3'>Abonné</option>
 					</select>
 					<input type=submit name=valider value=valider></td>
 			</tr>
@@ -41,11 +45,19 @@ $loggedInUserRole = $_SESSION['role'];
 
 ?>
 <script type="text/javascript">
+	let state = false;
+
 	function buttonToggle() {
-		if (<?php echo ($loggedInUserRole); ?> !== 1 || <?php echo ($userId); ?> === <?php echo ($_SESSION['userId']); ?>) {
-			document.querySelectorAll("#r").forEach(opt => {
-				opt.disabled = true;
-			});
+		if (<?php echo ($loggedInUserRole); ?> === 0 || <?php echo ($loggedInUserRole); ?> === 1 <?php echo ($userId); ?> === <?php echo ($_SESSION['userId']); ?>) {
+			// document.querySelectorAll("#r").forEach(opt => {
+			// 	opt.disabled = false;
+			// });
+			state = true
+		} else {
+			state;
 		}
+		document.querySelectorAll("#r").forEach(opt => {
+			opt.disabled = state;
+		});
 	}
 </script>

@@ -12,11 +12,24 @@ class User
     /** function index pour avoir la liste de tous les users présents en bdd */
     public function index()
     {
+        session_start();
+
+        $admin = new Admin();
         $user = new UserModel();
-        $users = $user->findAll();
+        // $users = $user->findAll();
+        $user = $user->findOne(['id' => $_SESSION['userId']]);
+
+        $foundAdmin = $admin->findOne(['admin_id' => $_SESSION['userId']]);
+        $adminUsers = [];
+
+        if ($foundAdmin !== false) {
+            $adminUsers = $admin->adminUsers($foundAdmin->getAdminId());
+        }
 
         $view = new View("view-users");
-        $view->assign("users", $users);
+        // $view->assign("users", $users);
+        $view->assign("user", $user);
+        $view->assign("adminUsers", $adminUsers);
     }
 
     /** function show pour afficher un user spécifique */
@@ -29,14 +42,14 @@ class User
         } else {
             $user = new UserModel();
             $admin = new Admin();
-            $foundAdmin = $admin->findOne(['admin_id' => $_SESSION['userId']]);
+            $userId = $_GET['id'];
+            $foundAdmin = $admin->findOne(['admin_id' => $userId]);
             $adminUsers = [];
 
             if ($foundAdmin !== false) {
                 $adminUsers = $admin->adminUsers($foundAdmin->getAdminId());
             }
 
-            $userId = $_GET['id'];
             $user = $user->findOne(['id' => $userId]);
             if ($user === false) {
                 header("Location: /users");
@@ -51,11 +64,13 @@ class User
     /** vue de update pour afficher les informations d'un user spécifique a modifier*/
     public function edit()
     {
+        session_start();
         if (empty($_GET['id'])) {
             header("Location: /users");
         } else {
             $user = new UserModel();
             $userId = $_GET['id'];
+            $connectedUser = $user->findOne(['id' => $_SESSION['userId']]);
             $user = $user->findOne(['id' => $userId]);
 
             if ($user === false) {
@@ -63,6 +78,7 @@ class User
             } else {
                 $view = new View("edit-user");
                 $view->assign("user", $user);
+                $view->assign("connectedUser", $connectedUser);
             }
         }
     }
@@ -87,6 +103,7 @@ class User
                     if (count($errors) === 0) {
                         $foundUser->setFirstname(strip_tags($_POST['firstname']));
                         $foundUser->setLastname(strip_tags($_POST['lastname']));
+                        $foundUser->setRole(($_POST['role']));
                         $foundUser->setEmail($_POST['email']);
 
                         $foundUser->save();

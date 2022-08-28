@@ -4,7 +4,7 @@ namespace App\Core\Builders;
 
 use App\Model\User;
 
-class AbonneBuilder implements Builder
+class SuperAdminBuilder implements Builder
 {
   private $user;
 
@@ -43,7 +43,7 @@ class AbonneBuilder implements Builder
     $this->user->setActivationCode();
   }
 
-  public function createUserRole($role = 3)
+  public function createUserRole($role = 0)
   {
     $this->user->setRole($role);
   }

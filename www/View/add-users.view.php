@@ -28,8 +28,18 @@ $auth->authenticated(true);
                 <input type=email name=email placeholder="Email ...">
                 <input type=password name=password placeholder="Mot de passe ...">
                 <input name="admin_id" type="hidden" value=<?php echo $_SESSION['userId']   ?> id="article_content" />
-                &#160;
-                <br><br>
+                <select id="roles" name='role' onfocus="buttonToggle()">
+                    <option selected><?php echo $user->getUserRoleByName() ?></option>
+                    <?php if ($connectedUser->getRole() === '0') {
+                    ?>
+                        <option id="r" value='1'>Admin</option>
+                    <?php
+                    } ?>
+                    <option id="r" value='2'>Auteur</option>
+                    <option id="r" value='3'>Abonné</option>
+                </select>
+
+                &#160; <br><br>
                 <input type=submit name=valider value=valider>
         </tr>
     </table>

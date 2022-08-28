@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Core\Builders\AbonneBuilder;
-use App\Core\Builders\AdminBuilder;
-use App\Core\Builders\AuteurBuilder;
+use App\Core\Builders\SuperAdminBuilder;
 use App\Core\Director;
 use App\Core\Logger;
 use App\Model\User;
@@ -33,7 +31,7 @@ class Authenticator extends Mailer
       if (count($errors) === 0) {
         extract($_POST);
         $director = new Director();
-        $userType = new AdminBuilder();
+        $userType = new SuperAdminBuilder();
         $director->build($userType, $firstname, $lastname, $email, $password);
         $foundUser = $this->checkIfEmailExist($_POST['email']);
         if ($foundUser) {

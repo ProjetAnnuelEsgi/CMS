@@ -30,37 +30,62 @@ $auth->authenticated(true);
 
 		<a href="delete?id=<?php echo $_GET['id'] ?>">
 			<img src="/Medias/icon_delete.png" height="30" width="30"></a>
-
 		<?php
-		if ($user->getId() !== $_SESSION['userId']) {
-			die();
-		} elseif ($user->getRole() !== 'Admin' && $user->getId() === $_SESSION['userId'] && count($adminUsers) === 0) {
+
+		if (count($adminUsers) === 0) {
 			die;
 		}
-		?>
-		<h1>Mes Utilisateurs</h1>
 
-		<table class="table">
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col">Nom</th>
-					<th scope="col">Prénom</th>
-					<th scope="col">Mail</th>
-				</tr>
-			</thead>
+		if ($user->getRole() == 'Admin') { ?>
+
+			<h1>Mes utilisateurs</h1>
+
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Nom</th>
+						<th scope="col">Prénom</th>
+						<th scope="col">Mail</th>
+						<th scope="col">Roles</th>
+						<th scope="col">Détails</th>
+					</tr>
+				</thead>
 			<?php
 
 			// liste des users de l'admin présents en bdd
 			foreach ($adminUsers as $user) {
+
+				$r = '';
+
+				switch ($user['role']) {
+
+					case 'Super-Admim':
+						$r = 0;
+						break;
+					case '1':
+						$r = 'Admin';
+						break;
+					case '2':
+						$r = 'Auteur';
+						break;
+					case '3':
+						$r = 'Abonné';
+						break;
+				}
+
 				echo "<tr><td> " . $user['lastname'] . "</td>";
 				echo  "<td>" . $user['firstname'] . "</td>";
 				echo  "<td>" . $user['email'] . "</td>";
+				echo  "<td>" . $r . "</td>";
 
 				$linkShow = "href=/user/show?id=" . $user[0];
 				$iconShow = "<img src=/Medias/icon_show.png width=30 height=30>";
 
+				$iconShow = "<img src=/Medias/icon_show.png width=45 height=50>";
 				echo "<td><a " . $linkShow . ">" . $iconShow . "</a></td>";
 			}
+		}
 			?>
+			</table>
 	</center>
 </div>
