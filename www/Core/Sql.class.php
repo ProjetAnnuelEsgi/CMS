@@ -122,10 +122,19 @@ abstract class Sql
         return $queryPrepared;
     }
 
-    public function adminUsers($adminId)
+
+    public function adminUsers($panelId, $id)
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE panel_id= " . "'$panelId' AND id != '$id'";
+        $queryPrepared = self::$pdoInstance->prepare($query);
+        $queryPrepared->execute();
+
+        return $queryPrepared->fetchAll();
+    }
+
+    public function specificAdminUsers($adminId)
     {
         $query = "SELECT * FROM esgi_user LEFT JOIN " . $this->table . " ON esgi_user.id =" . $this->table . ".user_id WHERE " .  $this->table . ".admin_id =" . $adminId;
-
         $queryPrepared = self::$pdoInstance->prepare($query);
         $queryPrepared->execute();
 

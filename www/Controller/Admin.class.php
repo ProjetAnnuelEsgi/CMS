@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Core\Builders\AbonneBuilder;
 use App\Core\Builders\AdminBuilder;
-use App\Core\Builders\AuteurBuilder;
+use App\Core\Builders\EditeurBuilder;
 use App\Core\Director;
 use App\Core\Verificator;
 use App\Core\View;
@@ -22,14 +22,11 @@ class Admin
         $userRole = $_SESSION['role'];
 
         switch ($userRole) {
-            case '0':
-                $userRole = 'Super-Admim';
-                break;
             case '1':
                 $userRole  = 'Admin';
                 break;
             case '2':
-                $userRole  = 'Auteur';
+                $userRole  = 'Editeur';
                 break;
             case '3':
                 $userRole = 'Abonné';
@@ -75,7 +72,7 @@ class Admin
                         break;
 
                     case '2':
-                        $userType = new AuteurBuilder();
+                        $userType = new EditeurBuilder();
                         break;
 
                     case '3':
@@ -89,11 +86,13 @@ class Admin
 
 
                 $director = new Director();
-                $director->build($userType, $firstname, $lastname, $email, $password);
+
+                $panelId = $connectedUser->getPanelId();
+                $director->build($userType, $firstname, $lastname, $email, $password, $panelId);
 
                 $foundUser = $auth->checkIfEmailExist($_POST['email']);
 
-                $admin->setAdminId($_POST['admin_id']);
+                $admin->setAdminId($connectedUser->getId());
                 $admin->setUserId($foundUser->getId());
                 $admin->save();
 

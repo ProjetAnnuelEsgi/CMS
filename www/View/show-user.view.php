@@ -58,15 +58,11 @@ $auth->authenticated(true);
 				$r = '';
 
 				switch ($user['role']) {
-
-					case 'Super-Admim':
-						$r = 0;
-						break;
 					case '1':
 						$r = 'Admin';
 						break;
 					case '2':
-						$r = 'Auteur';
+						$r = 'Editeur';
 						break;
 					case '3':
 						$r = 'Abonné';

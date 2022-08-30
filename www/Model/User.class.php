@@ -18,6 +18,7 @@ class User extends Sql
     protected $activated_at = null;
     protected $reset_link_token = null;
     protected $activation_expiry = null;
+    protected $panel_id = null;
 
     public function __construct()
     {
@@ -124,15 +125,11 @@ class User extends Sql
     public function setRole($role)
     {
         switch ($role) {
-            case 'Super-Admim':
-                $role = 0;
-                break;
-
             case "Admin":
                 $role = 1;
                 break;
 
-            case 'Auteur':
+            case 'Editeur':
                 $role = 2;
                 break;
 
@@ -150,14 +147,11 @@ class User extends Sql
     public function getUserRoleByName()
     {
         switch ($this->role) {
-            case '0':
-                $this->role = 'Super-Admim';
-                break;
             case '1':
                 $this->role = 'Admin';
                 break;
             case '2':
-                $this->role = 'Auteur';
+                $this->role = 'Editeur';
                 break;
             case '3':
                 $this->role = 'Abonné';
@@ -274,6 +268,26 @@ class User extends Sql
     public function setActivationExpiry($activation_expiry)
     {
         $this->activation_expiry = $activation_expiry;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of panel_id
+     */
+    public function getPanelId()
+    {
+        return $this->panel_id;
+    }
+
+    /**
+     * Set the value of panel_id
+     *
+     * @return  self
+     */
+    public function setPanelId($panelId)
+    {
+        $this->panel_id = $panelId;
 
         return $this;
     }

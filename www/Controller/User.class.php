@@ -14,21 +14,22 @@ class User
     {
         session_start();
 
-        $admin = new Admin();
         $user = new UserModel();
-        // $users = $user->findAll();
-        $user = $user->findOne(['id' => $_SESSION['userId']]);
-
-        $foundAdmin = $admin->findOne(['admin_id' => $_SESSION['userId']]);
+        $userId = $_SESSION['userId'];
+        $foundUser = $user->findOne(['id' => $userId]);
+        $foundAdmin = false;
         $adminUsers = [];
 
+        if ($foundUser->getRole() === '0' || $foundUser->getRole() === '1') {
+            $foundAdmin = true;
+        }
+
         if ($foundAdmin !== false) {
-            $adminUsers = $admin->adminUsers($foundAdmin->getAdminId());
+            $adminUsers = $user->adminUsers($foundUser->getPanelId(), $foundUser->getId());
         }
 
         $view = new View("view-users");
-        // $view->assign("users", $users);
-        $view->assign("user", $user);
+        $view->assign("foundUser", $foundUser);
         $view->assign("adminUsers", $adminUsers);
     }
 
@@ -47,7 +48,7 @@ class User
             $adminUsers = [];
 
             if ($foundAdmin !== false) {
-                $adminUsers = $admin->adminUsers($foundAdmin->getAdminId());
+                $adminUsers = $admin->specificAdminUsers($foundAdmin->getAdminId());
             }
 
             $user = $user->findOne(['id' => $userId]);

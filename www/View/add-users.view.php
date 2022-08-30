@@ -30,12 +30,8 @@ $auth->authenticated(true);
                 <input name="admin_id" type="hidden" value=<?php echo $_SESSION['userId']   ?> id="article_content" />
                 <select id="roles" name='role' onfocus="buttonToggle()">
                     <option selected><?php echo $user->getUserRoleByName() ?></option>
-                    <?php if ($connectedUser->getRole() === '0') {
-                    ?>
-                        <option id="r" value='1'>Admin</option>
-                    <?php
-                    } ?>
-                    <option id="r" value='2'>Auteur</option>
+                    <option id="r" value='1'>Admin</option>
+                    <option id="r" value='2'>Editeur</option>
                     <option id="r" value='3'>Abonné</option>
                 </select>
 

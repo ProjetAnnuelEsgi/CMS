@@ -4,7 +4,7 @@ namespace App\Core\Builders;
 
 use App\Model\User;
 
-class AuteurBuilder implements Builder
+class EditeurBuilder implements Builder
 {
   private $user;
 
@@ -46,6 +46,11 @@ class AuteurBuilder implements Builder
   public function createUserRole($role = 2)
   {
     $this->user->setRole($role);
+  }
+
+  public function createPanelId($panelId)
+  {
+    $this->user->setPanelId($panelId);
   }
 
   public function saveCreatedUser()

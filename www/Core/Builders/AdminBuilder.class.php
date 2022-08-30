@@ -48,6 +48,11 @@ class AdminBuilder implements Builder
     $this->user->setRole($role);
   }
 
+  public function createPanelId($panelId)
+  {
+    $this->user->setPanelId($panelId);
+  }
+
   public function saveCreatedUser()
   {
     $this->user->save();

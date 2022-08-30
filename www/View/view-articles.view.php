@@ -23,7 +23,7 @@ $auth->authenticated(true);
   <thead class="thead-dark">
     <tr>
       <th scope="col">Titre</th>
-      <th scope="col">Auteur</th>
+      <th scope="col">Editeur</th>
       <th scope="col">Catégorie</th>
       <th scope="col">Date de création</th>
     </tr>
