@@ -122,3 +122,12 @@
 /article/delete:
   controller: article
   action: delete
+
+
+/example:
+  controller: main
+  action: siteFront
+
+# /SITE_NAME:
+#   controller: main
+#   action: siteFront

@@ -7,6 +7,10 @@ $auth->authenticated(true);
 ?>
 <h2>Bonjour <?= $user->getFirstname() ?>, bienvenue sur votre tableau de bord.</h2>
 
+<a href="<?php echo ONLINE_DOMAIN ?>/<?php echo SITE_NAME ?>">
+  <button>Voir le site</button>
+</a>
+
 <a href="<?php echo ONLINE_DOMAIN ?>/users">
   <button>Utilisateurs</button>
 </a>
