@@ -4,13 +4,17 @@ namespace App\Controller;
 
 use App\Core\View;
 use App\Model\Page as PageModel;
+use App\Model\User;
 
 class Page
 {
     public function index()
     {
+        session_start();
         $page = new PageModel();
-        $pages = $page->findAll();
+        $user = new User();
+        $connectedUser = $user->findOne(['id' => $_SESSION['userId']]);
+        $pages = $page->panelPages($connectedUser->getPanelId());
 
         $view = new View("view-pages");
         $view->assign("pages", $pages);
@@ -18,13 +22,18 @@ class Page
 
     public function add()
     {
+        session_start();
         $page = new PageModel();
+        $user = new User();
+        $connectedUserId = $_SESSION['userId'];
+        $connectedUser = $user->findOne(['id' => $connectedUserId]);
 
         if (!empty($_POST)) {
-
+            $page->setPageAuthorId($connectedUserId);
             $page->setPageTitle(strip_tags($_POST['page_title']));
             $page->setPageSlug(strip_tags($_POST['page_slug']));
-            $page->setPageContent(strip_tags($_POST['page_content']));
+            $page->setPageContent($_POST['page_content']);
+            $page->setPagePanelId($connectedUser->getPanelId());
             $page = $page->save();
 
             header("Location: /pages");

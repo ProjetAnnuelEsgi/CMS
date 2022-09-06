@@ -98,7 +98,6 @@ abstract class Sql
     public function attemptLogin($email)
     {
         $query = "SELECT * FROM $this->table WHERE email = :email";
-
         $queryPrepared  = self::$pdoInstance->prepare($query);
 
         $queryPrepared->bindValue(":email", $email);
@@ -122,8 +121,16 @@ abstract class Sql
         return $queryPrepared;
     }
 
+    public function specificAdminUsers($adminId)
+    {
+        $query = "SELECT * FROM esgi_user LEFT JOIN " . $this->table . " ON esgi_user.id =" . $this->table . ".user_id WHERE " .  $this->table . ".admin_id =" . $adminId;
+        $queryPrepared = self::$pdoInstance->prepare($query);
+        $queryPrepared->execute();
 
-    public function adminUsers($panelId, $id)
+        return $queryPrepared->fetchAll();
+    }
+
+    public function panelUsers($panelId, $id)
     {
         $query = "SELECT * FROM " . $this->table . " WHERE panel_id= " . "'$panelId' AND id != '$id'";
         $queryPrepared = self::$pdoInstance->prepare($query);
@@ -132,9 +139,18 @@ abstract class Sql
         return $queryPrepared->fetchAll();
     }
 
-    public function specificAdminUsers($adminId)
+    public function panelPages($panelId)
     {
-        $query = "SELECT * FROM esgi_user LEFT JOIN " . $this->table . " ON esgi_user.id =" . $this->table . ".user_id WHERE " .  $this->table . ".admin_id =" . $adminId;
+        $query = "SELECT * FROM " . $this->table . " WHERE page_panelId= " . "'$panelId'";
+        $queryPrepared = self::$pdoInstance->prepare($query);
+        $queryPrepared->execute();
+
+        return $queryPrepared->fetchAll();
+    }
+
+    public function panelarticles($panelId)
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE article_panelId= " . "'$panelId'";
         $queryPrepared = self::$pdoInstance->prepare($query);
         $queryPrepared->execute();
 

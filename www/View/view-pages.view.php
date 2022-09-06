@@ -1,6 +1,7 @@
 <?php
 
 use App\Controller\Authenticator;
+use App\Model\User;
 
 $auth = new Authenticator();
 $auth->authenticated(true);
@@ -31,15 +32,18 @@ $auth->authenticated(true);
 
   //liste des pages présentes en bdd
 
+  $user = new User();
+
   foreach ($pages as $page) {
 
+    $foundCreator = $user->findOne(['id' => $page['page_authorId']]);
     $date = $page['page_createdAt'];
     $date =  date('d-m-Y', strtotime($date));
 
     $slug = $page['page_slug'];
 
     echo "<tr><td> " . $page['page_title'] . "</td>";
-    // echo "<td>" . $findone->getFullName() . "</td>";
+    echo "<td>" . $foundCreator->getFullName() . "</td>";
     echo "<td>" . '' . "</td>";
     echo  "<td>" . $date . "</td>";
 

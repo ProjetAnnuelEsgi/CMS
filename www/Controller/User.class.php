@@ -25,7 +25,7 @@ class User
         }
 
         if ($foundAdmin !== false) {
-            $adminUsers = $user->adminUsers($foundUser->getPanelId(), $foundUser->getId());
+            $adminUsers = $user->panelUsers($foundUser->getPanelId(), $foundUser->getId());
         }
 
         $view = new View("view-users");
