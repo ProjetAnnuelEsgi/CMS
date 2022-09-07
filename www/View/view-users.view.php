@@ -11,7 +11,7 @@ $auth->authenticated(true);
 </a>
 
 <?php
-if ($foundUser->getRole() === '0' || $foundUser->getRole() === '1') { ?>
+if ($foundUser->getRole() === '1') { ?>
   <a href="<?php echo ONLINE_DOMAIN ?>/admin/createUser">
     <button>Ajouter un utilisateur</button>
   </a>
@@ -22,32 +22,61 @@ if ($foundUser->getRole() === '0' || $foundUser->getRole() === '1') { ?>
 <center>
   <br>
   <?php
-  if ($foundUser->getId() !== $_SESSION['userId']) {
-  } elseif ($foundUser->getId() === $_SESSION['userId'] && count($adminUsers) === 0) {
-    die;
-  }
+  // if ($foundUser->getId() !== $_SESSION['userId']) {
+  // } elseif ($foundUser->getId() === $_SESSION['userId'] && count($adminUsers) === 0) {
+  //   die;
+  // }
+  ?>
+  <h1>Utilisateurs</h1>
 
-  if ($foundUser->getRole() == '0' || $foundUser->getRole() == '1') { ?>
-    <h1>Utilisateurs</h1>
-
-    <table class="table">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Nom</th>
-          <th scope="col">Prénom</th>
-          <th scope="col">Mail</th>
-          <th scope="col">Roles</th>
-          <th scope="col">Détails</th>
-        </tr>
-      </thead>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nom</th>
+        <th scope="col">Prénom</th>
+        <th scope="col">Mail</th>
+        <th scope="col">Roles</th>
+        <th scope="col">Détails</th>
+      </tr>
+    </thead>
     <?php
+    if ($foundUser->getRole() == '1') {
+      // liste des users de l'admin présents en bdd
+      if (count($adminUsers) != 0) {
 
-    // liste des users de l'admin présents en bdd
-    foreach ($adminUsers as $user) {
+        foreach ($adminUsers as $user) {
+
+          $r = '';
+
+          switch ($user['role']) {
+            case '1':
+              $r = 'Admin';
+              break;
+            case '2':
+              $r = 'Editeur';
+              break;
+            case '3':
+              $r = 'Abonné';
+              break;
+          }
+
+          echo "<tr><td> " . $user['lastname'] . "</td>";
+          echo  "<td>" . $user['firstname'] . "</td>";
+          echo  "<td>" . $user['email'] . "</td>";
+          echo  "<td>" . $r . "</td>";
+
+          $linkShow = "href=/user/show?id=" . $user[0];
+          $iconShow = "<img src=/Medias/icon_show.png width=30 height=30>";
+
+          $iconShow = "<img src=/Medias/icon_show.png width=45 height=50>";
+          echo "<td><a " . $linkShow . ">" . $iconShow . "</a></td>";
+        }
+      }
+    } else {
 
       $r = '';
 
-      switch ($user['role']) {
+      switch ($foundUser->getRole()) {
         case '1':
           $r = 'Admin';
           break;
@@ -58,21 +87,19 @@ if ($foundUser->getRole() === '0' || $foundUser->getRole() === '1') { ?>
           $r = 'Abonné';
           break;
       }
-
-      echo "<tr><td> " . $user['lastname'] . "</td>";
-      echo  "<td>" . $user['firstname'] . "</td>";
-      echo  "<td>" . $user['email'] . "</td>";
+      echo "<tr><td> " . $foundUser->getLastname() . "</td>";
+      echo  "<td>" . $foundUser->getFirstname() . "</td>";
+      echo  "<td>" . $foundUser->getEmail() . "</td>";
       echo  "<td>" . $r . "</td>";
 
-      $linkShow = "href=/user/show?id=" . $user[0];
+      $linkShow = "href=/user/show?id=" . $foundUser->getId();
       $iconShow = "<img src=/Medias/icon_show.png width=30 height=30>";
 
       $iconShow = "<img src=/Medias/icon_show.png width=45 height=50>";
       echo "<td><a " . $linkShow . ">" . $iconShow . "</a></td>";
     }
-  }
     ?>
-    </table>
+  </table>
 </center>
 
 </html>

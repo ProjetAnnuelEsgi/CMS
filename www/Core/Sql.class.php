@@ -148,7 +148,7 @@ abstract class Sql
         return $queryPrepared->fetchAll();
     }
 
-    public function panelarticles($panelId)
+    public function panelArticles($panelId)
     {
         $query = "SELECT * FROM " . $this->table . " WHERE article_panelId= " . "'$panelId'";
         $queryPrepared = self::$pdoInstance->prepare($query);

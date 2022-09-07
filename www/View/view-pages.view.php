@@ -33,8 +33,18 @@ $auth->authenticated(true);
   //liste des pages présentes en bdd
 
   $user = new User();
-
+  $abonneData = [];
   foreach ($pages as $page) {
+    if ($connectedUser->getRole() === '3') {
+      if ($page['page_authorId'] == $connectedUser->getId()) {
+        array_push($abonneData, $page);
+      }
+    } else {
+      $abonneData = $pages;
+    }
+  }
+
+  foreach ($abonneData as $page) {
 
     $foundCreator = $user->findOne(['id' => $page['page_authorId']]);
     $date = $page['page_createdAt'];

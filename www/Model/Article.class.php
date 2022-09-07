@@ -16,6 +16,7 @@ class Article extends Sql
     protected $article_authorId = null;
     protected $article_categoryId = null;
     protected $article_createdAt = null;
+    protected $article_panelId = null;
 
     public function __construct()
     {
@@ -24,7 +25,7 @@ class Article extends Sql
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -32,7 +33,7 @@ class Article extends Sql
 
     /**
      * Get the value of article_title
-     */ 
+     */
     public function getArticleTitle()
     {
         return $this->article_title;
@@ -42,7 +43,7 @@ class Article extends Sql
      * Set the value of article_title
      *
      * @return  self
-     */ 
+     */
     public function setArticleTitle($article_title)
     {
         $this->article_title = $article_title;
@@ -52,7 +53,7 @@ class Article extends Sql
 
     /**
      * Get the value of article_slug
-     */ 
+     */
     public function getArticleSlug()
     {
         return $this->article_slug;
@@ -62,17 +63,17 @@ class Article extends Sql
      * Set the value of article_slug
      *
      * @return  self
-     */ 
+     */
     public function setArticleSlug($article_slug)
     {
-        $this->article_slug = strtolower(trim(str_replace(' ', '-',$article_slug)));
+        $this->article_slug = strtolower(trim(str_replace(' ', '-', $article_slug)));
 
         return $this;
     }
 
     /**
      * Get the value of article_content
-     */ 
+     */
     public function getArticleContent()
     {
         return $this->article_content;
@@ -82,7 +83,7 @@ class Article extends Sql
      * Set the value of article_content
      *
      * @return  self
-     */ 
+     */
     public function setArticleContent($article_content)
     {
         $this->article_content = $article_content;
@@ -92,7 +93,7 @@ class Article extends Sql
 
     /**
      * Get the value of article_status
-     */ 
+     */
     public function getArticleStatus()
     {
         return $this->article_status;
@@ -102,7 +103,7 @@ class Article extends Sql
      * Set the value of article_status
      *
      * @return  self
-     */ 
+     */
     public function setArticleStatus($article_status)
     {
         $this->article_status = $article_status;
@@ -112,7 +113,7 @@ class Article extends Sql
 
     /**
      * Get the value of article_publishAt
-     */ 
+     */
     public function getArticlePublishAt()
     {
         return $this->article_publishAt;
@@ -122,7 +123,7 @@ class Article extends Sql
      * Set the value of article_publishAt
      *
      * @return  self
-     */ 
+     */
     public function setArticlePublishAt($article_publishAt)
     {
         $this->article_publishAt = $article_publishAt;
@@ -132,7 +133,7 @@ class Article extends Sql
 
     /**
      * Get the value of article_authorId
-     */ 
+     */
     public function getArticleAuthorId()
     {
         return $this->article_authorId;
@@ -142,7 +143,7 @@ class Article extends Sql
      * Set the value of article_authorId
      *
      * @return  self
-     */ 
+     */
     public function setArticleAuthorId($article_authorId)
     {
         $this->article_authorId = $article_authorId;
@@ -150,11 +151,29 @@ class Article extends Sql
         return $this;
     }
 
+    /**
+     * Get the value of article_panelId
+     */
+    public function getArticlePanelId()
+    {
+        return $this->article_panelId;
+    }
 
+    /**
+     * Set the value of article_panelId
+     *
+     * @return  self
+     */
+    public function setArticlePanelId($article_panelId)
+    {
+        $this->article_panelId = $article_panelId;
+
+        return $this;
+    }
 
     /**
      * Get the value of article_categoryId
-     */ 
+     */
     public function getArticleCategoryId()
     {
         return $this->article_categoryId;
@@ -164,7 +183,7 @@ class Article extends Sql
      * Set the value of article_categoryId
      *
      * @return  self
-     */ 
+     */
     public function setArticleCategoryId($article_categoryId)
     {
         $this->article_categoryId = $article_categoryId;
@@ -174,7 +193,7 @@ class Article extends Sql
 
     /**
      * Get the value of article_createdAt
-     */ 
+     */
     public function getArticleCreatedAt()
     {
         return $this->article_createdAt;

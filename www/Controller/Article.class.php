@@ -6,36 +6,46 @@ use App\Core\Observer\Article as ObserverArticle;
 use App\Core\Observer\Creator;
 use App\Core\View;
 use App\Model\Article as ArticleModel;
+use App\Model\User;
 
 class Article
 {
     public function index()
     {
+        session_start();
         $article = new ArticleModel();
-        $articles = $article->findAll();
+        $user = new User();
+
+        $connectedUser = $user->findOne(['id' => $_SESSION['userId']]);
+        $articles = $article->panelArticles($connectedUser->getPanelId());
 
         $view = new View("view-articles");
         $view->assign("articles", $articles);
+        $view->assign("connectedUser", $connectedUser);
     }
 
     public function add()
     {
+        session_start();
         $article = new ArticleModel();
+        $user = new User();
+        $connectedUserId = $_SESSION['userId'];
+        $connectedUser = $user->findOne(['id' => $connectedUserId]);
 
         if (!empty($_POST)) {
+            $article->setArticleAuthorId($connectedUserId);
             $article->setArticleTitle(strip_tags($_POST['article_title']));
             $article->setArticleSlug(strip_tags($_POST['article_slug']));
-            $article->setArticleContent(strip_tags($_POST['article_content']));
+            $article->setArticleContent($_POST['article_content']);
+            $article->setArticlePanelId($connectedUser->getPanelId());
+
             $article = $article->save();
 
-            $observer = new Creator();
-
-            $article = new ObserverArticle();
-            $article->attach($observer);
-
-            $article->breakOutNews($_POST['article_title']);
-
-            $observer->getContent();
+            // $observer = new Creator();
+            // $article = new ObserverArticle();
+            // $article->attach($observer);
+            // $article->breakOutNews($_POST['article_title']);
+            // $observer->getContent();
 
             header("Location: /articles");
         }

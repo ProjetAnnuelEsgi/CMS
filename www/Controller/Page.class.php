@@ -18,6 +18,7 @@ class Page
 
         $view = new View("view-pages");
         $view->assign("pages", $pages);
+        $view->assign("connectedUser", $connectedUser);
     }
 
     public function add()

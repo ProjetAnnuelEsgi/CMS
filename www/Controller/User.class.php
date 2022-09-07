@@ -20,7 +20,7 @@ class User
         $foundAdmin = false;
         $adminUsers = [];
 
-        if ($foundUser->getRole() === '0' || $foundUser->getRole() === '1') {
+        if ($foundUser->getRole() === '1') {
             $foundAdmin = true;
         }
 

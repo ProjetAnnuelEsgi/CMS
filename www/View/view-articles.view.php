@@ -29,10 +29,20 @@ $auth->authenticated(true);
     </tr>
   </thead>
   <?php
-
+  $abonneData = [];
   //liste des articles présents en bdd
-  foreach ($articles as $article) {
 
+  foreach ($articles as $article) {
+    if ($connectedUser->getRole() === '3') {
+      if ($article['article_authorId'] == $connectedUser->getId()) {
+        array_push($abonneData, $article);
+      }
+    } else {
+      $abonneData[] = $article;
+    }
+  }
+
+  foreach ($abonneData as $article) {
     $date = $article['article_createdAt'];
     $date =  date('d-m-Y', strtotime($date));
 
