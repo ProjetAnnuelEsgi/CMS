@@ -71,6 +71,31 @@ if ($foundUser->getRole() === '1') { ?>
           $iconShow = "<img src=/Medias/icon_show.png width=45 height=50>";
           echo "<td><a " . $linkShow . ">" . $iconShow . "</a></td>";
         }
+      } else {
+
+        $r = '';
+
+        switch ($foundUser->getRole()) {
+          case '1':
+            $r = 'Admin';
+            break;
+          case '2':
+            $r = 'Editeur';
+            break;
+          case '3':
+            $r = 'Abonné';
+            break;
+        }
+        echo "<tr><td> " . $foundUser->getLastname() . "</td>";
+        echo  "<td>" . $foundUser->getFirstname() . "</td>";
+        echo  "<td>" . $foundUser->getEmail() . "</td>";
+        echo  "<td>" . $r . "</td>";
+
+        $linkShow = "href=/user/show?id=" . $foundUser->getId();
+        $iconShow = "<img src=/Medias/icon_show.png width=30 height=30>";
+
+        $iconShow = "<img src=/Medias/icon_show.png width=45 height=50>";
+        echo "<td><a " . $linkShow . ">" . $iconShow . "</a></td>";
       }
     } else {
 

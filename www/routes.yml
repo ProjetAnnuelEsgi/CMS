@@ -1,3 +1,12 @@
+# Installer controller route
+/installer:
+  controller: installer
+  action: install
+
+/checkData:
+  controller: installer
+  action: checkData
+
 /:
   controller: main
   action: home
@@ -7,7 +16,6 @@
   action: contact
 
 # Admin controller route
-
 /dashboard:
   controller: admin
   action: dashboard
