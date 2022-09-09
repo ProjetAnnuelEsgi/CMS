@@ -15,6 +15,7 @@ abstract class Mailer
     {
         $this->phpmailer = new PHPMailer();
         $this->phpmailer->isSMTP();
+        $this->phpmailer->SMTPSecure = "tls";
         $this->phpmailer->Host = MAILER_HOST;
         $this->phpmailer->SMTPAuth = MAILER_SMTP_AUTH;
         $this->phpmailer->Port = MAILER_PORT;
@@ -27,6 +28,7 @@ abstract class Mailer
         $this->phpmailer->Body = $body;
 
         return $this->phpmailer->send();
+
     }
 
     public function sendActivationEmail($email, $activationCode = null)

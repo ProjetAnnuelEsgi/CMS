@@ -1,7 +1,7 @@
 <?php
 
 define("DBUSER", "root");
-define("DBPWD", "fedcms2022");
+define("DBPWD", "password");
 define("DBHOST", "database");
 define("DBNAME", "mvcdocker2");
 define("DBPORT", "3306");
@@ -12,10 +12,11 @@ define("ONLINE_DOMAIN", "http://localhost");
 
 // Mailer infos
 
-define("MAILER_HOST", "smtp-relay.sendinblue.com");
-define("MAILER_SMTP_USERNAME", "lawson.earvin@gmail.com");
-define("MAILER_PORT", 587);
-define("MAILER_SMTP_PASSWORD", "bIhVv2RA7gKWXYdN");
+define("MAILER_HOST", 'smtp.mailtrap.io');
+define("MAILER_SMTP_USERNAME", '68f3ed5bbd14e4');
+define("MAILER_PORT", 2525);
+define("MAILER_SMTP_PASSWORD", 'e3a095db84d371');
 define("MAILER_SMTP_AUTH", true);
-define("MAIL_FROM_ADDRESS", "cdeft.lalg@gmail.com");
-define("MAIL_FROM_USER", "CMS-PA");
+define("MAIL_FROM_ADDRESS", 'cdeft.lalg@gmail.com');
+define("MAIL_FROM_USER", 'CMS-PA');
+
