@@ -52,7 +52,7 @@ if (file_exists($file)) {
 
     $controller = ucfirst(strtolower($routes[$uri]["controller"]));
     $action = strtolower($routes[$uri]["action"]);
-} else if (isset($_POST) && count($_POST) == 6) {
+} else if (isset($_POST) && count($_POST) == 7) {
     $controller = "Installer";
     $action = "checkData";
 } else {

@@ -25,7 +25,7 @@ class Installer
 
     public function checkData()
     {
-        if (isset($_POST) && count($_POST) == 6) {
+        if (isset($_POST) && count($_POST) == 7) {
             $this->createConfFile($_POST);
         }
     }
@@ -63,7 +63,8 @@ class Installer
             . PHP_EOL . "define('DBDRIVER', 'mysql') ;"
             . PHP_EOL . "define('DBPREFIXE', 'esgi_') ;"
             . PHP_EOL . "define('ONLINE_DOMAIN', 'http://fedcms.fr') ;"
-            . PHP_EOL . "define('LOCAL_DOMAIN', 'http://localhost') ;" . PHP_EOL
+            . PHP_EOL . "define('LOCAL_DOMAIN', 'http://localhost') ;"
+            . PHP_EOL . "define('SITE_NAME', '$siteName') ;" . PHP_EOL
             . PHP_EOL . "define('MAILER_HOST', 'smtp.mailtrap.io') ;"
             . PHP_EOL . "define('MAILER_SMTP_USERNAME', '68f3ed5bbd14e4') ;"
             . PHP_EOL . "define('MAILER_PORT', 2525) ;"
