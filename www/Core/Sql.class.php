@@ -60,7 +60,7 @@ abstract class Sql
             }
             $sql = "UPDATE " . $this->table . " SET " . implode(", ", $update) . " WHERE id=" . $this->getId();
         }
-
+        
         $queryPrepared = self::$pdoInstance->prepare($sql);
         $queryPrepared->execute($columns);
     }
@@ -130,5 +130,25 @@ abstract class Sql
         $queryPrepared->execute();
 
         return $queryPrepared->fetchAll();
+    }
+
+    public function getMenu($panelId)
+    {
+        $query = "SELECT page_id FROM "  . $this->table . " WHERE menu_panelId=" . $panelId;
+
+        $queryPrepared = self::$pdoInstance->prepare($query);
+        $queryPrepared->execute();
+        
+        return $queryPrepared->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getMenuPages($menuId) 
+    {
+        $query = "SELECT page_id FROM esgi_menu_page WHERE menu_id = $menuId";
+
+        $queryPrepared = self::$pdoInstance->prepare($query);
+        $queryPrepared->execute();
+        
+        return $queryPrepared->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

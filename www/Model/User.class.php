@@ -12,6 +12,7 @@ class User extends Sql
     protected $email;
     protected $password;
     protected $active = 0;
+    protected $panel_id = null;
     protected $activation_code = null;
     protected $role = 0;
     protected $token = null;
@@ -190,6 +191,26 @@ class User extends Sql
     public function setActive(int $active = 0): void
     {
         $this->active = $active;
+    }
+
+    /*
+     * Get the value of panel_id
+     */
+    public function getPanelId()
+    {
+        return $this->panel_id;
+    }
+
+    /*
+     * Set the value of panel_id
+     *
+     * @return  self
+     */
+    public function setPanelId($panelId)
+    {
+        $this->panel_id = $panelId;
+
+        return $this;
     }
 
     /**

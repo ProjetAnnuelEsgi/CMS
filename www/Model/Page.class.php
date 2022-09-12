@@ -11,6 +11,7 @@ class Page extends Sql
     protected $page_slug = null;
     protected $page_content = null;
     protected $page_authorId = null;
+    protected $page_panelId = null;
     protected $page_createdAt = null;
     
 
@@ -104,6 +105,26 @@ class Page extends Sql
     public function setPageAuthorId($page_authorId)
     {
         $this->page_authorId = $page_authorId;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of page_panelId
+     */ 
+    public function getPage_panelId()
+    {
+        return $this->page_panelId;
+    }
+
+    /**
+     * Set the value of page_panelId
+     *
+     * @return  self
+     */ 
+    public function setPage_panelId($page_panelId)
+    {
+        $this->page_panelId = $page_panelId;
 
         return $this;
     }

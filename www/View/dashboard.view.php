@@ -23,6 +23,10 @@ $auth->authenticated(true);
   <button>Articles</button>
 </a>
 
+<a href="<?php echo ONLINE_DOMAIN ?>/menus">
+  <button>Menu</button>
+</a>
+
 <a href="<?php echo ONLINE_DOMAIN ?>/logout">
   <button>Se déconnecter</button>
 </a>

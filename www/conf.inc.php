@@ -9,7 +9,7 @@ define("DBDRIVER", "mysql");
 define("DBPREFIXE", "esgi_");
 // define("ONLINE_DOMAIN", "http://fedcms.fr");
 define("ONLINE_DOMAIN", "http://localhost");
-define("SITE_NAME", "example");
+define("SITE_NAME", "front-office");
 
 
 // Mailer infos
