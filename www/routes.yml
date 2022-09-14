@@ -130,3 +130,41 @@
 /article/delete:
   controller: article
   action: delete
+
+
+# Menu controller route
+/menus:
+  controller: menu
+  action: index
+
+/menu/add:
+  controller: menu
+  action: add
+
+/menu/show:
+  controller: menu
+  action: show
+
+/menu/edit:
+  controller: menu
+  action: edit
+
+/menu/update:
+  controller: menu
+  action: update
+
+/menu/remove:
+  controller: menu
+  action: remove
+
+
+
+# /front-office correspond au nom du site présents dans le fichier conf
+# il faut réussir à mettre le constante site name fonctionnel
+# /front-office:
+#   controller: navbar
+#   action: index
+
+# ${SITE_NAME}:
+#   controller: navbar
+#   action: index

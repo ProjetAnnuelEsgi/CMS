@@ -17,4 +17,9 @@ class Main
     {
         $view = new View("contact");
     }
+
+    public function siteFront()
+    {
+        $view = new View("site-front");
+    }
 }
