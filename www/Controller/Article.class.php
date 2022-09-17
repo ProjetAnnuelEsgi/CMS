@@ -64,7 +64,7 @@ class Article
 
         $article = $article->findOne(['article_slug' => $implode]);
 
-        $view = new View("article");
+        $view = new View("article", "front");
         $view->assign("article", $article);
     }
 

@@ -35,7 +35,7 @@ class Navbar
 
         $_SESSION['pages'] = $pages;
 
-        $view = new View("site-front");
+        $view = new View("site-front", "front");
         // $view->assign("pages", $pages);
     }
 }

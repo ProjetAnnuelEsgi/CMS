@@ -54,7 +54,7 @@ class Page
 
         $page = $page->findOne(['page_slug' => $implode]);
 
-        $view = new View("page");
+        $view = new View("page", "front");
         $view->assign("page", $page);
     }
 
