@@ -131,7 +131,6 @@
   controller: article
   action: delete
 
-
 # Menu controller route
 /menus:
   controller: menu
@@ -153,18 +152,8 @@
   controller: menu
   action: update
 
-/menu/remove:
+/menu/delete:
   controller: menu
-  action: remove
+  action: delete
+# / site au front-office root gener dans dans le fichier install
 
-
-
-# /front-office correspond au nom du site présents dans le fichier conf
-# il faut réussir à mettre le constante site name fonctionnel
-# /front-office:
-#   controller: navbar
-#   action: index
-
-# ${SITE_NAME}:
-#   controller: navbar
-#   action: index

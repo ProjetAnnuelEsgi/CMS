@@ -16,20 +16,21 @@ class NavBar
         $user = new UserModel();
         $userId = $_SESSION['userId'];
         $user = $user->findOne(['id' => $userId]);
-        
+
         $menu = new MenuModel();
-        $menus = $menu->getMenu($user->getPanelId());
+        $menus = $menu->panelMenu($user->getPanelId());
 
-        $pages=[];
+        $pages = [];
 
-        foreach ($menus as $menu){
-            
+        foreach ($menus as $menu) {
+
             $page = new PageModel;
 
-            $p = $page->findOne(["id"=> $menu['page_id']]);
+            $p = $page->findOne(["id" => $menu['page_id']]);
             array_push($pages, $p);
 
-            foreach ($pages as $p){}
+            foreach ($pages as $p) {
+            }
         }
 
         $_SESSION['pages'] = $pages;

@@ -76,6 +76,11 @@ class Installer
 
         file_put_contents($this->file, $contents);
 
+        $contents = PHP_EOL . "/" . $siteName . ":" . PHP_EOL .
+            "   controller: navbar" . PHP_EOL .
+            "   action: index";
+        file_put_contents('routes.yml', $contents, FILE_APPEND);
+
         $this->createTables($_POST);
 
         header("location: /");

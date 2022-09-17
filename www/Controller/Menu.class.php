@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Core\View;
-use App\Model\Menu as MenuModel;
+use App\Model\Menu as ModelMenu;
 use App\Model\User as UserModel;
 use App\Model\Page as PageModel;
 
@@ -11,30 +11,50 @@ class Menu
 {
     public function index()
     {
+        session_start();
+
         $page = new PageModel();
-        $pages = $page->findAll();
+        $user = new UserModel();
+        $menu = new ModelMenu();
+
+        $allMenuPageId = [];
+
+        $connectedUser = $user->findOne(['id' => $_SESSION['userId']]);
+        $pages = $page->panelPages($connectedUser->getPanelId());
+
+        $menus = $menu->panelMenu($connectedUser->getPanelId());
+
+        if (count($menus) > 0) {
+            foreach ($menus as $menu) {
+                array_push($allMenuPageId, $menu['page_id']);
+            }
+        }
 
         $view = new View("view-menus");
         $view->assign("pages", $pages);
+        $view->assign("allMenuPageId", $allMenuPageId);
     }
 
     public function add()
     {
         session_start();
 
-        $menu = new MenuModel();
 
         $user = new UserModel();
         $userId = $_SESSION['userId'];
         $user = $user->findOne(['id' => $userId]);
 
-        $menu->setShow(1);
+        $menu = new ModelMenu;
+
+        $menu->setVisibility(1);
         $menu->setPageId($_GET['id']);
-        $menu->setMenu_panelId($user->getPanelId());
+        $menu->setMenuPanelId($user->getPanelId());
 
         $menu->save();
 
-        $view = new View("add-menu");
+        echo "<script>;alert('La page a été ajouté à votre menu avec succès.'); </script>";
+
+        header("location: /menus");
     }
 
     public function show()
@@ -49,25 +69,22 @@ class Menu
 
     public function update()
     {
-
     }
 
-    public function remove()
+    public function delete()
     {
-        session_start();
+        $pageId = $_GET['id'];
 
-        $menu = new MenuModel();
+        $menu = new ModelMenu();
 
-        $user = new UserModel();
-        $userId = $_SESSION['userId'];
-        $user = $user->findOne(['id' => $userId]);
+        $foundMenu = $menu->findOne(['page_id' => $pageId]);
 
-        $menu->setShow(1);
-        $menu->setPageId($_GET['id']);
-        $menu->setMenu_panelId($user->getPanelId());
+        $menuId = $foundMenu->getId();
 
-        $menu->save();
+        $menu->delete($menuId);
 
-        $view = new View("remove-menu");
+        echo "<script>;alert('La page a été retiré de votre menu avec succès.'); </script>";
+
+        header("location: /menus");
     }
 }

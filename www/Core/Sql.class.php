@@ -60,7 +60,6 @@ abstract class Sql
             }
             $sql = "UPDATE " . $this->table . " SET " . implode(", ", $update) . " WHERE id=" . $this->getId();
         }
-        
         $queryPrepared = self::$pdoInstance->prepare($sql);
         $queryPrepared->execute($columns);
     }
@@ -114,7 +113,7 @@ abstract class Sql
 
     public function delete($id)
     {
-        $query = "DELETE FROM " . $this->table . " WHERE id=" . $id;
+        $query = "DELETE FROM " . $this->table . " WHERE id=" . "'$id'";
         $queryPrepared = self::$pdoInstance->prepare($query);
         $queryPrepared->execute();
 
@@ -157,23 +156,25 @@ abstract class Sql
         return $queryPrepared->fetchAll();
     }
 
-    public function getMenu($panelId)
+    public function panelMenu($panelId)
     {
-        $query = "SELECT page_id FROM "  . $this->table . " WHERE menu_panelId=" . $panelId;
+        $query = "SELECT * FROM " . $this->table . " WHERE menu_panelId= " . "'$panelId'";
 
         $queryPrepared = self::$pdoInstance->prepare($query);
         $queryPrepared->execute();
-        
+
         return $queryPrepared->fetchAll(\PDO::FETCH_ASSOC);
+
+        // return $queryPrepared->fetchAll();
     }
 
-    public function getMenuPages($menuId) 
+    public function getMenuPages($menuId)
     {
         $query = "SELECT page_id FROM esgi_menu_page WHERE menu_id = $menuId";
 
         $queryPrepared = self::$pdoInstance->prepare($query);
         $queryPrepared->execute();
-        
+
         return $queryPrepared->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
