@@ -66,10 +66,10 @@ class Installer
             . PHP_EOL . "define('LOCAL_DOMAIN', 'http://localhost') ;"
             . PHP_EOL . "define('SITE_NAME', '$siteName') ;" . PHP_EOL
             . PHP_EOL . "define('MAILER_HOST', 'smtp.mailtrap.io') ;"
-            . PHP_EOL . "define('MAILER_SMTP_USERNAME', '68f3ed5bbd14e4') ;"
-            . PHP_EOL . "define('MAILER_PORT', 2525) ;"
-            . PHP_EOL . "define('MAILER_SMTP_PASSWORD', 'e3a095db84d371') ;"
             . PHP_EOL . "define('MAILER_SMTP_AUTH', true) ;"
+            . PHP_EOL . "define('MAILER_PORT', 2525) ;"
+            . PHP_EOL . "define('MAILER_SMTP_USERNAME', 'f3f926d42a08da') ;"
+            . PHP_EOL . "define('MAILER_SMTP_PASSWORD', 'd74d8657ef0801') ;"
             . PHP_EOL . "define('MAIL_FROM_ADDRESS', 'cdeft.lalg@gmail.com') ;"
             . PHP_EOL . "define('MAIL_FROM_USER', 'CMS-PA') ;"
             . PHP_EOL;
