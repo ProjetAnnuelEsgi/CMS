@@ -7,7 +7,7 @@ use App\Model\Menu as MenuModel;
 use App\Model\User as UserModel;
 use App\Model\Page as PageModel;
 
-class NavBar
+class Navbar
 {
     public function index()
     {
