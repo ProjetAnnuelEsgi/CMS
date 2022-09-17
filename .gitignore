@@ -12,4 +12,4 @@ storage/.key
 bootstrap/compiled.php
 app/storage/
 cms.log
-
+conf.inc.php
