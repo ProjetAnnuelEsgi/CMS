@@ -36,7 +36,7 @@ class Installer
             extract($_POST);
         }
 
-        $message = "Une erreur est parvenue pendant l\'instalation verifié bien les données entrez.";
+        $message = "Une erreur est parvenue pendant l\'installation, verifié bien les données saisies.";
 
         try {
             self::$pdoInstance = new PDO(
