@@ -46,6 +46,17 @@ CREATE TABLE `esgi_article` (
   KEY `article_authorId` (`article_authorId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
+DROP TABLE IF EXISTS `esgi_menu`;
+CREATE TABLE `esgi_menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `page_id` int(11) NOT NULL,
+  `menu_panelId` varchar(14) NOT NULL,
+  `visibility` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `pageId` (`page_id`),
+  CONSTRAINT `pageId` FOREIGN KEY (`page_id`) REFERENCES `esgi_page` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
 DROP TABLE IF EXISTS `esgi_page`;
 CREATE TABLE `esgi_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
