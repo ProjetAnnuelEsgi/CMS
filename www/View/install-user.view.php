@@ -11,34 +11,34 @@
 </head>
 
 <body>
+  <center>
+
   <h1>Installation</h1>
   <form action="checkData" method="post">
-    <label>Database user</label></br>
-    <input type=text name=dbuser placeholder="Nom utilisateur db..."></br>
-    <!-- Espace &#160 -->
-    &#160;
-    <label>Database password</label></br>
-    <input type=password name=dbpassword placeholder="Password utilisateur db..."></br>
-    <!-- Espace &#160 -->
-    &#160;
-    <label>Database name</label></br>
-    <input type=text name=dbname placeholder="Name de db ..."></br>
-    <!-- Espace &#160 -->
-    &#160;
-    <label>Database host</label></br>
-    <input type=text name=dbhost placeholder="Host db ..."></br>
-    <!-- Espace &#160 -->
-    &#160;
-    <label>Database port</label></br>
-    <input type=number name=dbport placeholder="Port db ..."></br>
-    <!-- Espace &#160 -->
-    <label>Site Name</label></br>
-    <input type=text name=siteName placeholder="Nom de votre site..."></br>
-    <br><br></br>
+    <label>Nom d'utilisateur base de données</label></br>
+    <input type=text name=dbuser placeholder="Nom"></br>
+    <br>
+    <label>Mot de passe base de données</label></br>
+    <input type=password name=dbpassword placeholder="Mot de passe"></br>
+    <br>
+    <label>Nom base de données</label></br>
+    <input type=text name=dbname placeholder="Nom base de données"></br>
+    <br>
+    <label>Hôte base de données</label></br>
+    <input type=text name=dbhost placeholder="Hôte base de données"></br>
+    <br>
+    <label>Port base de données</label></br>
+    <input type=number name=dbport placeholder="Port base de données"></br>
+    <br>
+    <label>Nom du site</label></br>
+    <input type=text name=siteName placeholder="Nom du site"></br>
+    <br>
     <input type=submit name=valider value=valider></br>
     </tr>
     </table>
   </form>
+
+  </center>
 </body>
 
 </html>
