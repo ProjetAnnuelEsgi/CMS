@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+  
+</body>
+</html>
+
 <?php
 
 use App\Controller\Authenticator;
@@ -8,11 +21,11 @@ $auth->authenticated(true);
 ?>
 <html>
 <a href="<?php echo ONLINE_DOMAIN ?>/dashboard">
-  <button>Tableau de bord</button>
+  <button class="btn btn-secondary">Tableau de bord</button>
 </a>
 
 <a href="<?php echo ONLINE_DOMAIN ?>/article/add">
-  <button>Ajouter un article</button>
+  <button class="btn btn-info">Ajouter un article</button>
 </a>
 
 <center>
@@ -25,8 +38,9 @@ $auth->authenticated(true);
     <tr>
       <th scope="col">Titre</th>
       <th scope="col">Editeur</th>
-      <th scope="col">Catégorie</th>
       <th scope="col">Date de création</th>
+      <th scope="col">Editer</th>
+      <th scope="col">Voir</th>
     </tr>
   </thead>
   <?php
@@ -54,7 +68,6 @@ $auth->authenticated(true);
 
     echo "<tr><td> " . $article['article_title'] . "</td>";
     echo "<td>" . $foundCreator->getFullName() . "</td>";
-    echo "<td>" . $article['article_categoryId'] . "</td>";
     echo  "<td>" . $date . "</td>";
 
     $linkEdit = "href=article/edit?id=" . $article[0];

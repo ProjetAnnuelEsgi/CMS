@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+  
+</body>
+</html>
+
 <?php
 
 use App\Controller\Authenticator;
@@ -5,11 +18,11 @@ use App\Controller\Authenticator;
 $auth = new Authenticator();
 $auth->authenticated(true);
 ?>
-<a href="<?php echo ONLINE_DOMAIN ?>/dashboard">
-	<button>Tableau de bord</button>
-</a>
-<button onclick="history.back()">Retour</button>
+<button class="bi bi-arrow-return-right" type="button" onclick="history.back()"> <img src="/Medias/icon_arrow_return_left.png" height ="20" width="35" /></button>
 
+<a href="<?php echo ONLINE_DOMAIN ?>/dashboard">
+	<button class="btn btn-secondary">Tableau de bord</button>
+</a>
 <div id="contenu">
 
 	<center>
@@ -18,8 +31,14 @@ $auth->authenticated(true);
 				<h1>Informations de <?php echo $user->getFirstname() ?></h1>
 
 				<input type=text name=lastname placeholder="Nom" disabled value=<?php echo $user->getLastname() ?>>
+				<!-- Espace &#160 -->
+                &#160;
 				<input type=text name=firstname placeholder="Prénom" disabled value=<?php echo $user->getFirstname() ?>>
+				<!-- Espace &#160 -->
+                &#160;
 				<input type=text name=email placeholder="Email" disabled value=<?php echo $user->getEmail() ?>>
+				<!-- Espace &#160 -->
+                &#160;
 				<input type=text name=role placeholder="Role" disabled value=<?php echo $user->getUserRoleByName() ?>>
 			</tr>
 		</table>

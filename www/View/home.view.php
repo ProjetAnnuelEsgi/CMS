@@ -1,4 +1,4 @@
-<h1>Bienvenue sur notre CMS</h1>
+<h1>Bienvenue sur FED CMS</h1>
 
 <?php
 
