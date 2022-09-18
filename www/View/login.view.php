@@ -6,15 +6,6 @@ $auth = new Authenticator();
 $auth->authenticated(false);
 ?>
 
-<a href="<?php echo ONLINE_DOMAIN ?>/">
-  <button>Accueil</button>
-
-</a>
-<a href="<?php echo ONLINE_DOMAIN ?>/showpwd">
-  <button>Mot de passe oublié ?</button>
-</a>
-<h1>Se connecter</h1>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,10 +17,24 @@ $auth->authenticated(false);
 </head>
 
 <body>
+
+  <a href="<?php echo ONLINE_DOMAIN ?>/">
+    <button>Accueil</button>
+
+  </a>
+  <a href="<?php echo ONLINE_DOMAIN ?>/showpwd">
+    <button>Mot de passe oublié ?</button>
+  </a>
+  <h1>Se connecter</h1>
+
+
+
   <div class="background">
     <div class="shape"></div>
     <div class="shape"></div>
   </div>
 </body>
+
+</html>
 
 <?php $this->includePartial("form", $user->getLoginForm()); ?>
