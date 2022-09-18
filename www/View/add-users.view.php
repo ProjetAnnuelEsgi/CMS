@@ -20,13 +20,15 @@ $auth->authenticated(true);
 
             <form action="" method="post">
 
-                <input type=text name=firstname placeholder="Prénom ...">
+                <input type=text name=firstname placeholder="Prénom">
                 <!-- Espace &#160 -->
                 &#160;
-                <input type=text name=lastname placeholder="Nom ...">
+                <input type=text name=lastname placeholder="Nom">
                 &#160;
-                <input type=email name=email placeholder="Email ...">
-                <input type=password name=password placeholder="Mot de passe ...">
+                <input type=email name=email placeholder="Email">
+                &#160;
+                <input type=password name=password placeholder="Mot de passe">
+                &#160;
                 <input name="admin_id" type="hidden" value=<?php echo $_SESSION['userId']   ?> id="article_content" />
                 <select id="roles" name='role' onfocus="buttonToggle()">
                     <option selected><?php echo $user->getUserRoleByName() ?></option>
