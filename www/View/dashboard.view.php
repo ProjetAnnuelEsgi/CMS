@@ -14,18 +14,22 @@ $auth->authenticated(true);
 <a href="<?php echo ONLINE_DOMAIN ?>/users">
   <button>Utilisateurs</button>
 </a>
+<?php if ($_SESSION['role'] == 1 || $_SESSION['role'] == 2) { ?>
 
-<a href="<?php echo ONLINE_DOMAIN ?>/pages">
-  <button>Pages</button>
-</a>
+  <a href="<?php echo ONLINE_DOMAIN ?>/pages">
+    <button>Pages</button>
+  </a>
 
-<a href="<?php echo ONLINE_DOMAIN ?>/articles">
-  <button>Articles</button>
-</a>
+  <a href="<?php echo ONLINE_DOMAIN ?>/articles">
+    <button>Articles</button>
+  </a>
+<?php } ?>
 
-<a href="<?php echo ONLINE_DOMAIN ?>/menus">
-  <button>Menu</button>
-</a>
+<?php if ($_SESSION['role'] == 1) { ?>
+  <a href="<?php echo ONLINE_DOMAIN ?>/menus">
+    <button>Menu</button>
+  </a>
+<?php } ?>
 
 <a href="<?php echo ONLINE_DOMAIN ?>/logout">
   <button>Se déconnecter</button>

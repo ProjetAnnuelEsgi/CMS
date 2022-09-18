@@ -44,7 +44,7 @@ class Authenticator extends Mailer
         //redirect to login page when registration is successful
         header("location: login");
       } else {
-        print_r($errors);
+        echo "<script>;alert('$errors[0]'); </script>";
       }
     }
 

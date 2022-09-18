@@ -131,10 +131,17 @@ class User
     /** function delete pour supprimer un user spécifique */
     public function delete()
     {
+        session_start();
         $user = new UserModel();
         $userId = $_GET['id'];
-        $user->delete($userId);
 
-        header("Location: /users");
+        if ($_SESSION['userId'] == $userId) {
+            $user->delete($userId);
+            session_destroy();
+            header("Location: /");
+        } else {
+            $user->delete($userId);
+            header("Location: /users");
+        }
     }
 }

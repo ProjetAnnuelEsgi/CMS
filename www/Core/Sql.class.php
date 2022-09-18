@@ -113,7 +113,7 @@ abstract class Sql
 
     public function delete($id)
     {
-        $query = "DELETE FROM " . $this->table . " WHERE id=" . "'$id'";
+        $query = "DELETE FROM " . $this->table . " WHERE id=" . $id;
         $queryPrepared = self::$pdoInstance->prepare($query);
         $queryPrepared->execute();
 

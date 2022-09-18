@@ -25,8 +25,8 @@ CREATE TABLE `esgi_admin` (
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `admin_users` (`user_id`),
-  CONSTRAINT `admin_users` FOREIGN KEY (`user_id`) REFERENCES `esgi_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+  CONSTRAINT `admin_users` FOREIGN KEY (`user_id`) REFERENCES `esgi_user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `esgi_article`;
 CREATE TABLE `esgi_article` (

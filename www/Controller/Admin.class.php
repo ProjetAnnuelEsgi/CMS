@@ -104,7 +104,7 @@ class Admin
 
                 header("Location: /users");
             } else {
-                print_r($errors);
+                echo "<script>;alert('$errors[0]'); </script>";
             }
         }
 

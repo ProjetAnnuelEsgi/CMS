@@ -41,19 +41,15 @@ $loggedInUserRole = $_SESSION['role'];
 
 ?>
 <script type="text/javascript">
-	let state = false;
-
 	function buttonToggle() {
-		if (<?php echo ($loggedInUserRole); ?> === 0 || <?php echo ($loggedInUserRole); ?> === 1 <?php echo ($userId); ?> === <?php echo ($_SESSION['userId']); ?>) {
-			// document.querySelectorAll("#r").forEach(opt => {
-			// 	opt.disabled = false;
-			// });
-			state = true
+		if (<?php echo ($loggedInUserRole) ?> === 1) {
+			document.querySelectorAll("#r").forEach(opt => {
+				opt.disabled = false;
+			});
 		} else {
-			state;
+			document.querySelectorAll("#r").forEach(opt => {
+				opt.disabled = true;
+			});
 		}
-		document.querySelectorAll("#r").forEach(opt => {
-			opt.disabled = state;
-		});
 	}
 </script>

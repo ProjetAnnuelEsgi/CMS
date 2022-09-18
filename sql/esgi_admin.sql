@@ -1,10 +1,10 @@
 -- -------------------------------------------------------------
--- TablePlus 4.7.1(428)
+-- TablePlus 4.8.2(436)
 --
 -- https://tableplus.com/
 --
 -- Database: mvcdocker2
--- Generation Time: 2022-07-19 00:33:49.2760
+-- Generation Time: 2022-09-18 22:54:35.1690
 -- -------------------------------------------------------------
 
 
@@ -25,8 +25,8 @@ CREATE TABLE `esgi_admin` (
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `admin_users` (`user_id`),
-  CONSTRAINT `admin_users` FOREIGN KEY (`user_id`) REFERENCES `esgi_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+  CONSTRAINT `admin_users` FOREIGN KEY (`user_id`) REFERENCES `esgi_user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 
 
