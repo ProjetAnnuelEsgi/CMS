@@ -140,20 +140,8 @@
   controller: menu
   action: add
 
-/menu/show:
-  controller: menu
-  action: show
-
-/menu/edit:
-  controller: menu
-  action: edit
-
-/menu/update:
-  controller: menu
-  action: update
-
 /menu/delete:
   controller: menu
   action: delete
+  
 # / site au front-office root gener dans dans le fichier install
-
