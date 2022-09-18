@@ -1,6 +1,7 @@
 <?php
 
 use App\Controller\Authenticator;
+use App\Model\User;
 
 $auth = new Authenticator();
 $auth->authenticated(true);
@@ -32,6 +33,7 @@ $auth->authenticated(true);
   $abonneData = [];
   //liste des articles présents en bdd
 
+  $user = new User;
   foreach ($articles as $article) {
     if ($connectedUser->getRole() === '3') {
       if ($article['article_authorId'] == $connectedUser->getId()) {
@@ -43,13 +45,15 @@ $auth->authenticated(true);
   }
 
   foreach ($abonneData as $article) {
+
+    $foundCreator = $user->findOne(['id' => $article['article_authorId']]);
     $date = $article['article_createdAt'];
     $date =  date('d-m-Y', strtotime($date));
 
     $slug = $article['article_slug'];
 
     echo "<tr><td> " . $article['article_title'] . "</td>";
-    echo "<td>" . $article['article_authorId'] . "</td>";
+    echo "<td>" . $foundCreator->getFullName() . "</td>";
     echo "<td>" . $article['article_categoryId'] . "</td>";
     echo  "<td>" . $date . "</td>";
 
