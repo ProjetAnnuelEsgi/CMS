@@ -14,11 +14,6 @@ class Creator implements SplObserver
 {
   private $name;
 
-  // public function __construct($name)
-  // {
-  //   $this->name = $name;
-  // }
-
   private array $createdArticles = [];
 
   public function update(SplSubject $subject): void
@@ -31,8 +26,4 @@ class Creator implements SplObserver
     return $this->createdArticles;
   }
 
-  // public function update(SplSubject $subject): void
-  // {
-  //   echo $this->name . ' created a new <b>' . $subject->getContent() . '</b><br>';
-  // }
 }

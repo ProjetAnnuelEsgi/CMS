@@ -25,7 +25,7 @@ class Authenticator extends Mailer
     $user = new User();
     if (!empty($_POST)) {
 
-      // Je vérifie qu'il les entrées soient corrects
+      // Je vérifie que les entrées soient corrects
       $errors = Verificator::checkForm($user->getRegisterForm(), $_POST);
 
       if (count($errors) === 0) {

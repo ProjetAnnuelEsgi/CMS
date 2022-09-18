@@ -41,12 +41,6 @@ class Article
 
             $article = $article->save();
 
-            // $observer = new Creator();
-            // $article = new ObserverArticle();
-            // $article->attach($observer);
-            // $article->breakOutNews($_POST['article_title']);
-            // $observer->getContent();
-
             header("Location: /articles");
         }
 
